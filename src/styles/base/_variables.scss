@@ -1,0 +1,44 @@
+// ############################ MAIN CONTAINER ############################
+
+$padding-main-container: 15px;
+
+// ############################ END MAIN CONTAINER ############################
+
+// #### FONTS ####
+
+$font-primary: "Lato", serif;
+$font-secondary: "Manrope", serif;
+$font-tertiary: "Prata", serif;
+
+// #### COLORS ####
+
+$primary-color: #ffffff;
+$secondary-color: #2e2e48;
+$tertiary-color: #383854;
+$accent-color: #000000;
+
+// extra colors
+$dark-grey: #e1e1e1;
+$light-blue: #e3e7fc;
+$color-active: #475be8;
+// $border-color: #adadad;
+$color-error: #e74c3c;
+$color-success: #00a625;
+$pending-color: orange;
+
+// $active-color: $pending-color;
+
+// ############################ COMPONENTS ############################
+
+// ############################ Sidebar ############################
+
+$sidebar-color: $dark-grey;
+$sidebar-bg: $secondary-color;
+$sidebar-family: $font-secondary;
+$sidebar-fz: $secondary-color;
+$sidebar-fw: $secondary-color;
+
+$sidebar-item-active-color: $primary-color;
+$sidebar-item-active-bg: $color-active;
+
+// ############################ END COMPONENTS ############################

@@ -1,1 +1,24 @@
 @use "./base/index" as base;
+@use "./components/index" as components;
+
+[class*="__container"] {
+  max-width: 1935px; // 1920px + 0 + 15px
+  margin: 0 auto;
+  padding: 0 base.$padding-main-container 0 0;
+}
+
+body {
+  font-family: base.$font-primary;
+  color: base.$primary-color;
+  background-color: base.$light-blue;
+
+  .wrap-admin-panel {
+    display: flex;
+    background-color: base.$tertiary-color;
+
+    main {
+      flex-grow: 1;
+      padding: 20px 20px;
+    }
+  }
+}

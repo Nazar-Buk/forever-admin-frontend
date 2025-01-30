@@ -1,0 +1,65 @@
+@use "../base/variables" as v;
+
+aside.sidebar {
+  background-color: v.$sidebar-bg;
+  top: 0;
+  height: 100lvh;
+  position: sticky;
+  padding: 30px 12px;
+  overflow-y: auto; // акуратніше із цим, треба використовувати тоді min-width, бо зхлопнеться контейнер
+  display: flex;
+  flex-direction: column;
+  min-width: 210px;
+
+  .logo-box {
+    text-align: center;
+    padding-bottom: 30px;
+    font-weight: 900;
+    font-size: 20px;
+    font-family: v.$font-tertiary;
+  }
+
+  nav {
+    flex-grow: 1;
+    width: 185px;
+
+    ul.menu {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      li {
+        margin-bottom: 22px;
+
+        a.menu__item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: v.$sidebar-color;
+          font-family: v.$sidebar-family;
+          padding: 12px 14px;
+
+          svg.sidebar__icon {
+            fill: v.$sidebar-color;
+            width: 25px;
+            height: 25px;
+          }
+
+          span {
+          }
+
+          &.active {
+            background-color: v.$sidebar-item-active-bg;
+            color: v.$sidebar-item-active-color;
+
+            border-radius: 12px;
+          }
+        }
+
+        &:last-child {
+          margin-top: auto; //
+        }
+      }
+    }
+  }
+}

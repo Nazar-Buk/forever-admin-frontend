@@ -1,28 +1,13 @@
 import { Outlet } from "react-router-dom";
+
+import Sidebar from "./components/Sidebar";
 import "./styles/main.scss";
 
 const App = () => {
   return (
-    <div>
-      <aside>
-        <nav>
-          <ul>
-            <li>
-              <p>page1</p>
-            </li>
-            <li>
-              <p>page2</p>
-            </li>
-            <li>
-              <p>page3</p>
-            </li>
-            <li>
-              <p>page4</p>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-      <main>
+    <div className="wrap-admin-panel main__container">
+      <Sidebar />
+      <main className="">
         <Outlet />
       </main>
     </div>
