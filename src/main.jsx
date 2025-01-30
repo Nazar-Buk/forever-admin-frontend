@@ -1,9 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-// import './index.css'
 
 import App from "./App.jsx";
+import AddProduct from "./pages/AddProduct";
+import ProductList from "./pages/ProductList";
+import Orders from "./pages/Orders";
 
 const router = createBrowserRouter([
   {
@@ -12,15 +14,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: "page1",
+        element: <AddProduct />,
       },
       {
-        path: "/page2",
-        element: "page2",
+        path: "/list",
+        element: <ProductList />,
       },
       {
-        path: "/page3",
-        element: "page3",
+        path: "/orders",
+        element: <Orders />,
       },
       {
         path: "/page4",
