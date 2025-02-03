@@ -5,11 +5,13 @@ aside.sidebar {
   top: 0;
   height: 100lvh;
   position: sticky;
-  padding: 30px 12px;
+  padding: 34px 12px 25px 12px;
   overflow-y: auto; // акуратніше із цим, треба використовувати тоді min-width, бо зхлопнеться контейнер
   display: flex;
   flex-direction: column;
-  min-width: 210px;
+  min-width: v.$sidebar-width;
+
+  border-right: 1px solid v.$sidebar-border-color;
 
   .logo-box {
     text-align: center;
@@ -57,7 +59,8 @@ aside.sidebar {
         }
 
         &:last-child {
-          margin-top: auto; //
+          margin-top: auto; // закине останній елемент в сам низ
+          margin-bottom: 0;
         }
       }
     }
