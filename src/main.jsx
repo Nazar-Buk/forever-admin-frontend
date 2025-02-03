@@ -7,30 +7,35 @@ import AddProduct from "./pages/AddProduct";
 import ProductList from "./pages/ProductList";
 import Orders from "./pages/Orders";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      children: [
+        {
+          index: true,
+          element: <AddProduct />,
+        },
+        {
+          path: "/list",
+          element: <ProductList />,
+        },
+        {
+          path: "/orders",
+          element: <Orders />,
+        },
+        {
+          path: "/page4",
+          element: "page4",
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        index: true,
-        element: <AddProduct />,
-      },
-      {
-        path: "/list",
-        element: <ProductList />,
-      },
-      {
-        path: "/orders",
-        element: <Orders />,
-      },
-      {
-        path: "/page4",
-        element: "page4",
-      },
-    ],
-  },
-]);
+    basename: import.meta.env.BASE_URL, // реакт сам знає що це тягнеться із файлу vite.config.js
+  }
+);
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
