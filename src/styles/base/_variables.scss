@@ -25,10 +25,16 @@ $color-active: #475be8;
 $color-error: #e74c3c;
 $color-success: #00a625;
 $pending-color: orange;
+$gold-color: gold;
 
 // $active-color: $pending-color;
 
 // ############################ COMPONENTS ############################
+
+// ############################ Header ############################
+$user-img-size: 50px;
+$header-bg: $secondary-color;
+$header-border-color: $gold-color;
 
 // ############################ Sidebar ############################
 
@@ -37,8 +43,11 @@ $sidebar-bg: $secondary-color;
 $sidebar-family: $font-secondary;
 $sidebar-fz: $secondary-color;
 $sidebar-fw: $secondary-color;
+$sidebar-width: 210px;
 
 $sidebar-item-active-color: $primary-color;
 $sidebar-item-active-bg: $color-active;
+
+$sidebar-border-color: $gold-color;
 
 // ############################ END COMPONENTS ############################
