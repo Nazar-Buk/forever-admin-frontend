@@ -1,5 +1,6 @@
 @use "./base/index" as base;
 @use "./components/index" as components;
+@use "./responsive/index" as responsive;
 
 [class*="__container"] {
   max-width: 1920px;
