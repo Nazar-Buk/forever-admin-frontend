@@ -40,9 +40,9 @@ const Sidebar = () => {
                 version="1.1"
                 id="Capa_1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 27.963 27.963"
-                xml:space="preserve"
+                xmlSpace="preserve"
               >
                 <g>
                   <g id="c140__x2B_">
@@ -65,9 +65,9 @@ const Sidebar = () => {
                 version="1.1"
                 id="Capa_1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 27.963 27.963"
-                xml:space="preserve"
+                xmlSpace="preserve"
               >
                 <g>
                   <g id="c140__x2B_">
@@ -90,9 +90,9 @@ const Sidebar = () => {
                 version="1.1"
                 id="Capa_1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 27.963 27.963"
-                xml:space="preserve"
+                xmlSpace="preserve"
               >
                 <g>
                   <g id="c140__x2B_">
@@ -105,7 +105,7 @@ const Sidebar = () => {
                   <g id="Capa_1_9_"></g>
                 </g>
               </svg>{" "}
-              <span>Log Out</span>
+              <span>Page 4</span>
             </NavLink>
           </li>
         </ul>

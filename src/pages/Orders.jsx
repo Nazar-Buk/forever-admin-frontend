@@ -1,6 +1,10 @@
-import React from "react";
+import { useContext } from "react";
+
+import { AdminContext } from "../context/AdminContext";
 
 const Orders = () => {
+  const { token } = useContext(AdminContext);
+
   return (
     <div>
       Orders Page <br />

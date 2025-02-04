@@ -24,13 +24,28 @@ header.header {
     display: none;
   }
 
-  .header__user-image {
-    height: v.$user-img-size;
+  .header-options {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 
-    img {
-      width: v.$user-img-size;
-      border-radius: 50%;
-      aspect-ratio: 1/1;
+    .header__user-image {
+      height: v.$user-img-size;
+
+      img {
+        width: v.$user-img-size;
+        border-radius: 50%;
+        aspect-ratio: 1/1;
+      }
+    }
+
+    .log-out-box {
+      svg.log-out {
+        cursor: pointer;
+        stroke: v.$dark-grey;
+        width: 30px;
+        aspect-ratio: 1/1;
+      }
     }
   }
 }

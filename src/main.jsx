@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import AddProduct from "./pages/AddProduct";
 import ProductList from "./pages/ProductList";
 import Orders from "./pages/Orders";
+import AdminContextProvider from "./context/AdminContext.jsx"; // імпортуємо MyContextProvider
 
 const router = createBrowserRouter(
   [
@@ -41,5 +42,9 @@ createRoot(document.getElementById("root")).render(
   // <StrictMode>
   //   <App />
   // </StrictMode>
-  <RouterProvider router={router} fallbackElement={<>Loading...</>} />
+
+  // Обгортаємо нашу апку в AdminContextProvider
+  <AdminContextProvider>
+    <RouterProvider router={router} fallbackElement={<>Loading...</>} />
+  </AdminContextProvider>
 );

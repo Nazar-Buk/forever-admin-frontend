@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import { assets } from "../admin_assets/assets";
 
-const Header = () => {
+const Header = ({ setToken }) => {
   const [visible, setVisible] = useState(false);
 
   const isMenuOpen = (isOpen) => {
@@ -27,7 +27,7 @@ const Header = () => {
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
           >
-            <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">
+            <g id="Page-1" stroke="none" strokeWidth="1" fillRule="evenodd">
               <g
                 id="Dribbble-Light-Preview"
                 transform="translate(-419.000000, -240.000000)"
@@ -159,7 +159,7 @@ const Header = () => {
                     <g id="Capa_1_9_"></g>
                   </g>
                 </svg>
-                <span>Log Out</span>
+                <span>Page 4</span>
               </NavLink>
             </li>
           </ul>
@@ -173,14 +173,37 @@ const Header = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M4 5C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7 11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21 17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z"
           />
         </svg>
       </div>
-      <div className="header__user-image">
-        <img src={assets.user_avatar} alt="user avatar" />
+      <div className="header-options">
+        <div className="header__user-image">
+          <img src={assets.user_avatar} alt="user avatar" />
+        </div>
+        <div
+          onClick={() => {
+            localStorage.removeItem("token");
+            setToken("");
+          }}
+          className="log-out-box"
+        >
+          <svg
+            className="log-out"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 16.5V19C15 20.1046 14.1046 21 13 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3H13C14.1046 3 15 3.89543 15 5V8.0625M11 12H21M21 12L18.5 9.5M21 12L18.5 14.5"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
       </div>
     </header>
   );

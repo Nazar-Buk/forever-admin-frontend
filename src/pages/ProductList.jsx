@@ -1,6 +1,10 @@
-import React from "react";
+import { useContext } from "react";
+
+import { AdminContext } from "../context/AdminContext";
 
 const ProductList = () => {
+  const { token } = useContext(AdminContext);
+
   return (
     <div>
       Product List Page <br />

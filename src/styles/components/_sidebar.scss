@@ -7,6 +7,7 @@ aside.sidebar {
   position: sticky;
   padding: 34px 12px 25px 12px;
   overflow-y: auto; // акуратніше із цим, треба використовувати тоді min-width, бо зхлопнеться контейнер
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   min-width: v.$sidebar-width;
