@@ -1,0 +1,7 @@
+@use "../base/variables" as v;
+
+@media (max-width: 992px) {
+  aside.sidebar {
+    display: none;
+  }
+}

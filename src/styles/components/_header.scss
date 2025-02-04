@@ -13,6 +13,17 @@ header.header {
   border-bottom: 1px solid v.$header-border-color;
   padding-left: v.$sidebar-width;
 
+  .header__mobile-icon {
+    display: none;
+
+    .mobile-icon {
+    }
+  }
+
+  .wrap-mobile-menu {
+    display: none;
+  }
+
   .header__user-image {
     height: v.$user-img-size;
 

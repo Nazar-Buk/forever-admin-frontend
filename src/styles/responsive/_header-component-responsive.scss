@@ -1,0 +1,102 @@
+@use "../base/variables" as v;
+
+@media (max-width: 992px) {
+  header.header {
+    justify-content: space-between;
+    padding-left: v.$padding-main-container;
+
+    .header__mobile-icon {
+      display: block;
+
+      .mobile-icon {
+        fill: v.$mobile-menu-color;
+        width: 45px;
+        aspect-ratio: 1/1;
+      }
+    }
+
+    .wrap-mobile-menu {
+      display: block;
+      position: absolute;
+      background-color: v.$mobile-menu-bg;
+      width: 100%;
+      height: 100svh;
+      color: v.$mobile-menu-color;
+      top: 0;
+      z-index: 10;
+      overflow-y: auto;
+      left: -100%;
+      transition: all 0.2s;
+
+      &.menu-active {
+        left: 0;
+      }
+
+      .close-box {
+        height: 71px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        border-bottom: 1px solid v.$sidebar-border-color;
+
+        svg.close-menu-icon {
+          width: 35px;
+          aspect-ratio: 1/1;
+          fill: v.$mobile-menu-color;
+        }
+
+        .mobile-logo {
+          text-align: center;
+          font-weight: 900;
+          font-size: 28px;
+          font-family: v.$mobile-menu-family;
+        }
+      }
+
+      nav.mobile-navigation {
+        display: flex;
+        padding: 20px 10px;
+
+        ul.menu {
+          margin: 0 auto;
+          width: 100%;
+
+          li {
+            a.menu-item {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              color: v.$mobile-menu-color;
+              padding: 10px 0 10px 10px;
+
+              svg.sidebar__icon {
+                fill: v.$mobile-menu-color;
+                width: 40px;
+                aspect-ratio: 1/1;
+              }
+
+              span {
+                font-size: 20px;
+                font-weight: 600;
+                text-transform: uppercase;
+              }
+
+              &.active {
+                background-color: v.$sidebar-item-active-bg;
+                color: v.$sidebar-item-active-color;
+
+                border-radius: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .header__user-image {
+      img {
+      }
+    }
+  }
+}
