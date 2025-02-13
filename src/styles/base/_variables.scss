@@ -30,6 +30,16 @@ $gold-color: gold;
 // $active-color: $pending-color;
 
 // ############################ COMPONENTS ############################
+// #### Button ####
+
+$btn-color: $primary-color;
+$btn-bg: $color-active;
+$btn-font-size: 16px;
+$btn-font-weight: 600;
+$btn-border: 1px solid $primary-color;
+
+$btn-hover-color: $accent-color;
+$btn-hover-bg: $primary-color;
 
 // ############################ Header ############################
 $user-img-size: 50px;
