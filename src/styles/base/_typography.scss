@@ -1,1 +1,59 @@
+@use "./variables" as v;
 
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  min-width: 250px;
+  outline-color: orange;
+}
+
+button {
+  font-size: v.$btn-font-size;
+  background-color: v.$btn-bg;
+  color: v.$btn-color;
+  font-weight: v.$btn-font-weight;
+  border: v.$btn-border;
+  padding: clamp(0.813rem, 0.713rem + 0.5vw, 1.313rem)
+    clamp(1.25rem, 0.962rem + 1.44vw, 2.688rem); // 21px 43px to 13px 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: v.$btn-hover-bg;
+    color: v.$btn-hover-color;
+  }
+
+  &:disabled,
+  &[disabled] {
+    background-color: v.$secondary-color;
+
+    &:hover {
+      color: v.$btn-color;
+    }
+  }
+
+  // for future
+  // &.secondary-btn {
+  //   font-size: 20px;
+  //   font-weight: 400;
+  //   color: #454545;
+  //   background-color: v.$primary-color;
+  //   border: 1px solid v.$border-color;
+  //   border-radius: 4px;
+
+  //   &:hover {
+  //     background-color: v.$accent-color;
+  //     color: v.$primary-color;
+  //     border: 1px solid v.$accent-color;
+  //   }
+  // }
+}

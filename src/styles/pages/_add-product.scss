@@ -1,0 +1,144 @@
+@use "../base/variables" as v;
+
+section.add-product {
+  margin-bottom: 40px;
+
+  form.add-product__form {
+    .form__upload-img {
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      .upload-images-box {
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        label.image-label {
+          width: 150px;
+          display: flex;
+          cursor: pointer;
+
+          img {
+          }
+
+          input[type="file"] {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .form__product-name {
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      input.product-name {
+        width: calc(700px / 1225px * 100%);
+      }
+    }
+
+    .form__product-desc {
+      margin-bottom: 20px;
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      textarea.product-area {
+        width: calc(700px / 1225px * 100%);
+      }
+    }
+
+    .form__category-box {
+      select,
+      input {
+        min-width: 140px;
+        width: 140px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+
+      .category {
+        h2 {
+        }
+      }
+
+      .subcategory {
+        h2 {
+        }
+      }
+
+      .price {
+        h2 {
+        }
+
+        input {
+        }
+      }
+    }
+
+    .form__product-size-box {
+      margin-bottom: 20px;
+      margin-top: 20px;
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      .sizes-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        label.size {
+          width: 60px;
+          aspect-ratio: 1/1;
+          background-color: v.$dark-grey;
+          font-weight: 600;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          //   border: 2px solid orange;
+          color: v.$accent-color;
+
+          input.size-checkbox {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .form__bestseller-box {
+      margin-bottom: 30px;
+
+      label.bestseller {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        input[type="checkbox"] {
+          min-width: auto;
+          width: 20px;
+          aspect-ratio: 1/1;
+        }
+
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
