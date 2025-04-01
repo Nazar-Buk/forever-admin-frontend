@@ -1,17 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 import { AdminContext } from "../context/AdminContext";
 import { assets } from "../admin_assets/assets";
+import { backendUrl } from "../App";
 
 const addProductSchema = yup.object({
-  image1: yup.boolean(),
-  image2: yup.boolean(),
-  image3: yup.boolean(),
-  image4: yup.boolean(),
+  // image1: yup.boolean(),
+  // image2: yup.boolean(),
+  // image3: yup.boolean(),
+  // image4: yup.boolean(),
+  images: yup.array().of(yup.mixed().nullable()),
   name: yup.string().required("This field is required!"),
   description: yup.string().required("This field is required!"),
   category: yup.string().required("Choose the category"),
@@ -29,6 +33,16 @@ const addProductSchema = yup.object({
   bestseller: yup.boolean(),
 });
 
+let imagesArray = [];
+
+const countOfPictures = (count) => {
+  for (let i = 1; i <= count; i++) {
+    imagesArray.push(`image${i}`);
+  }
+};
+
+countOfPictures(4);
+
 const AddProduct = () => {
   const { token } = useContext(AdminContext);
   // console.log(token, "token from addproduct");
@@ -36,10 +50,7 @@ const AddProduct = () => {
 
   const form = useForm({
     defaultValues: {
-      image1: false,
-      image2: false,
-      image3: false,
-      image4: false,
+      images: [],
       name: "",
       description: "",
       category: "Women",
@@ -59,14 +70,66 @@ const AddProduct = () => {
     getValues,
     setValue,
     watch,
+    reset,
   } = form;
 
   const { errors, touchedFields, dirtyFields } = formState;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data, "data");
+
+    try {
+      // new FormData() — це спеціальний об'єкт у JavaScript, який дозволяє створювати та
+      // зберігати дані у форматі multipart/form-data. Цей формат використовується для надсилання даних
+      // (зокрема, файлів та фото)
+
+      const formData = new FormData();
+      formData.append("name", data.name); // "name" - це назва ключа, data.name - це значення
+      formData.append("description", data.description);
+      formData.append("category", data.category);
+      formData.append("subCategory", data.subCategory);
+      formData.append("price", data.price);
+      formData.append("bestseller", data.bestseller);
+
+      formData.append("sizes", JSON.stringify(data.sizes)); // бо sizes - це масив, а масиви не можна відправити через FormData
+
+      // так додавати файли в FormData
+      data.images.forEach((file, ind) => {
+        formData.append(`images[${ind}]`, file);
+      });
+
+      // так можна переглянути те що в formData, тут forEach працює специфічно, тому що це не звичайний об'єкт
+      // formData.forEach((value, key) => {
+      //   console.log(key, value, "-->key, value");
+      // });
+
+      const response = await axios.post(
+        backendUrl + "/api/product/add",
+        formData,
+        { headers: { token } }
+      );
+      console.log(response, "response");
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        reset();
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error, "error");
+      toast.error(error);
+    }
   };
-  console.log(watch("sizes"), "sho tse");
+
+  const removeImage = (e, index) => {
+    e.preventDefault();
+
+    const updatedImages = [...(getValues("images") || [])];
+    updatedImages[index] = null;
+
+    setValue("images", updatedImages, { shouldValidate: true });
+  };
 
   return (
     <section className="add-product">
@@ -78,26 +141,57 @@ const AddProduct = () => {
         <div className="form__upload-img">
           <h2>Upload Image</h2>
           <div className="upload-images-box">
-            <label htmlFor="image1" className="image-label">
-              <img src={assets.upload_area} alt="add product image" />
-              <input type="file" id="image1" {...register("image1")} />
-              <p className="error">{errors.image1?.message}</p>
-            </label>
-            <label htmlFor="image2" className="image-label">
-              <img src={assets.upload_area} alt="add product image" />
-              <input type="file" id="image2" {...register("image2")} />
-              <p className="error">{errors.image2?.message}</p>
-            </label>
-            <label htmlFor="image3" className="image-label">
-              <img src={assets.upload_area} alt="add product image" />
-              <input type="file" id="image3" {...register("image3")} />
-              <p className="error">{errors.image3?.message}</p>
-            </label>
-            <label htmlFor="image4" className="image-label">
-              <img src={assets.upload_area} alt="add product image" />
-              <input type="file" id="image4" {...register("image4")} />
-              <p className="error">{errors.image4?.message}</p>
-            </label>
+            {imagesArray.map((_, index) => {
+              const currentImages = watch("images") || [];
+              const imageFile = currentImages[index] || null;
+              const imageUrl = imageFile
+                ? URL.createObjectURL(imageFile)
+                : assets.upload_area;
+
+              return (
+                <label
+                  key={index}
+                  htmlFor={`image${index + 1}`}
+                  className="image-label"
+                >
+                  {imageFile && (
+                    <div
+                      onClick={(e) => {
+                        removeImage(e, index);
+                      }}
+                      className="delete-img"
+                    >
+                      <img src={assets.cross_icon} alt="delete image icon" />
+                    </div>
+                  )}
+                  <img
+                    className="photo"
+                    src={imageUrl}
+                    alt="add product image"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*" // accept="image/*" - дозволяє вибирати тільки картинки
+                    // accept=".jpg, .png, .gif"> -- дозволяє вибирати тільки картинки з розширеннями jpg, png, gif
+                    id={`image${index + 1}`}
+                    {...register("images")}
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+
+                      if (file) {
+                        const updatedImages = [...(getValues("images") || [])]; // тут () вказують на пріорітетність виконання
+                        updatedImages[index] = file; // тут я присвоюю значення конкретного файлу в масив картинок, тотбо  картинка відслідковується по індексу
+
+                        setValue("images", updatedImages, {
+                          shouldValidate: true,
+                        });
+                      }
+                    }}
+                  />
+                  <p className="error">{errors.images?.[index]?.message}</p>
+                </label>
+              );
+            })}
           </div>
         </div>
         <div className="form__product-name">
@@ -182,9 +276,7 @@ const AddProduct = () => {
                   checked={watch("sizes")?.includes(item)} // це піздєц як важливо, бо checked завжди буде true
                   onChange={(e) => {
                     const { checked } = e.target;
-                    console.log(checked, "checked");
                     const currentSizes = getValues("sizes") || [];
-                    console.log(currentSizes, "currentSizes");
                     setValue(
                       "sizes",
                       checked

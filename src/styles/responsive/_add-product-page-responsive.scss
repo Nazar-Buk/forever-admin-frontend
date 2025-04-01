@@ -1,0 +1,295 @@
+@use "../base/variables" as v;
+
+@media (max-width: 1200px) {
+  section.add-product {
+    form.add-product__form {
+      .form__upload-img {
+        h2 {
+        }
+
+        .upload-images-box {
+          label.image-label {
+            .delete-img {
+              img {
+              }
+            }
+
+            img.photo {
+            }
+
+            input[type="file"] {
+            }
+          }
+        }
+      }
+
+      .form__product-name {
+        h2 {
+        }
+
+        input.product-name {
+          width: 500px;
+        }
+      }
+
+      .form__product-desc {
+        h2 {
+        }
+
+        textarea.product-area {
+          width: 500px;
+        }
+      }
+
+      .form__category-box {
+        select,
+        input {
+        }
+
+        h2 {
+        }
+
+        .category {
+          h2 {
+          }
+        }
+
+        .subcategory {
+          h2 {
+          }
+        }
+
+        .price {
+          h2 {
+          }
+
+          input {
+          }
+        }
+      }
+
+      .form__product-size-box {
+        h2 {
+        }
+
+        .sizes-box {
+          label.size {
+            input.size-checkbox {
+            }
+          }
+        }
+      }
+
+      .form__bestseller-box {
+        label.bestseller {
+          input[type="checkbox"] {
+          }
+
+          p {
+          }
+        }
+      }
+
+      p.error {
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  section.add-product {
+    form.add-product__form {
+      .form__upload-img {
+        h2 {
+        }
+
+        .upload-images-box {
+          max-width: calc(100svw - 30px);
+
+          label.image-label {
+            .delete-img {
+              img {
+              }
+            }
+
+            img.photo {
+            }
+
+            input[type="file"] {
+            }
+          }
+        }
+      }
+
+      .form__product-name {
+        h2 {
+        }
+
+        input.product-name {
+        }
+      }
+
+      .form__product-desc {
+        h2 {
+        }
+
+        textarea.product-area {
+        }
+      }
+
+      .form__category-box {
+        select,
+        input {
+        }
+
+        h2 {
+        }
+
+        .category {
+          h2 {
+          }
+        }
+
+        .subcategory {
+          h2 {
+          }
+        }
+
+        .price {
+          h2 {
+          }
+
+          input {
+          }
+        }
+      }
+
+      .form__product-size-box {
+        h2 {
+        }
+
+        .sizes-box {
+          label.size {
+            input.size-checkbox {
+            }
+          }
+        }
+      }
+
+      .form__bestseller-box {
+        label.bestseller {
+          input[type="checkbox"] {
+          }
+
+          p {
+          }
+        }
+      }
+
+      p.error {
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  section.add-product {
+    form.add-product__form {
+      .form__upload-img {
+        h2 {
+        }
+
+        .upload-images-box {
+          label.image-label {
+            width: 80%;
+            min-width: 80%;
+
+            .delete-img {
+              img {
+              }
+            }
+
+            img.photo {
+              min-width: 100%;
+            }
+
+            input[type="file"] {
+            }
+          }
+        }
+      }
+
+      .form__product-name {
+        h2 {
+        }
+
+        input.product-name {
+          width: 100%;
+        }
+      }
+
+      .form__product-desc {
+        h2 {
+        }
+
+        textarea.product-area {
+          width: 100%;
+        }
+      }
+
+      .form__category-box {
+        justify-content: center;
+
+        select,
+        input {
+        }
+
+        h2 {
+        }
+
+        .category {
+          h2 {
+          }
+        }
+
+        .subcategory {
+          h2 {
+          }
+        }
+
+        .price {
+          h2 {
+          }
+
+          input {
+          }
+        }
+      }
+
+      .form__product-size-box {
+        h2 {
+        }
+
+        .sizes-box {
+          label.size {
+            input.size-checkbox {
+            }
+          }
+        }
+      }
+
+      .form__bestseller-box {
+        label.bestseller {
+          input[type="checkbox"] {
+          }
+
+          p {
+          }
+        }
+      }
+
+      p.error {
+      }
+    }
+  }
+}
