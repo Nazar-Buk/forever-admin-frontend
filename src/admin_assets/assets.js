@@ -5,6 +5,7 @@ import parcel_icon from "./parcel_icon.svg";
 import add_icon from "./add_icon.svg";
 import user_avatar from "./user_avatar.jpg";
 import menu_icon from "./menu_icon.svg";
+import cross_icon from "./cross_icon.png";
 
 export const assets = {
   logo,
@@ -14,4 +15,5 @@ export const assets = {
   add_icon,
   user_avatar,
   menu_icon,
+  cross_icon,
 };

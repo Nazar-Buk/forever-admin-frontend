@@ -12,15 +12,75 @@ section.add-product {
       .upload-images-box {
         margin: 0 auto;
         display: flex;
-        flex-wrap: wrap;
+        padding-bottom: 20px;
+        padding-top: 20px;
+
+        max-width: calc(100svw - 265px);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
         gap: 20px;
 
+        &::-webkit-scrollbar {
+          width: 8px; // Ширина вертикального скролу
+          height: 8px; // Висота горизонтального скролу
+        }
+
+        // Стилізація доріжки (фон під скролом)
+        &::-webkit-scrollbar-track {
+          background-color: #f0f0f0;
+          border-radius: 4px;
+        }
+
+        // Стилізація повзунка (сам скрол)
+        &::-webkit-scrollbar-thumb {
+          background-color: #1d1d1d; // Колір повзунка
+          border-radius: 4px;
+          &:hover {
+            background-color: #555; // Колір при наведенні
+          }
+        }
+
+        // Стилізація кута, де горизонтальний і вертикальний скрол перетинаються
+        &::-webkit-scrollbar-corner {
+          background-color: transparent;
+        }
+
+        /* Стилізація скролу для Firefox */
+        scrollbar-width: thin; /* Варіанти: auto, thin, none */
+        scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1); /* Повзунок і фон */
+
         label.image-label {
+          min-width: 150px;
           width: 150px;
           display: flex;
           cursor: pointer;
+          position: relative;
 
-          img {
+          .delete-img {
+            position: absolute;
+            right: -6px;
+            top: -6px;
+            background-color: #d0d2d2;
+            padding: 5px;
+            border-radius: 50%;
+            width: 25px;
+            aspect-ratio: 1/1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+              border: none;
+              aspect-ratio: 1/1;
+              width: 10px;
+            }
+          }
+
+          img.photo {
+            border: 3px dotted v.$dark-grey;
+            aspect-ratio: 150/170;
+            object-fit: cover;
           }
 
           input[type="file"] {
@@ -139,6 +199,11 @@ section.add-product {
           font-size: 18px;
         }
       }
+    }
+
+    p.error {
+      padding-top: 10px;
+      padding-left: 10px;
     }
   }
 }
