@@ -11,6 +11,8 @@ const AdminContextProvider = (props) => {
     localStorage.getItem("token") ? localStorage.getItem("token") : ""
   ); // шукаю дані в localStorage по назві token
 
+  const currency = "$";
+
   useEffect(() => {
     localStorage.setItem("token", token); // записую дані в localStorage, перший параметр назва ключа, другий параметр -- дані
   }, [token]);
@@ -18,6 +20,7 @@ const AdminContextProvider = (props) => {
   const value = {
     token,
     setToken,
+    currency,
   };
 
   return (
