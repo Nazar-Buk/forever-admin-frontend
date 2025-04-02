@@ -14,7 +14,7 @@ $font-tertiary: "Prata", serif;
 
 $primary-color: #ffffff;
 $secondary-color: #2e2e48;
-$tertiary-color: #383854;
+$tertiary-color: #424267;
 $accent-color: #000000;
 
 // extra colors
@@ -26,6 +26,7 @@ $color-error: #e74c3c;
 $color-success: #00a625;
 $pending-color: orange;
 $gold-color: gold;
+$gray-color: #808080;
 
 // $active-color: $pending-color;
 
@@ -40,6 +41,15 @@ $btn-border: 1px solid $primary-color;
 
 $btn-hover-color: $accent-color;
 $btn-hover-bg: $primary-color;
+
+// #### Product List Table ####
+$table-bg: $secondary-color;
+$table-color: $primary-color;
+
+$table-head-bg: $tertiary-color;
+$table-head-fw: 600;
+
+$table-border-radius: 16px;
 
 // ############################ Header ############################
 $user-img-size: 50px;
