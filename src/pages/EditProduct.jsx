@@ -194,12 +194,12 @@ const EditProduct = () => {
   };
 
   return (
-    <section className="add-product">
-      <h2>Edit Product</h2>
+    <section className="edit-product">
+      <h2 className="page-title">Edit Product</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
-        className="add-product__form"
+        className="edit-product__form"
       >
         <div className="form__upload-img">
           <h2>Upload Image</h2>
@@ -368,10 +368,12 @@ const EditProduct = () => {
           </label>
         </div>
 
-        <button type="submit">EDIT</button>
-        <button type="button" onClick={() => fetchProduct()}>
-          CANCEL EDIT
-        </button>
+        <div className="buttons">
+          <button type="submit">EDIT</button>
+          <button type="button" onClick={() => fetchProduct()}>
+            CANCEL EDIT
+          </button>
+        </div>
       </form>
       <DevTool control={control} />
     </section>
