@@ -2,6 +2,8 @@
 
 section.products-list {
   display: flex;
+  flex-direction: column;
+  align-items: start;
 
   .empty-page {
     display: flex;

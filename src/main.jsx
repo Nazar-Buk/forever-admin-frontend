@@ -8,6 +8,7 @@ import AddProduct from "./pages/AddProduct";
 import ProductList from "./pages/ProductList";
 import Orders from "./pages/Orders";
 import EditProduct from "./pages/EditProduct";
+import DashBoard from "./pages/DashBoard.jsx";
 
 const router = createBrowserRouter(
   [
@@ -17,6 +18,10 @@ const router = createBrowserRouter(
       children: [
         {
           index: true,
+          element: <DashBoard />,
+        },
+        {
+          path: "/add-product",
           element: <AddProduct />,
         },
         {

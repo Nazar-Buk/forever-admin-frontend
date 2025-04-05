@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { AdminContext } from "../context/AdminContext";
 import { backendUrl } from "../App";
 import { assets } from "../admin_assets/assets";
+import BreadCrumbs from "../components/BreadCrumbs";
 
 const ProductList = () => {
   const { token, currency } = useContext(AdminContext);
@@ -53,6 +54,7 @@ const ProductList = () => {
 
   return (
     <section className="products-list">
+      <BreadCrumbs>{[<span key={0}>Product List</span>]}</BreadCrumbs>
       {list.length ? (
         <div className="table-box">
           <h2>Product List</h2>
