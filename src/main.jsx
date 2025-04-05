@@ -2,11 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import AdminContextProvider from "./context/AdminContext.jsx"; // імпортуємо MyContextProvider
 import App from "./App.jsx";
 import AddProduct from "./pages/AddProduct";
 import ProductList from "./pages/ProductList";
 import Orders from "./pages/Orders";
-import AdminContextProvider from "./context/AdminContext.jsx"; // імпортуємо MyContextProvider
+import EditProduct from "./pages/EditProduct";
 
 const router = createBrowserRouter(
   [
@@ -21,6 +22,10 @@ const router = createBrowserRouter(
         {
           path: "/list",
           element: <ProductList />,
+        },
+        {
+          path: "/list/edit-product/:productId",
+          element: <EditProduct />,
         },
         {
           path: "/orders",
