@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -82,7 +83,7 @@ const ProductList = () => {
                     <div className="img-box">
                       <img
                         src={
-                          item.image.length ? item.image[0] : assets.no_image
+                          item.images.length ? item.images[0] : assets.no_image
                         }
                         alt="product image"
                       />
@@ -110,7 +111,9 @@ const ProductList = () => {
 	489.292,457.678 277.331,245.004 489.292,32.337 "
                         />
                       </svg>
-                      <img src={assets.edit_icon} alt="edit icon" />
+                      <Link to={`/list/edit-product/${item._id}`}>
+                        <img src={assets.edit_icon} alt="edit icon" />
+                      </Link>
                     </div>
                   </td>
                 </tr>
