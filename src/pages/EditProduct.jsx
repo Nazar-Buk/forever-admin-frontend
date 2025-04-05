@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +11,7 @@ import isEqual from "lodash/isEqual"; // lodash ця фігня вміє пор�
 import { AdminContext } from "../context/AdminContext";
 import { assets } from "../admin_assets/assets";
 import { backendUrl } from "../App";
+import BreadCrumbs from "../components/BreadCrumbs";
 
 const addProductSchema = yup.object({
   images: yup.array().of(yup.mixed().nullable()),
@@ -195,6 +196,14 @@ const EditProduct = () => {
 
   return (
     <section className="edit-product">
+      <BreadCrumbs>
+        {[
+          <Link key={0} to="/list">
+            Product List
+          </Link>,
+          <span key={1}>Edit Product</span>,
+        ]}
+      </BreadCrumbs>
       <h2 className="page-title">Edit Product</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}

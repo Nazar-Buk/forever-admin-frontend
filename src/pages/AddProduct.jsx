@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { AdminContext } from "../context/AdminContext";
 import { assets } from "../admin_assets/assets";
 import { backendUrl } from "../App";
+import BreadCrumbs from "../components/BreadCrumbs";
 
 const addProductSchema = yup.object({
   // image1: yup.boolean(),
@@ -133,6 +134,7 @@ const AddProduct = () => {
 
   return (
     <section className="add-product">
+      <BreadCrumbs>{[<span key={0}>Edit Product</span>]}</BreadCrumbs>
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate

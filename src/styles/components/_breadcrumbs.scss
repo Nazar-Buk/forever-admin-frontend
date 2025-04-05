@@ -1,0 +1,44 @@
+@use "../base/variables" as v;
+
+.breadcrumbs {
+  margin-bottom: 35px;
+
+  nav.breadcrumbs__box {
+    ul.breadcrumbs__menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: v.$bread-crumbs-gap;
+
+      li.breadcrumbs__item {
+        display: flex;
+        gap: v.$bread-crumbs-gap;
+
+        svg.item__icon {
+          fill: v.$sidebar-color;
+          width: 15px;
+          aspect-ratio: 1/1;
+        }
+
+        .item__home {
+          display: flex;
+          gap: v.$bread-crumbs-gap;
+
+          svg.item__icon {
+            fill: v.$primary-color;
+          }
+        }
+
+        a {
+          display: flex;
+          gap: v.$bread-crumbs-gap;
+          align-items: center;
+          color: v.$sidebar-color;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
