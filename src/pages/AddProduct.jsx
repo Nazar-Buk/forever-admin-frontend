@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +10,7 @@ import { AdminContext } from "../context/AdminContext";
 import { assets } from "../admin_assets/assets";
 import { backendUrl } from "../App";
 import BreadCrumbs from "../components/BreadCrumbs";
+import Loader from "../components/Loader";
 
 const addProductSchema = yup.object({
   // image1: yup.boolean(),
@@ -46,6 +47,7 @@ countOfPictures(4);
 
 const AddProduct = () => {
   const { token } = useContext(AdminContext);
+  const [isLoading, setIsLoading] = useState(false);
   // console.log(token, "token from addproduct");
   const sizesArray = ["S", "M", "L", "XL", "XXL"];
 
@@ -83,6 +85,7 @@ const AddProduct = () => {
       // new FormData() — це спеціальний об'єкт у JavaScript, який дозволяє створювати та
       // зберігати дані у форматі multipart/form-data. Цей формат використовується для надсилання даних
       // (зокрема, файлів та фото)
+      setIsLoading(true);
 
       const formData = new FormData();
       formData.append("name", data.name); // "name" - це назва ключа, data.name - це значення
@@ -112,13 +115,16 @@ const AddProduct = () => {
       console.log(response, "response");
 
       if (response.data.success) {
+        setIsLoading(false);
         toast.success(response.data.message);
         reset();
       } else {
+        setIsLoading(false);
         toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error, "error");
+      setIsLoading(false);
       toast.error(error);
     }
   };
@@ -134,7 +140,8 @@ const AddProduct = () => {
 
   return (
     <section className="add-product">
-      <BreadCrumbs>{[<span key={0}>Edit Product</span>]}</BreadCrumbs>
+      {isLoading && <Loader />}
+      <BreadCrumbs>{[<span key={0}>Add Product</span>]}</BreadCrumbs>
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
