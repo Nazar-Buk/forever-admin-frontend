@@ -3,7 +3,6 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import isEqual from "lodash/isEqual"; // lodash ця фігня вміє порівнювати масиви та обєкти на глибину
@@ -11,27 +10,9 @@ import isEqual from "lodash/isEqual"; // lodash ця фігня вміє пор�
 import { AdminContext } from "../context/AdminContext";
 import { assets } from "../admin_assets/assets";
 import { backendUrl } from "../App";
+import { addEditProductSchema } from "../utils/validationSchemas";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
-
-const addProductSchema = yup.object({
-  images: yup.array().of(yup.mixed().nullable()),
-  name: yup.string().required("This field is required!"),
-  description: yup.string().required("This field is required!"),
-  category: yup.string().required("Choose the category"),
-  subCategory: yup.string().required("Choose the sub-category"),
-  price: yup
-    .number()
-    .typeError("The price must be a number!")
-    .min(1)
-    .positive("Use only positive numbers")
-    .required("Add product price"),
-  sizes: yup
-    .array()
-    .of(yup.string())
-    .min(1, "Please select at least one size!"),
-  bestseller: yup.boolean(),
-});
 
 let imagesArray = [];
 
@@ -91,7 +72,7 @@ const EditProduct = () => {
       sizes: [],
       bestseller: false,
     },
-    resolver: yupResolver(addProductSchema),
+    resolver: yupResolver(addEditProductSchema),
   });
 
   const {
