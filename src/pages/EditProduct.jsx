@@ -12,6 +12,7 @@ import { AdminContext } from "../context/AdminContext";
 import { assets } from "../admin_assets/assets";
 import { backendUrl } from "../App";
 import BreadCrumbs from "../components/BreadCrumbs";
+import Loader from "../components/Loader";
 
 const addProductSchema = yup.object({
   images: yup.array().of(yup.mixed().nullable()),
@@ -49,9 +50,12 @@ const EditProduct = () => {
   const { productId } = useParams();
 
   const [initialData, setInitialData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchProduct = async () => {
     try {
+      setIsLoading(true);
+
       const response = await axios.post(
         backendUrl + "/api/product/single",
         { productId },
@@ -62,9 +66,13 @@ const EditProduct = () => {
         const product = response.data.product;
         setInitialData(product);
         reset(product);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error, "error from fetchProduct");
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -97,7 +105,8 @@ const EditProduct = () => {
     reset,
   } = form;
 
-  const { errors, touchedFields, dirtyFields } = formState;
+  const { errors, touchedFields, dirtyFields, isSubmitting, isValid, isDirty } =
+    formState;
 
   const getChangedFields = () => {
     const currentValues = getValues();
@@ -166,6 +175,8 @@ const EditProduct = () => {
       const isProductChanged = !!Object.keys(updatedFields).length; //Object.keys(updatedFields) повертає масив ключів. Якщо довжина масиву 0, то об'єкт порожній.
 
       if (isProductChanged) {
+        setIsLoading(true);
+
         const response = await axios.patch(
           backendUrl + `/api/product/update/${productId}`,
           formData,
@@ -173,13 +184,18 @@ const EditProduct = () => {
         );
 
         if (response.data.success) {
+          setIsLoading(false);
+
           toast.success(response.data.message);
           navigate("/list");
         } else {
           toast.error(response.data.message);
+          setIsLoading(false);
         }
       }
     } catch (error) {
+      setIsLoading(false);
+
       console.log(error, "error");
       toast.error(error);
     }
@@ -191,11 +207,15 @@ const EditProduct = () => {
     const updatedImages = [...(getValues("images") || [])];
     updatedImages[index] = null;
 
-    setValue("images", updatedImages, { shouldValidate: true });
+    setValue("images", updatedImages, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   };
 
   return (
     <section className="edit-product">
+      {isLoading && <Loader />}
       <BreadCrumbs>
         {[
           <Link key={0} to="/list">
@@ -262,6 +282,7 @@ const EditProduct = () => {
 
                         setValue("images", updatedImages, {
                           shouldValidate: true,
+                          shouldDirty: true,
                         });
                       }
                     }}
@@ -359,7 +380,8 @@ const EditProduct = () => {
                       "sizes",
                       checked
                         ? [...currentSizes, item]
-                        : currentSizes.filter((size) => size != item)
+                        : currentSizes.filter((size) => size != item),
+                      { shouldDirty: true }
                     );
                   }}
                 />
@@ -378,9 +400,11 @@ const EditProduct = () => {
         </div>
 
         <div className="buttons">
-          <button type="submit">EDIT</button>
+          <button disabled={isSubmitting || !isDirty} type="submit">
+            EDIT
+          </button>
           <button type="button" onClick={() => fetchProduct()}>
-            CANCEL EDIT
+            REVERT EDIT <span className="revert-imoji">🛟</span>
           </button>
         </div>
       </form>

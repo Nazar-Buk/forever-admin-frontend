@@ -209,6 +209,16 @@ section.edit-product {
     .buttons {
       display: flex;
       gap: 20px;
+
+      button[type="button"] {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .revert-imoji {
+          font-size: 20px;
+        }
+      }
     }
   }
 }

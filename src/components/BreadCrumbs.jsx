@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const BreadCrumbs = ({ children }) => {
   const location = useLocation();
-  console.log(location, "location");
 
   return (
     <div className="breadcrumbs">
