@@ -48,6 +48,16 @@ const router = createBrowserRouter(
   }
 );
 
+window.addEventListener("load", () => {
+  // load -- працює тоді коли сторінка повністю завантажена,
+  // ховаємо лоадер
+
+  const loader = document.getElementById("loader");
+  if (loader) {
+    loader.style.display = "none";
+  }
+});
+
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
   //   <App />

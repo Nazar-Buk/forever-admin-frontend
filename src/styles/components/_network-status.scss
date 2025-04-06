@@ -1,0 +1,14 @@
+@use "../base/variables" as v;
+
+.network-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ff4c4c;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  z-index: 99;
+  font-weight: bold;
+}
