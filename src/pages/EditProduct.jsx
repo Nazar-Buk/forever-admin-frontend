@@ -32,6 +32,7 @@ const EditProduct = () => {
 
   const [initialData, setInitialData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [imgForDelete, setImgForDelete] = useState([]);
 
   const fetchProduct = async () => {
     try {
@@ -128,13 +129,23 @@ const EditProduct = () => {
 
           if (isAllElementsFalse) {
             formData.append(`images`, JSON.stringify([]));
-          }
+          } else {
+            //Приклад formData для стрічок та файлів що записуються по одному
+            // formData.append(`images`, imageData); // записую в formData в масив images дані (файли та стрічки) по одному,
+            // УВАГА!!! якщо буде об'єкт то formData запище [object Object] і буде помилка
 
-          updatedFields[key].forEach((image, ind) => {
-            if (image) {
-              formData.append(`images`, image); // записую в formData в масив images дані (файли та стрічки) по одному
-            }
-          });
+            const onlyImagesData = updatedFields[key].filter((item) => {
+              if (item) {
+                if (item instanceof File) {
+                  formData.append(`images`, item); // так записуться файл
+                } else {
+                  return item;
+                }
+              }
+            });
+
+            formData.append(`images`, JSON.stringify(onlyImagesData)); // так записується масив з об'єктами
+          }
         } else if (
           Array.isArray(updatedFields[key]) ||
           Object.prototype.toString.call(updatedFields[key]) ===
@@ -149,9 +160,9 @@ const EditProduct = () => {
       }
 
       //   так можна переглянути те що в formData, тут forEach працює специфічно, тому що це не звичайний об'єкт
-      //   formData.forEach((value, key) => {
-      //     console.log(key, value, "-->key, value");
-      //   });
+      // formData.forEach((value, key) => {
+      //   console.log(key, value, "-->key, value");
+      // });
 
       const isProductChanged = !!Object.keys(updatedFields).length; //Object.keys(updatedFields) повертає масив ключів. Якщо довжина масиву 0, то об'єкт порожній.
 
@@ -161,13 +172,18 @@ const EditProduct = () => {
         const response = await axios.patch(
           backendUrl + `/api/product/update/${productId}`,
           formData,
-          { headers: { token } }
+          {
+            headers: { token },
+            params: { imgForDelete: JSON.stringify(imgForDelete) }, // коли треба відправити додаткові параметри і ти не хочеш мішати їх із формою,
+            // на беку витягай params з req.query
+          }
         );
 
         if (response.data.success) {
           setIsLoading(false);
 
           toast.success(response.data.message);
+          setImgForDelete([]);
           navigate("/list");
         } else {
           toast.error(response.data.message);
@@ -182,9 +198,10 @@ const EditProduct = () => {
     }
   };
 
-  const removeImage = (e, index) => {
+  const removeImage = (e, index, public_id) => {
     e.preventDefault();
 
+    setImgForDelete((prev) => [...prev, public_id]);
     const updatedImages = [...(getValues("images") || [])];
     updatedImages[index] = null;
 
@@ -215,14 +232,14 @@ const EditProduct = () => {
           <h2>Upload Image</h2>
           <div className="upload-images-box">
             {imagesArray.map((_, index) => {
-              const currentImages = watch("images") || [];
-              const image = currentImages[index] || null;
+              const currentImagesData = watch("images") || [];
+              const imageData = currentImagesData[index] || null;
               let imageUrl;
 
-              if (image && typeof image === "string") {
-                imageUrl = image;
-              } else if (image && typeof image === "object") {
-                imageUrl = URL.createObjectURL(image);
+              if (imageData?.url) {
+                imageUrl = imageData.url;
+              } else if (imageData instanceof File) {
+                imageUrl = URL.createObjectURL(imageData);
               } else {
                 imageUrl = assets.upload_area;
               }
@@ -233,10 +250,11 @@ const EditProduct = () => {
                   htmlFor={`image${index + 1}`}
                   className="image-label"
                 >
-                  {image && (
+                  {imageData && (
                     <div
                       onClick={(e) => {
-                        removeImage(e, index);
+                        const { public_id } = imageData;
+                        removeImage(e, index, public_id);
                       }}
                       className="delete-img"
                     >
@@ -384,7 +402,13 @@ const EditProduct = () => {
           <button disabled={isSubmitting || !isDirty} type="submit">
             EDIT
           </button>
-          <button type="button" onClick={() => fetchProduct()}>
+          <button
+            type="button"
+            onClick={() => {
+              fetchProduct();
+              setImgForDelete([]);
+            }}
+          >
             REVERT EDIT <span className="revert-imoji">🛟</span>
           </button>
         </div>

@@ -105,7 +105,7 @@ const ProductList = () => {
                           <img
                             src={
                               item.images.length
-                                ? item.images[0]
+                                ? item.images[0].url
                                 : assets.no_image
                             }
                             alt="product image"
