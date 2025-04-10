@@ -20,7 +20,7 @@ const countOfPictures = (count) => {
   }
 };
 
-countOfPictures(4);
+countOfPictures(7);
 
 const AddProduct = () => {
   const { token } = useContext(AdminContext);
