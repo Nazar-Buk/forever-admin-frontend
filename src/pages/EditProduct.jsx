@@ -22,7 +22,7 @@ const countOfPictures = (count) => {
   }
 };
 
-countOfPictures(4);
+countOfPictures(7);
 
 const EditProduct = () => {
   const sizesArray = ["S", "M", "L", "XL", "XXL"];

@@ -97,7 +97,11 @@ section.products-list {
             justify-content: center;
             width: 100px;
             aspect-ratio: 150/170;
-            object-fit: cover;
+
+            img {
+              aspect-ratio: 150/170;
+              object-fit: cover;
+            }
           }
 
           .action-cell {

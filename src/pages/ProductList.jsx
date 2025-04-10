@@ -98,7 +98,7 @@ const ProductList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {list.map((item) => (
+                  {list.reverse().map((item) => (
                     <tr className="table-row" key={item._id}>
                       <td className="table-cell">
                         <div className="img-box">
