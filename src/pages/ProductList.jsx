@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -8,19 +8,30 @@ import { backendUrl } from "../App";
 import { assets } from "../admin_assets/assets";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
+import Pagination from "../components/Pagination";
 
 const ProductList = () => {
   const { token, currency } = useContext(AdminContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams(); // ця шляпа вміє працювати із адресною строкою
   const [list, setList] = useState([]);
+  // отримую дані із лінки, ті що після ? і тих &...
+  const [page, setPage] = useState(parseInt(searchParams.get("page")) || 1);
+  const [limit, setLimit] = useState(parseInt(searchParams.get("limit")) || 10);
+  const [totalCount, setTotalCount] = useState(0);
 
-  const fetchList = async () => {
+  const fetchList = async (currentPage, currentLimit) => {
     try {
       setIsLoading(true);
 
-      const response = await axios.get(backendUrl + "/api/product/list");
+      const response = await axios.get(
+        backendUrl +
+          `/api/product/list?page=${currentPage}&limit=${currentLimit}`
+      ); // на беку це треба отримувати так { page: '1', limit: '10' } req.query
+
       if (response.data.success) {
         setList(response.data.products);
+        setTotalCount(response.data.totalCount);
         setIsLoading(false);
         toast.success(response.data.message);
       } else {
@@ -64,8 +75,10 @@ const ProductList = () => {
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    fetchList(page, limit);
+    // Встановлюємо параметри в URL при зміні сторінки або ліміту
+    setSearchParams({ page, limit });
+  }, [page, limit, setSearchParams]);
 
   return (
     <>
@@ -98,7 +111,7 @@ const ProductList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {list.reverse().map((item) => (
+                  {list.map((item) => (
                     <tr className="table-row" key={item._id}>
                       <td className="table-cell">
                         <div className="img-box">
@@ -150,6 +163,15 @@ const ProductList = () => {
               <img src={assets.empty_page} alt="no product" />
             </div>
           )}
+          <div className="wrap-pagination">
+            <Pagination
+              page={page}
+              setPage={setPage}
+              limit={limit}
+              setLimit={setLimit}
+              totalCount={totalCount}
+            />
+          </div>
         </section>
       )}
     </>
