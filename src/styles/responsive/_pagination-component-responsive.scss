@@ -1,0 +1,30 @@
+@use "../base/variables" as v;
+
+@media (max-width: 500px) {
+  .pagination-box {
+    .pagination-content {
+      flex-direction: column;
+      align-items: start;
+
+      .left-context-block {
+        select.products-per-page {
+        }
+      }
+
+      .right-content-block {
+        span.pagination-text {
+        }
+
+        svg.left-arrow,
+        svg.right-arrow {
+        }
+
+        svg.left-arrow {
+        }
+
+        svg.right-arrow {
+        }
+      }
+    }
+  }
+}

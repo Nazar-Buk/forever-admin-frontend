@@ -1,0 +1,60 @@
+@use "../base/variables" as v;
+
+.pagination-box {
+  display: flex;
+
+  .pagination-content {
+    padding: 20px 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    .left-context-block {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      select.products-per-page {
+        min-width: 20px;
+        padding: 5px;
+      }
+    }
+
+    .right-content-block {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      span.pagination-text {
+        margin-right: 10px;
+      }
+
+      button.pagination-btn {
+        font-size: 16px;
+        background-color: transparent;
+        color: transparent;
+        font-weight: 600;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: none;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+
+        svg.left-arrow,
+        svg.right-arrow {
+          fill: v.$primary-color;
+          width: 20px;
+        }
+
+        svg.left-arrow {
+          transform: rotate(180deg);
+        }
+
+        svg.right-arrow {
+        }
+      }
+    }
+  }
+}
