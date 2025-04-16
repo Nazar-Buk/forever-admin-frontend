@@ -9,6 +9,7 @@ import ProductList from "./pages/ProductList";
 import Orders from "./pages/Orders";
 import EditProduct from "./pages/EditProduct";
 import DashBoard from "./pages/DashBoard.jsx";
+import AddCategory from "./pages/AddCategory.jsx";
 
 const router = createBrowserRouter(
   [
@@ -34,6 +35,14 @@ const router = createBrowserRouter(
         },
         {
           path: "/orders",
+          element: <Orders />,
+        },
+        {
+          path: "/add-category",
+          element: <AddCategory />,
+        },
+        {
+          path: "/category-list",
           element: <Orders />,
         },
         {
