@@ -168,7 +168,10 @@ const CategoryList = () => {
           489.292,457.678 277.331,245.004 489.292,32.337 "
                             />
                           </svg>
-                          <Link to={`/list/edit-product/${item._id}`}>
+                          <Link
+                            to={`/category-list/edit-category/${item._id}`}
+                            state={{ page, limit }}
+                          >
                             <img src={assets.edit_icon} alt="edit icon" />
                           </Link>
                         </div>

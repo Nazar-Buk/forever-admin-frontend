@@ -1,0 +1,140 @@
+@use "../base/variables" as v;
+
+@media (max-width: 992px) {
+  section.edit-category {
+    form.edit-category__form {
+      align-self: center;
+
+      .edit-category-box {
+        h2 {
+        }
+
+        input.field {
+        }
+
+        .category {
+          input.category-field {
+          }
+
+          p.error {
+          }
+        }
+
+        .sub-category {
+          .sub-category-field-box {
+            input.sub-category-field {
+            }
+
+            button.cross-btn {
+              svg.cross-icon {
+              }
+            }
+          }
+
+          button.add-btn {
+          }
+
+          p.error {
+          }
+        }
+      }
+      button[type="submit"] {
+      }
+    }
+  }
+}
+
+@media (max-width: 660px) {
+  section.edit-category {
+    form.edit-category__form {
+      .edit-category-box {
+        display: flex;
+        flex-direction: column;
+
+        h2 {
+        }
+
+        input.field {
+        }
+
+        .category {
+          input.category-field {
+          }
+
+          p.error {
+          }
+        }
+
+        .sub-category {
+          .sub-category-field-box {
+            input.sub-category-field {
+            }
+
+            button.cross-btn {
+              svg.cross-icon {
+              }
+            }
+          }
+
+          button.add-btn {
+          }
+
+          p.error {
+          }
+        }
+      }
+      button[type="submit"] {
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  section.edit-category {
+    form.edit-category__form {
+      .edit-category-box {
+        h2 {
+        }
+
+        input.field {
+          min-width: clamp(11.875rem, -3.125rem + 75vw, 15.625rem);
+        }
+
+        .category {
+          input.category-field {
+          }
+
+          p.error {
+          }
+        }
+
+        .sub-category {
+          .sub-category-field-box {
+            input.sub-category-field {
+            }
+
+            button.cross-btn {
+              svg.cross-icon {
+              }
+            }
+          }
+
+          button.add-btn {
+          }
+
+          p.error {
+          }
+        }
+      }
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        button[type="submit"] {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

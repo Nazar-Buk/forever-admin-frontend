@@ -11,6 +11,7 @@ import EditProduct from "./pages/EditProduct";
 import DashBoard from "./pages/DashBoard.jsx";
 import AddCategory from "./pages/AddCategory.jsx";
 import CategoryList from "./pages/CategoryList.jsx";
+import EditCategory from "./pages/EditCategory.jsx";
 
 const router = createBrowserRouter(
   [
@@ -45,6 +46,10 @@ const router = createBrowserRouter(
         {
           path: "/category-list",
           element: <CategoryList />,
+        },
+        {
+          path: "/category-list/edit-category/:categoryId",
+          element: <EditCategory />,
         },
         {
           path: "/page4",
