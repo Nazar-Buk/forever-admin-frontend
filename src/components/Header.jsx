@@ -72,7 +72,7 @@ const Header = ({ setToken }) => {
                     <g id="Capa_1_9_"></g>
                   </g>
                 </svg>
-                <span>Add Items</span>
+                <span>Add Products</span>
               </NavLink>
             </li>
             <li>
@@ -101,7 +101,7 @@ const Header = ({ setToken }) => {
                     <g id="Capa_1_9_"></g>
                   </g>
                 </svg>
-                <span>List Items</span>
+                <span>Product List</span>
               </NavLink>
             </li>
             <li>

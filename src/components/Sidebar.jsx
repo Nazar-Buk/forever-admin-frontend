@@ -55,7 +55,7 @@ const Sidebar = () => {
                   <g id="Capa_1_9_"></g>
                 </g>
               </svg>
-              <span>Add Items</span>
+              <span>Add Products</span>
             </NavLink>
           </li>
           <li>
@@ -80,7 +80,7 @@ const Sidebar = () => {
                   <g id="Capa_1_9_"></g>
                 </g>
               </svg>
-              <span>List Items</span>
+              <span>Product List</span>
             </NavLink>
           </li>
           <li>
@@ -134,7 +134,7 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-product" className="menu__item">
+            <NavLink to="/category-list" className="menu__item">
               <svg
                 className="sidebar__icon"
                 version="1.1"
