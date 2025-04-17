@@ -170,7 +170,7 @@ const EditProduct = () => {
         setIsLoading(true);
 
         const response = await axios.patch(
-          backendUrl + `/api/product/update/${productId}`,
+          backendUrl + `/api/product/update/${productId}`, // ${productId} отримуй на беку із req.params
           formData,
           {
             headers: { token },

@@ -10,72 +10,107 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import Pagination from "../components/Pagination";
 
-const ProductList = () => {
-  const { token, currency } = useContext(AdminContext);
-  const [isLoading, setIsLoading] = useState(true);
+const CategoryList = () => {
+  const { token } = useContext(AdminContext);
   const [searchParams, setSearchParams] = useSearchParams(); // ця шляпа вміє працювати із адресною строкою
-  const [list, setList] = useState([]);
-  // отримую дані із лінки, ті що після ? і тих &...
-  const [page, setPage] = useState(parseInt(searchParams.get("page")) || 1);
-  const [limit, setLimit] = useState(parseInt(searchParams.get("limit")) || 10);
+  const [categoryList, setCategoryList] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+  const [loadingState, setLoadingState] = useState({
+    isLoadingCategoryList: true,
+    isLoadingRemoveProduct: false,
+  });
 
-  const fetchList = async (currentPage, currentLimit) => {
+  const [page, setPage] = useState(parseInt(searchParams.get("page") || 1));
+  const [limit, setLimit] = useState(parseInt(searchParams.get("limit") || 10));
+
+  const getCategoryList = async (currPage, currLimit) => {
     try {
-      setIsLoading(true);
+      setLoadingState((prev) => ({
+        ...prev,
+        isLoadingCategoryList: true,
+      }));
 
       const response = await axios.get(
-        backendUrl +
-          `/api/product/list?page=${currentPage}&limit=${currentLimit}`
+        backendUrl + `/api/category/list?page=${currPage}&limit=${currLimit}`
       ); // на беку це треба отримувати так { page: '1', limit: '10' } req.query
 
       if (response.data.success) {
-        setList(response.data.products);
+        setCategoryList(response.data.categoriesList);
         setTotalCount(response.data.totalCount);
-        setIsLoading(false);
+        setLoadingState((prev) => ({
+          ...prev,
+          isLoadingCategoryList: false,
+        }));
         toast.success(response.data.message);
       } else {
-        setIsLoading(false);
-
+        setLoadingState((prev) => ({
+          ...prev,
+          isLoadingCategoryList: false,
+        }));
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error, "error from product list");
-      setIsLoading(false);
-
-      toast.error(error.message);
+      console.log(error, "error");
+      setLoadingState((prev) => ({
+        ...prev,
+        isLoadingCategoryList: false,
+      }));
+      toast.error(error.response.data.message);
     }
   };
 
-  const removeProduct = async (id) => {
-    try {
-      setIsLoading(true);
+  const getComma = (item, index) => {
+    if (item.subCategory.length > 1 && item.subCategory.length - 1 !== index) {
+      return ",";
+    }
 
-      const response = await axios.post(
-        backendUrl + "/api/product/remove",
-        { id },
+    return "";
+  };
+
+  const removeCategory = async (categoryId) => {
+    try {
+      setLoadingState((prev) => ({
+        ...prev,
+        isLoadingRemoveProduct: true,
+      }));
+
+      const response = await axios.delete(
+        backendUrl + `/api/category/remove/${categoryId}`,
         { headers: { token } }
       );
 
       if (response.data.success) {
-        await fetchList(page, limit);
-        setIsLoading(false);
+        await getCategoryList(page, limit);
+
+        setLoadingState((prev) => ({
+          ...prev,
+          isLoadingRemoveProduct: false,
+        }));
+
         toast.success(response.data.message);
       } else {
-        setIsLoading(false);
-
-        toast.error(response.data.message);
+        setLoadingState((prev) => ({
+          ...prev,
+          isLoadingRemoveProduct: false,
+        }));
+        toast.success(response.data.message);
       }
     } catch (error) {
-      console.log(error, "error from remove product");
-      setIsLoading(false);
+      console.log(error, "error");
 
-      toast.error(error.message);
+      setLoadingState((prev) => ({
+        ...prev,
+        isLoadingRemoveProduct: false,
+      }));
+      toast.error(error.response.data.message);
     }
   };
 
+  const isLoading =
+    loadingState.isLoadingCategoryList || loadingState.isLoadingRemoveProduct;
+
   useEffect(() => {
-    fetchList(page, limit);
+    getCategoryList(page, limit);
     // Встановлюємо параметри в URL при зміні сторінки або ліміту
     setSearchParams({ page, limit });
   }, [page, limit, setSearchParams]);
@@ -85,25 +120,19 @@ const ProductList = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <section className="products-list">
-          <BreadCrumbs>{[<span key={0}>Product List</span>]}</BreadCrumbs>
-          {list.length ? (
+        <section className="category-list">
+          <BreadCrumbs>{[<span key={0}>Category List</span>]}</BreadCrumbs>
+          {categoryList.length ? (
             <div className="table-box">
-              <h2>Product List</h2>
+              <h2>Category List</h2>
               <table className="table">
                 <thead>
                   <tr className="head-row">
                     <th className="head-cell">
-                      <b>Image</b>
-                    </th>
-                    <th className="head-cell">
-                      <b>Name</b>
-                    </th>
-                    <th className="head-cell">
                       <b>Category</b>
                     </th>
                     <th className="head-cell">
-                      <b>Price</b>
+                      <b>Sub-Category</b>
                     </th>
                     <th className="head-cell">
                       <b>Action</b>
@@ -111,30 +140,22 @@ const ProductList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {list.map((item) => (
+                  {categoryList.map((item) => (
                     <tr className="table-row" key={item._id}>
-                      <td className="table-cell">
-                        <div className="img-box">
-                          <img
-                            src={
-                              item.images.length
-                                ? item.images[0].url
-                                : assets.no_image
-                            }
-                            alt="product image"
-                          />
-                        </div>
+                      <td className="table-cell">{item.categoryLabel}</td>
+                      <td className="table-cell ">
+                        {item.subCategory.map((value, index) => (
+                          <div className="sub-category" key={index}>
+                            {value.subCategoryLabel}
+                            {getComma(item, index)}
+                          </div>
+                        ))}
                       </td>
-                      <td className="table-cell name">{item.name}</td>
-                      <td className="table-cell category">{item.category}</td>
-                      <td className="table-cell">
-                        {currency}
-                        {item.price}
-                      </td>
-                      <td className="table-cell">
+
+                      <td className="table-cell action">
                         <div className="action-cell">
                           <svg
-                            onClick={() => removeProduct(item._id)}
+                            onClick={() => removeCategory(item._id)}
                             version="1.1"
                             id="Capa_1"
                             xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +165,7 @@ const ProductList = () => {
                           >
                             <polygon
                               points="456.851,0 245,212.564 33.149,0 0.708,32.337 212.669,245.004 0.708,457.678 33.149,490 245,277.443 456.851,490 
-	489.292,457.678 277.331,245.004 489.292,32.337 "
+          489.292,457.678 277.331,245.004 489.292,32.337 "
                             />
                           </svg>
                           <Link to={`/list/edit-product/${item._id}`}>
@@ -159,8 +180,8 @@ const ProductList = () => {
             </div>
           ) : (
             <div className="empty-page">
-              <h2>No Products</h2>
-              <img src={assets.empty_page} alt="no product" />
+              <h2>No Categories</h2>
+              <img src={assets.empty_page} alt="no categories" />
             </div>
           )}
           <div className="wrap-pagination">
@@ -178,4 +199,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default CategoryList;

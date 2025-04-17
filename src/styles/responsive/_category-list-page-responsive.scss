@@ -1,0 +1,50 @@
+@use "../base/variables" as v;
+
+@media (max-width: 992px) {
+  section.category-list {
+    .empty-page {
+    }
+
+    .table-box {
+      max-width: calc(100svw - 30px);
+      align-self: center;
+
+      h2 {
+      }
+
+      table.table {
+        thead {
+          tr.head-row {
+            th.head-cell {
+            }
+          }
+        }
+
+        tbody tr.table-row {
+          &:last-child td.table-cell {
+          }
+
+          td.table-cell {
+            &.action {
+            }
+
+            .sub-category {
+            }
+
+            .action-cell {
+              img,
+              svg {
+              }
+
+              svg {
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .wrap-pagination {
+    }
+  }
+}

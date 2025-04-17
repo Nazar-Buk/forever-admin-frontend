@@ -64,6 +64,7 @@ section.add-category {
 
         button.add-btn {
           align-self: self-start;
+          padding: 10px clamp(1.25rem, 1.125rem + 0.63vw, 1.875rem); // 17 - 30 to 13 - 20
         }
 
         p.error {
