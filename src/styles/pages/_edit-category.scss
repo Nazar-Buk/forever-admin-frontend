@@ -1,0 +1,84 @@
+@use "../base/variables" as v;
+
+section.edit-category {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  form.edit-category__form {
+    background-color: v.$secondary-color;
+    padding: 30px;
+    border-radius: 5px;
+
+    .edit-category-box {
+      display: flex;
+      gap: clamp(1.25rem, -4.095rem + 8.62vw, 6.25rem); // 100px
+
+      h2 {
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      input.field {
+      }
+
+      .category {
+        input.category-field {
+        }
+
+        p.error {
+          margin-top: 10px;
+          margin-left: 10px;
+        }
+      }
+
+      .sub-category {
+        display: flex;
+        flex-direction: column;
+
+        .sub-category-field-box {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 20px;
+
+          input.sub-category-field {
+          }
+
+          button.cross-btn {
+            background-color: v.$tertiary-color;
+            padding: 5px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg.cross-icon {
+              fill: v.$primary-color;
+              width: 18px;
+              aspect-ratio: 1/1;
+            }
+          }
+        }
+
+        button.add-btn {
+          align-self: self-start;
+          padding: 10px clamp(1.25rem, 1.125rem + 0.63vw, 1.875rem); // 17 - 30 to 13 - 20
+        }
+
+        p.error {
+          margin-top: 10px;
+          margin-left: 10px;
+        }
+      }
+    }
+    .buttons {
+      margin-top: 40px;
+
+      button[type="submit"] {
+        margin-right: 20px;
+      }
+    }
+  }
+}
