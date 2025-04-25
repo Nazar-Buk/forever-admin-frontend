@@ -1,0 +1,27 @@
+@use "../base/variables" as v;
+
+@media (max-width: 510px) {
+  section.toolbar__box {
+    .search__box {
+      width: 100%;
+
+      input.search-input {
+      }
+
+      svg.search-icon {
+      }
+    }
+
+    .wrap-filter-sort-box {
+      .filter__box {
+        svg.filter-icon {
+        }
+      }
+
+      .sort__box {
+        svg.sort-icon {
+        }
+      }
+    }
+  }
+}
