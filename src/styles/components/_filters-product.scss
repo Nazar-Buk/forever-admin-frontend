@@ -1,0 +1,64 @@
+@use "../base/variables" as v;
+
+section.filter__menu {
+  background-color: v.$secondary-color;
+  border-radius: 5px;
+  padding: 20px;
+
+  display: none;
+  opacity: 0;
+  transition: all 0.5s allow-discrete; // allow-discrete -- важлива хуйня
+  transform: translateY(-30px);
+
+  &.active {
+    padding: 20px;
+    margin-bottom: 20px;
+
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+
+    // @starting-style задає стан першого кадру, без цього не можна давати плавну анімацію в обидва боки (приховати/показати)
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  .filters__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    svg.cross-icon {
+      fill: v.$primary-color;
+      width: 18px;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+    }
+
+    h2 {
+    }
+  }
+
+  form.filter-list {
+    .filter-items__body {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-item-box {
+      p {
+        margin-bottom: 10px;
+      }
+    }
+
+    .filter__footer {
+      margin-top: 20px;
+
+      button {
+      }
+    }
+  }
+}
