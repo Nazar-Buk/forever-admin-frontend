@@ -24,7 +24,10 @@ countOfPictures(7);
 
 const AddProduct = () => {
   const { token } = useContext(AdminContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingState, setIsLoadingState] = useState({
+    isLoadingProductData: false,
+    isLoadingPictures: false,
+  });
   // console.log(token, "token from addproduct");
   // const sizesArray = ["S", "M", "L", "XL", "XXL"];
 
@@ -62,7 +65,8 @@ const AddProduct = () => {
       // new FormData() — це спеціальний об'єкт у JavaScript, який дозволяє створювати та
       // зберігати дані у форматі multipart/form-data. Цей формат використовується для надсилання даних
       // (зокрема, файлів та фото)
-      setIsLoading(true);
+
+      setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: true }));
 
       const formData = new FormData();
       formData.append("name", data.name); // "name" - це назва ключа, data.name - це значення
@@ -92,16 +96,19 @@ const AddProduct = () => {
       console.log(response, "response");
 
       if (response.data.success) {
-        setIsLoading(false);
+        setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: false }));
+
         toast.success(response.data.message);
         reset();
       } else {
-        setIsLoading(false);
+        setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: false }));
+
         toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error, "error");
-      setIsLoading(false);
+      setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: false }));
+
       toast.error(error);
     }
   };
@@ -114,6 +121,9 @@ const AddProduct = () => {
 
     setValue("images", updatedImages, { shouldValidate: true });
   };
+
+  const isLoading =
+    isLoadingState.isLoadingProductData || isLoadingState.isLoadingPictures;
 
   return (
     <section className="add-product">
@@ -131,6 +141,7 @@ const AddProduct = () => {
         imagesArray={imagesArray}
         getValues={getValues}
         setValue={setValue}
+        setIsLoadingState={setIsLoadingState}
       />
 
       <DevTool control={control} />

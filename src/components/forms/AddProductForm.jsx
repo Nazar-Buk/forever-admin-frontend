@@ -1,3 +1,5 @@
+import heic2any from "heic2any"; // для конвертації heic в jpg
+
 import { assets } from "../../admin_assets/assets";
 
 const AddProductForm = (props) => {
@@ -13,6 +15,7 @@ const AddProductForm = (props) => {
     imagesArray,
     setValue,
     getValues,
+    setIsLoadingState,
   } = props;
 
   const sizesArray = ["S", "M", "L", "XL", "XXL"];
@@ -56,12 +59,59 @@ const AddProductForm = (props) => {
                   // accept=".jpg, .png, .gif"> -- дозволяє вибирати тільки картинки з розширеннями jpg, png, gif
                   id={`image${index + 1}`}
                   {...register("images")}
-                  onChange={(e) => {
+                  onChange={async (e) => {
                     const file = e.target.files[0];
 
                     if (file) {
                       const updatedImages = [...(getValues("images") || [])]; // тут () вказують на пріорітетність виконання
-                      updatedImages[index] = file; // тут я присвоюю значення конкретного файлу в масив картинок, тотбо  картинка відслідковується по індексу
+
+                      // Виявилося що айфон робить свій тив картинки ітреба переробити його в jpg, бо він зрозумілий для браузера
+                      if (
+                        file.type === "image/heic" ||
+                        file.type === "image/heif"
+                      ) {
+                        try {
+                          setIsLoadingState((prev) => ({
+                            ...prev,
+                            isLoadingPictures: true,
+                          }));
+
+                          const convertedBlob = await heic2any({
+                            blob: file,
+                            toType: "image/jpeg",
+                            quality: 0.9, // 90% якості
+                          });
+
+                          console.log(convertedBlob, "convertedBlob");
+
+                          // Створюємо новий файл на базі конвертованого Blob
+                          const convertedFile = new File(
+                            [convertedBlob],
+                            file.name.replace(/\.[^/.]+$/, ".jpg"),
+                            {
+                              type: "image/jpeg",
+                            }
+                          );
+
+                          updatedImages[index] = convertedFile; // тут я присвоюю значення конкретного файлу в масив картинок, тотбо  картинка відслідковується по індексу
+                          setIsLoadingState((prev) => ({
+                            ...prev,
+                            isLoadingPictures: false,
+                          }));
+                        } catch (error) {
+                          console.log(error, "error");
+                          setIsLoadingState((prev) => ({
+                            ...prev,
+                            isLoadingPictures: false,
+                          }));
+                        }
+                      } else {
+                        updatedImages[index] = file; // тут я присвоюю значення конкретного файлу в масив картинок, тотбо  картинка відслідковується по індексу
+                        setIsLoadingState((prev) => ({
+                          ...prev,
+                          isLoadingPictures: false,
+                        }));
+                      }
 
                       setValue("images", updatedImages, {
                         shouldValidate: true,
