@@ -27,17 +27,16 @@ const AddProduct = () => {
   const [isLoadingState, setIsLoadingState] = useState({
     isLoadingProductData: false,
     isLoadingPictures: false,
+    isLoadingCategory: true,
   });
-  // console.log(token, "token from addproduct");
-  // const sizesArray = ["S", "M", "L", "XL", "XXL"];
 
   const form = useForm({
     defaultValues: {
       images: [],
       name: "",
       description: "",
-      category: "Women",
-      subCategory: "Topwear",
+      category: "",
+      subCategory: "",
       price: "",
       sizes: [],
       bestseller: false,
@@ -59,7 +58,7 @@ const AddProduct = () => {
   const { errors, touchedFields, dirtyFields } = formState;
 
   const onSubmit = async (data) => {
-    console.log(data, "data");
+    // console.log(data, "data");
 
     try {
       // new FormData() — це спеціальний об'єкт у JavaScript, який дозволяє створювати та
@@ -93,7 +92,6 @@ const AddProduct = () => {
         formData,
         { headers: { token } }
       );
-      console.log(response, "response");
 
       if (response.data.success) {
         setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: false }));
@@ -123,7 +121,9 @@ const AddProduct = () => {
   };
 
   const isLoading =
-    isLoadingState.isLoadingProductData || isLoadingState.isLoadingPictures;
+    isLoadingState.isLoadingProductData ||
+    isLoadingState.isLoadingPictures ||
+    isLoadingState.isLoadingCategory;
 
   return (
     <section className="add-product">
@@ -142,6 +142,7 @@ const AddProduct = () => {
         getValues={getValues}
         setValue={setValue}
         setIsLoadingState={setIsLoadingState}
+        backendUrl={backendUrl}
       />
 
       <DevTool control={control} />
