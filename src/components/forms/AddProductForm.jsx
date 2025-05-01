@@ -1,8 +1,13 @@
+import { useState, useEffect } from "react";
 import heic2any from "heic2any"; // для конвертації heic в jpg
+import axios from "axios";
+import { toast } from "react-toastify";
 
 import { assets } from "../../admin_assets/assets";
 
 const AddProductForm = (props) => {
+  const [categoryData, setCategoryData] = useState([]);
+
   const {
     register,
     handleSubmit,
@@ -16,9 +21,52 @@ const AddProductForm = (props) => {
     setValue,
     getValues,
     setIsLoadingState,
+    backendUrl,
   } = props;
 
   const sizesArray = ["S", "M", "L", "XL", "XXL"];
+
+  const fetchCategoryData = async () => {
+    try {
+      setIsLoadingState((prev) => ({ ...prev, isLoadingCategory: true }));
+      const response = await axios.get(backendUrl + "/api/category/list");
+      if (response.data.success) {
+        setCategoryData(response.data.allCategories);
+        setIsLoadingState((prev) => ({
+          ...prev,
+          isLoadingCategory: false,
+        }));
+
+        toast.success(response.data.message);
+      } else {
+        setIsLoadingState((prev) => ({
+          ...prev,
+          isLoadingCategory: false,
+        }));
+
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      setIsLoadingState((prev) => ({ ...prev, isLoadingCategory: false }));
+
+      console.log(error, "error");
+      toast.error(error.message);
+    }
+  };
+
+  const selectedCategoryLabel = watch("category");
+
+  const subCategories =
+    categoryData.find((item) => item.categoryLabel === selectedCategoryLabel)
+      ?.subCategory || [];
+
+  useEffect(() => {
+    fetchCategoryData();
+  }, []);
+
+  useEffect(() => {
+    setValue("subCategory", ""); // коли міняю категорію то підкатегорія має стати пустою
+  }, [selectedCategoryLabel]);
 
   return (
     <form
@@ -81,8 +129,6 @@ const AddProductForm = (props) => {
                             toType: "image/jpeg",
                             quality: 0.9, // 90% якості
                           });
-
-                          console.log(convertedBlob, "convertedBlob");
 
                           // Створюємо новий файл на базі конвертованого Blob
                           const convertedFile = new File(
@@ -150,30 +196,40 @@ const AddProductForm = (props) => {
         <div className="category">
           <h2>Product Category</h2>
           <select id="category" {...register("category")}>
-            <option value="Men" className="category__item">
-              Men
+            <option value="" defaultValue className="category__item">
+              Choose Category
             </option>
-            <option value="Women" className="category__item">
-              Women
-            </option>
-            <option value="Kids" className="category__item">
-              Kids
-            </option>
+            {categoryData?.map((item) => (
+              <option
+                key={item._id}
+                value={item.categoryLabel}
+                className="category__item"
+              >
+                {item.categoryLabel}
+              </option>
+            ))}
           </select>
           <p className="error">{errors.category?.message}</p>
         </div>
         <div className="subcategory">
           <h2>Sub Category</h2>
-          <select id="sub-category" {...register("subCategory")}>
-            <option value="Bottomwear" className="subcategory__item">
-              Bottom wear
+          <select
+            id="sub-category"
+            {...register("subCategory")}
+            disabled={!selectedCategoryLabel}
+          >
+            <option value="" defaultValue>
+              Choose Sub-Category
             </option>
-            <option value="Topwear" className="subcategory__item">
-              Top wear
-            </option>
-            <option value="Winterwear" className="subcategory__item">
-              Winter wear
-            </option>
+            {subCategories?.map((item, ind) => (
+              <option
+                key={ind}
+                value={item.subCategoryLabel}
+                className="subcategory__item"
+              >
+                {item.subCategoryLabel}
+              </option>
+            ))}
           </select>
           <p className="error">{errors.subCategory?.message}</p>
         </div>

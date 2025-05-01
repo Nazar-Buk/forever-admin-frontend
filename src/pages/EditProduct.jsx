@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import isEqual from "lodash/isEqual"; // lodash ця фігня вміє порівнювати масиви та обєкти на глибину
+import heic2any from "heic2any"; // для конвертації heic в jpg
 
 import { AdminContext } from "../context/AdminContext";
 import { assets } from "../admin_assets/assets";
@@ -31,35 +32,72 @@ const EditProduct = () => {
   const { productId } = useParams();
 
   const [initialData, setInitialData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingState, setIsLoadingState] = useState({
+    isLoadingProductData: true,
+    isLoadingCategory: true,
+    isLoadingPictures: false,
+  });
   const [imgForDelete, setImgForDelete] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
 
-  const fetchProduct = async () => {
+  const fetchPageData = async () => {
     try {
-      setIsLoading(true);
+      // load categories
+      setIsLoadingState((prev) => ({ ...prev, isLoadingCategory: true }));
+      const responseCategories = await axios.get(
+        backendUrl + "/api/category/list"
+      );
 
-      const response = await axios.post(
+      if (responseCategories.data.success) {
+        setCategoryData(responseCategories.data.allCategories);
+        setIsLoadingState((prev) => ({
+          ...prev,
+          isLoadingCategory: false,
+        }));
+      } else {
+        setIsLoadingState((prev) => ({
+          ...prev,
+          isLoadingCategory: false,
+        }));
+
+        toast.error(response.data.message);
+      }
+
+      // load product
+      setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: true }));
+
+      const responseProduct = await axios.post(
         backendUrl + "/api/product/single",
         { productId },
         { headers: { token } }
       );
 
-      if (response.data.success) {
-        const product = response.data.product;
+      if (responseProduct.data.success) {
+        const product = responseProduct.data.product;
         setInitialData(product);
         reset(product);
-        setIsLoading(false);
+        setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: false }));
       }
     } catch (error) {
-      console.log(error, "error from fetchProduct");
-      setIsLoading(false);
+      setIsLoadingState((prev) => ({
+        ...prev,
+        isLoadingCategory: false,
+        isLoadingProductData: false,
+      }));
+
+      console.log(error, "error");
+      toast.error(error.message);
     } finally {
-      setIsLoading(false);
+      setIsLoadingState((prev) => ({
+        ...prev,
+        isLoadingCategory: false,
+        isLoadingProductData: false,
+      }));
     }
   };
 
   useEffect(() => {
-    fetchProduct();
+    fetchPageData();
   }, []);
 
   const form = useForm({
@@ -67,8 +105,8 @@ const EditProduct = () => {
       images: [],
       name: "",
       description: "",
-      category: "Women",
-      subCategory: "Topwear",
+      category: "",
+      subCategory: "",
       price: "",
       sizes: [],
       bestseller: false,
@@ -85,6 +123,8 @@ const EditProduct = () => {
     setValue,
     watch,
     reset,
+    clearErrors,
+    trigger,
   } = form;
 
   const { errors, touchedFields, dirtyFields, isSubmitting, isValid, isDirty } =
@@ -167,7 +207,7 @@ const EditProduct = () => {
       const isProductChanged = !!Object.keys(updatedFields).length; //Object.keys(updatedFields) повертає масив ключів. Якщо довжина масиву 0, то об'єкт порожній.
 
       if (isProductChanged) {
-        setIsLoading(true);
+        setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: true }));
 
         const response = await axios.patch(
           backendUrl + `/api/product/update/${productId}`, // ${productId} отримуй на беку із req.params
@@ -180,18 +220,24 @@ const EditProduct = () => {
         );
 
         if (response.data.success) {
-          setIsLoading(false);
+          setIsLoadingState((prev) => ({
+            ...prev,
+            isLoadingProductData: false,
+          }));
 
           toast.success(response.data.message);
           setImgForDelete([]);
           navigate("/list");
         } else {
           toast.error(response.data.message);
-          setIsLoading(false);
+          setIsLoadingState((prev) => ({
+            ...prev,
+            isLoadingProductData: false,
+          }));
         }
       }
     } catch (error) {
-      setIsLoading(false);
+      setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: false }));
 
       console.log(error, "error");
       toast.error(error);
@@ -210,6 +256,17 @@ const EditProduct = () => {
       shouldDirty: true,
     });
   };
+
+  const selectedCategoryLabel = watch("category");
+
+  const subCategories =
+    categoryData.find((item) => item.categoryLabel === selectedCategoryLabel)
+      ?.subCategory || [];
+
+  const isLoading =
+    isLoadingState.isLoadingProductData ||
+    isLoadingState.isLoadingCategory ||
+    isLoadingState.isLoadingPictures;
 
   return (
     <section className="edit-product">
@@ -272,12 +329,57 @@ const EditProduct = () => {
                     // accept=".jpg, .png, .gif"> -- дозволяє вибирати тільки картинки з розширеннями jpg, png, gif
                     id={`image${index + 1}`}
                     {...register("images")}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                       const file = e.target.files[0];
 
                       if (file) {
                         const updatedImages = [...(getValues("images") || [])]; // тут () вказують на пріорітетність виконання
-                        updatedImages[index] = file; // тут я присвоюю значення конкретного файлу в масив картинок, тотбо  картинка відслідковується по індексу
+
+                        // Виявилося що айфон робить свій тив картинки ітреба переробити його в jpg, бо він зрозумілий для браузера
+                        if (
+                          file.type === "image/heic" ||
+                          file.type === "image/heif"
+                        ) {
+                          try {
+                            setIsLoadingState((prev) => ({
+                              ...prev,
+                              isLoadingPictures: true,
+                            }));
+
+                            const convertedBlob = await heic2any({
+                              blob: file,
+                              toType: "image/jpeg",
+                              quality: 0.9, // 90% якості
+                            });
+
+                            // Створюємо новий файл на базі конвертованого Blob
+                            const convertedFile = new File(
+                              [convertedBlob],
+                              file.name.replace(/\.[^/.]+$/, ".jpg"),
+                              {
+                                type: "image/jpeg",
+                              }
+                            );
+
+                            updatedImages[index] = convertedFile; // тут я присвоюю значення конкретного файлу в масив картинок, тотбо  картинка відслідковується по індексу
+                            setIsLoadingState((prev) => ({
+                              ...prev,
+                              isLoadingPictures: false,
+                            }));
+                          } catch (error) {
+                            console.log(error, "error");
+                            setIsLoadingState((prev) => ({
+                              ...prev,
+                              isLoadingPictures: false,
+                            }));
+                          }
+                        } else {
+                          updatedImages[index] = file; // тут я присвоюю значення конкретного файлу в масив картинок, тотбо  картинка відслідковується по індексу
+                          setIsLoadingState((prev) => ({
+                            ...prev,
+                            isLoadingPictures: false,
+                          }));
+                        }
 
                         setValue("images", updatedImages, {
                           shouldValidate: true,
@@ -316,31 +418,67 @@ const EditProduct = () => {
         <div className="form__category-box">
           <div className="category">
             <h2>Product Category</h2>
-            <select id="category" {...register("category")}>
-              <option value="Men" className="category__item">
-                Men
+            <select
+              id="category"
+              {...register("category")}
+              onChange={(e) => {
+                // будь обережний із onChange, useForm їх не любить, треба обовязково сетати це ж поле в ручну через setValue...
+                const selectedCategory = e.target.value;
+                setValue("category", selectedCategory, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+
+                setValue("subCategory", "", {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                  shouldTouch: true,
+                }); // коли міняю категорію то підкатегорія має стати пустою
+              }}
+            >
+              <option value="" className="category__item">
+                Choose Category
               </option>
-              <option value="Women" className="category__item">
-                Women
-              </option>
-              <option value="Kids" className="category__item">
-                Kids
-              </option>
+              {categoryData?.map((item) => (
+                <option
+                  className="category__item"
+                  key={item._id}
+                  value={item.categoryLabel}
+                >
+                  {item.categoryLabel}
+                </option>
+              ))}
             </select>
             <p className="error">{errors.category?.message}</p>
           </div>
           <div className="subcategory">
             <h2>Sub Category</h2>
-            <select id="sub-category" {...register("subCategory")}>
-              <option value="Bottomwear" className="subcategory__item">
-                Bottom wear
-              </option>
-              <option value="Topwear" className="subcategory__item">
-                Top wear
-              </option>
-              <option value="Winterwear" className="subcategory__item">
-                Winter wear
-              </option>
+            <select
+              id="sub-category"
+              {...register("subCategory")}
+              disabled={!selectedCategoryLabel}
+              onChange={(e) => {
+                // будь обережний із onChange, useForm їх не любить, треба обовязково сетати це ж поле в ручну через setValue...
+                const selectedSubCategory = e.target.value;
+                setValue("subCategory", selectedSubCategory, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+
+                // clearErrors("subCategory"); // очищаю помилку в підкатегорії в ручну
+                trigger("subCategory"); // підключаю валідацію знову, то все через setValue я маю так мучитися
+              }}
+            >
+              <option value="">Choose Sub-Category</option>
+              {subCategories?.map((item, ind) => (
+                <option
+                  key={ind}
+                  value={item.subCategoryLabel}
+                  className="subcategory__item"
+                >
+                  {item.subCategoryLabel}
+                </option>
+              ))}
             </select>
             <p className="error">{errors.subCategory?.message}</p>
           </div>
@@ -405,8 +543,8 @@ const EditProduct = () => {
           <button
             type="button"
             onClick={() => {
-              fetchProduct();
               setImgForDelete([]);
+              reset(initialData);
             }}
           >
             REVERT EDIT <span className="revert-imoji">🛟</span>
