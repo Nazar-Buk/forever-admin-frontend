@@ -1,87 +1,53 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import heic2any from "heic2any"; // для конвертації heic в jpg
-import axios from "axios";
-import { toast } from "react-toastify";
 
 import { assets } from "../../admin_assets/assets";
 import { sizesArray } from "../../utils/helpers";
 
-const AddProductForm = (props) => {
-  const [categoryData, setCategoryData] = useState([]);
-
+const EditProductForm = (props) => {
   const {
-    register,
     handleSubmit,
-    watch,
-    errors,
-    touchedFields,
-    dirtyFields,
     onSubmit,
-    removeImage,
     imagesArray,
-    setValue,
-    getValues,
     setIsLoadingState,
-    backendUrl,
+    watch,
+    removeImage,
+    register,
+    getValues,
+    setValue,
+    errors,
+    trigger,
+    isDirty,
+    isSubmitting,
+    reset,
+    categoryData,
+    subCategories,
+    selectedCategoryLabel,
+    setImgForDelete,
+    initialData,
   } = props;
-
-  const fetchCategoryData = async () => {
-    try {
-      setIsLoadingState((prev) => ({ ...prev, isLoadingCategory: true }));
-      const response = await axios.get(backendUrl + "/api/category/list");
-      if (response.data.success) {
-        setCategoryData(response.data.allCategories);
-        setIsLoadingState((prev) => ({
-          ...prev,
-          isLoadingCategory: false,
-        }));
-
-        toast.success(response.data.message);
-      } else {
-        setIsLoadingState((prev) => ({
-          ...prev,
-          isLoadingCategory: false,
-        }));
-
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      setIsLoadingState((prev) => ({ ...prev, isLoadingCategory: false }));
-
-      console.log(error, "error");
-      toast.error(error.message);
-    }
-  };
-
-  const selectedCategoryLabel = watch("category");
-
-  const subCategories =
-    categoryData.find((item) => item.categoryLabel === selectedCategoryLabel)
-      ?.subCategory || [];
-
-  useEffect(() => {
-    fetchCategoryData();
-  }, []);
-
-  useEffect(() => {
-    setValue("subCategory", ""); // коли міняю категорію то підкатегорія має стати пустою
-  }, [selectedCategoryLabel]);
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="add-product__form"
+      className="edit-product__form"
     >
       <div className="form__upload-img">
         <h2>Upload Image</h2>
         <div className="upload-images-box">
           {imagesArray.map((_, index) => {
-            const currentImages = watch("images") || [];
-            const imageFile = currentImages[index] || null;
-            const imageUrl = imageFile
-              ? URL.createObjectURL(imageFile)
-              : assets.upload_area;
+            const currentImagesData = watch("images") || [];
+            const imageData = currentImagesData[index] || null;
+            let imageUrl;
+
+            if (imageData?.url) {
+              imageUrl = imageData.url;
+            } else if (imageData instanceof File) {
+              imageUrl = URL.createObjectURL(imageData);
+            } else {
+              imageUrl = assets.upload_area;
+            }
 
             return (
               <label
@@ -89,10 +55,11 @@ const AddProductForm = (props) => {
                 htmlFor={`image${index + 1}`}
                 className="image-label"
               >
-                {imageFile && (
+                {imageData && (
                   <div
                     onClick={(e) => {
-                      removeImage(e, index);
+                      const { public_id } = imageData;
+                      removeImage(e, index, public_id);
                     }}
                     className="delete-img"
                   >
@@ -160,6 +127,7 @@ const AddProductForm = (props) => {
 
                       setValue("images", updatedImages, {
                         shouldValidate: true,
+                        shouldDirty: true,
                       });
                     }
                   }}
@@ -194,15 +162,32 @@ const AddProductForm = (props) => {
       <div className="form__category-box">
         <div className="category">
           <h2>Product Category</h2>
-          <select id="category" {...register("category")}>
-            <option value="" defaultValue className="category__item">
+          <select
+            id="category"
+            {...register("category")}
+            onChange={(e) => {
+              // будь обережний із onChange, useForm їх не любить, треба обовязково сетати це ж поле в ручну через setValue...
+              const selectedCategory = e.target.value;
+              setValue("category", selectedCategory, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
+
+              setValue("subCategory", "", {
+                shouldValidate: true,
+                shouldDirty: true,
+                shouldTouch: true,
+              }); // коли міняю категорію то підкатегорія має стати пустою
+            }}
+          >
+            <option value="" className="category__item">
               Choose Category
             </option>
             {categoryData?.map((item) => (
               <option
+                className="category__item"
                 key={item._id}
                 value={item.categoryLabel}
-                className="category__item"
               >
                 {item.categoryLabel}
               </option>
@@ -216,10 +201,19 @@ const AddProductForm = (props) => {
             id="sub-category"
             {...register("subCategory")}
             disabled={!selectedCategoryLabel}
+            onChange={(e) => {
+              // будь обережний із onChange, useForm їх не любить, треба обовязково сетати це ж поле в ручну через setValue...
+              const selectedSubCategory = e.target.value;
+              setValue("subCategory", selectedSubCategory, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
+
+              // clearErrors("subCategory"); // очищаю помилку в підкатегорії в ручну
+              trigger("subCategory"); // підключаю валідацію знову, то все через setValue я маю так мучитися
+            }}
           >
-            <option value="" defaultValue>
-              Choose Sub-Category
-            </option>
+            <option value="">Choose Sub-Category</option>
             {subCategories?.map((item, ind) => (
               <option
                 key={ind}
@@ -234,7 +228,11 @@ const AddProductForm = (props) => {
         </div>
         <div className="price">
           <h2>Product Price</h2>
-          <input type="number" placeholder="Add price" {...register("price")} />
+          <input
+            type="number"
+            placeholder="Add price"
+            {...register("price", { valueAsNumber: true })} //  { valueAsNumber: true } тепер це передається як число, а то інпути все передають стрічкою
+          />
           <p className="error">{errors.price?.message}</p>
         </div>
       </div>
@@ -280,9 +278,22 @@ const AddProductForm = (props) => {
         </label>
       </div>
 
-      <button type="submit">ADD</button>
+      <div className="buttons">
+        <button disabled={isSubmitting || !isDirty} type="submit">
+          EDIT
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setImgForDelete([]);
+            reset(initialData);
+          }}
+        >
+          REVERT EDIT <span className="revert-imoji">🛟</span>
+        </button>
+      </div>
     </form>
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;

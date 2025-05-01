@@ -8,19 +8,10 @@ import { toast } from "react-toastify";
 import { AdminContext } from "../context/AdminContext";
 import { backendUrl } from "../App";
 import { addEditProductSchema } from "../utils/validationSchemas";
+import { imagesArray } from "../utils/helpers";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import AddProductForm from "../components/forms/AddProductForm";
-
-let imagesArray = [];
-
-const countOfPictures = (count) => {
-  for (let i = 1; i <= count; i++) {
-    imagesArray.push(`image${i}`);
-  }
-};
-
-countOfPictures(7);
 
 const AddProduct = () => {
   const { token } = useContext(AdminContext);
