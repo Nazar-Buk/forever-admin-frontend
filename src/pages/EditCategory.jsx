@@ -49,7 +49,7 @@ const EditCategory = () => {
   const form = useForm({
     defaultValues: {
       categoryLabel: "",
-      subCategory: [{ subCategoryLabel: "" }], // тут має бути об'єкт то піздєц як важливо
+      subCategory: [{ subCategoryLabel: "", id: "" }], // тут має бути об'єкт то піздєц як важливо
     },
     resolver: yupResolver(addCategorySchema),
   });
@@ -67,7 +67,7 @@ const EditCategory = () => {
   // ТРЕБА!!! використовувати useEffect, бо не бачить першого поля
   useEffect(() => {
     if (!fields.length) {
-      append({ subCategoryLabel: "" }); // додаю порожнє поле
+      append({ subCategoryLabel: "", id: "" }); // додаю порожнє поле
     }
   }, [fields, append]);
 
@@ -80,7 +80,7 @@ const EditCategory = () => {
         isLoadingSubmit: true,
       }));
 
-      const isSubCategoryChanged = isEqual(
+      const isSubCategoryChanged = !isEqual(
         initialData.subCategory,
         data.subCategory
       );
@@ -91,10 +91,13 @@ const EditCategory = () => {
         updatedOnly.categoryLabel = data.categoryLabel;
       }
 
-      if (!isSubCategoryChanged) {
+      if (isSubCategoryChanged) {
         const subCategoryArray = data.subCategory.reduce((acc, current) => {
           if (current.subCategoryLabel.trim()) {
-            acc.push(current.subCategoryLabel.trim());
+            acc.push({
+              subCategoryLabel: current.subCategoryLabel.trim(),
+              id: current.id || "",
+            });
           }
 
           return acc;
@@ -154,7 +157,7 @@ const EditCategory = () => {
 
       if (response.data.success) {
         const subCategoryLabels = response.data.category.subCategory.map(
-          (item) => ({ subCategoryLabel: item.subCategoryLabel })
+          (item) => ({ subCategoryLabel: item.subCategoryLabel, id: item._id })
         );
 
         const formData = {
