@@ -9,15 +9,21 @@ import { assets } from "../admin_assets/assets";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import Pagination from "../components/Pagination";
+import ModalWindow from "../components/modalWindow";
 
 const CategoryList = () => {
-  const { token } = useContext(AdminContext);
+  const { token, setIsModalOpen, isModalOpen } = useContext(AdminContext);
   const [searchParams, setSearchParams] = useSearchParams(); // ця шляпа вміє працювати із адресною строкою
   const [categoryList, setCategoryList] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loadingState, setLoadingState] = useState({
     isLoadingCategoryList: true,
     isLoadingRemoveProduct: false,
+  });
+
+  const [categoryToDelete, setCategoryToDelete] = useState({
+    categoryId: "",
+    categoryName: "",
   });
 
   const [page, setPage] = useState(parseInt(searchParams.get("page") || 1));
@@ -122,6 +128,16 @@ const CategoryList = () => {
       ) : (
         <section className="category-list">
           <BreadCrumbs>{[<span key={0}>Category List</span>]}</BreadCrumbs>
+          {isModalOpen && (
+            <ModalWindow
+              title="Remove Category"
+              content={`Do you really want to remove this category "${categoryToDelete.categoryName}" ?`}
+              confirmAction={() => {
+                removeCategory(categoryToDelete.categoryId);
+                setIsModalOpen(false);
+              }}
+            />
+          )}
           {categoryList.length ? (
             <div className="table-box">
               <h2>Category List</h2>
@@ -155,7 +171,15 @@ const CategoryList = () => {
                       <td className="table-cell action">
                         <div className="action-cell">
                           <svg
-                            onClick={() => removeCategory(item._id)}
+                            onClick={() => {
+                              setCategoryToDelete((prev) => ({
+                                ...prev,
+                                categoryId: item._id,
+                                categoryName: item.categoryLabel,
+                              }));
+
+                              setIsModalOpen(true);
+                            }}
                             version="1.1"
                             id="Capa_1"
                             xmlns="http://www.w3.org/2000/svg"

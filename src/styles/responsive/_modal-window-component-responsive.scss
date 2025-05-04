@@ -1,0 +1,40 @@
+@use "../base/variables" as v;
+
+@media (max-width: 792px) {
+  section.modal {
+    .modal__box {
+      $width: 80%;
+      $min-height: 250px;
+
+      min-width: $width;
+      width: $width;
+      min-height: $min-height;
+      position: absolute;
+      top: calc(50% - ($min-height / 2));
+      left: calc(50% - ($width / 2));
+
+      .modal__header {
+        h3.header__title {
+        }
+
+        svg.header__close-btn {
+        }
+      }
+
+      .modal__content {
+        p.content__text {
+        }
+      }
+
+      .modal__footer {
+        button {
+          &.footer__agree {
+          }
+
+          &.footer__cancel {
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,14 +10,23 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import Pagination from "../components/Pagination";
 import Toolbar from "../components/Toolbar";
+import ModalWindow from "../components/modalWindow";
 
 const ProductList = () => {
-  const { token, currency } = useContext(AdminContext);
+  const { token, currency, setIsModalOpen, isModalOpen } =
+    useContext(AdminContext);
+
   const [loadingState, setLoadingState] = useState({
     isLoadingProductList: true,
     isLoadingCategoriesData: true,
     isLoadingRemoveProduct: false,
   });
+
+  const [productToDelete, setProductToDelete] = useState({
+    productId: "",
+    productName: "",
+  });
+
   const [searchParams, setSearchParams] = useSearchParams(); // ця шляпа вміє працювати із адресною строкою
   const [list, setList] = useState([]);
   const [categoriesData, setCategoriesData] = useState([]);
@@ -156,6 +165,16 @@ const ProductList = () => {
       ) : (
         <section className="products-list">
           <BreadCrumbs>{[<span key={0}>Product List</span>]}</BreadCrumbs>
+          {isModalOpen && (
+            <ModalWindow
+              title="Remove Product"
+              content={`Do you really want to remove this product "${productToDelete.productName}" ?`}
+              confirmAction={() => {
+                removeProduct(productToDelete.productId);
+                setIsModalOpen(false);
+              }}
+            />
+          )}
           <div className="toolbar-wrapper">
             <Toolbar
               categoriesData={categoriesData}
@@ -220,7 +239,15 @@ const ProductList = () => {
                         <td className="table-cell">
                           <div className="action-cell">
                             <svg
-                              onClick={() => removeProduct(item._id)}
+                              onClick={() => {
+                                setProductToDelete((prev) => ({
+                                  ...prev,
+                                  productId: item._id,
+                                  productName: item.name,
+                                }));
+
+                                setIsModalOpen(true);
+                              }}
                               version="1.1"
                               id="Capa_1"
                               xmlns="http://www.w3.org/2000/svg"
