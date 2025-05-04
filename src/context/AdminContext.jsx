@@ -12,6 +12,11 @@ const AdminContextProvider = (props) => {
   ); // шукаю дані в localStorage по назві token
 
   const currency = "$";
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  isModalOpen
+    ? (document.body.style.overflow = "hidden") // Забороняємо скролінг сайту
+    : (document.body.style.overflow = ""); // Відновлюємо скролінг сайту
 
   useEffect(() => {
     localStorage.setItem("token", token); // записую дані в localStorage, перший параметр назва ключа, другий параметр -- дані
@@ -21,6 +26,8 @@ const AdminContextProvider = (props) => {
     token,
     setToken,
     currency,
+    isModalOpen,
+    setIsModalOpen,
   };
 
   return (
