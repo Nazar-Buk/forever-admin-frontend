@@ -23,6 +23,10 @@ const Toolbar = (props) => {
     setCategory,
     subCategory,
     setSubCategory,
+    priceFrom,
+    setPriceFrom,
+    priceTo,
+    setPriceTo,
   } = props;
 
   const [isFilterListVisibility, setIsFilterListVisibility] = useState(false);
@@ -184,6 +188,10 @@ const Toolbar = (props) => {
         setCategory={setCategory}
         subCategory={subCategory}
         setSubCategory={setSubCategory}
+        priceFrom={priceFrom}
+        setPriceFrom={setPriceFrom}
+        priceTo={priceTo}
+        setPriceTo={setPriceTo}
       />
     </>
   );

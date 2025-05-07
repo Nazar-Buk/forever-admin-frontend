@@ -6,6 +6,30 @@ import * as yup from "yup";
 const filtersSchema = yup.object({
   category: yup.string(),
   subCategory: yup.string(),
+  priceFrom: yup
+    .string()
+    .test(
+      "is-valid-priceFrom",
+      "The price must be a positive number!",
+      (value) => {
+        if (!value) return true; // дозволяє пусте поле
+
+        const num = Number(value);
+        return !isNaN(num) && num > 0;
+      }
+    ),
+  priceTo: yup
+    .string()
+    .test(
+      "is-valid-priceTo",
+      "The price must be a positive number!",
+      (value) => {
+        if (!value) return true; // дозволяє пусте поле
+
+        const num = Number(value);
+        return !isNaN(num) && num > 0;
+      }
+    ),
 });
 
 const FiltersProduct = (props) => {
@@ -17,12 +41,18 @@ const FiltersProduct = (props) => {
     setCategory,
     subCategory,
     setSubCategory,
+    priceFrom,
+    setPriceFrom,
+    priceTo,
+    setPriceTo,
   } = props;
 
   const form = useForm({
     defaultValues: {
       category: "",
       subCategory: "",
+      priceFrom: "",
+      priceTo: "",
     },
     resolver: yupResolver(filtersSchema),
   });
@@ -47,12 +77,18 @@ const FiltersProduct = (props) => {
     reset({
       category: category || "",
       subCategory: subCategory || "",
+      priceFrom: priceFrom || "",
+      priceTo: priceTo || "",
     });
-  }, [category, subCategory]);
+  }, [category, subCategory, priceFrom, priceTo]);
 
   const onSubmit = (data) => {
+    // console.log(data, "data");
+
     setCategory(data.category);
     setSubCategory(data.subCategory);
+    setPriceFrom(data.priceFrom);
+    setPriceTo(data.priceTo);
   };
 
   return (
@@ -68,6 +104,8 @@ const FiltersProduct = (props) => {
             reset();
             setCategory("");
             setSubCategory("");
+            setPriceFrom("");
+            setPriceTo("");
           }}
           version="1.1"
           id="Capa_1"
@@ -122,6 +160,29 @@ const FiltersProduct = (props) => {
               ))}
             </select>
             <p className="error">{errors.subCategory?.message}</p>
+          </div>
+          <div className="filter-item-box">
+            <p>Set Price</p>
+            <div className="price__fields">
+              <div className="price__field">
+                <input
+                  className="price__input"
+                  type="number"
+                  placeholder="From: "
+                  {...register("priceFrom")}
+                />
+                <p className="error">{errors.priceFrom?.message}</p>
+              </div>
+              <div className="price__field">
+                <input
+                  className="price__input"
+                  type="number"
+                  placeholder="To: "
+                  {...register("priceTo")}
+                />
+                <p className="error">{errors.priceTo?.message}</p>
+              </div>
+            </div>
           </div>
         </div>
         <div className="filter__footer">

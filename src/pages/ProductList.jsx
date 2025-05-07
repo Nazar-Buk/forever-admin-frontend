@@ -40,6 +40,11 @@ const ProductList = () => {
   const [subCategory, setSubCategory] = useState(
     searchParams.get("subCategory") || ""
   );
+  const [priceFrom, setPriceFrom] = useState(
+    searchParams.get("priceFrom") || ""
+  );
+  const [priceTo, setPriceTo] = useState(searchParams.get("priceTo") || "");
+
   const [totalCount, setTotalCount] = useState(0);
 
   const fetchList = async (
@@ -48,7 +53,9 @@ const ProductList = () => {
     searchData,
     sortData,
     categoryData,
-    subCategoryData
+    subCategoryData,
+    priceFromData,
+    priceToData
   ) => {
     try {
       setLoadingState((prev) => ({ ...prev, isLoadingProductList: true }));
@@ -59,7 +66,7 @@ const ProductList = () => {
 
       const response = await axios.get(
         backendUrl +
-          `/api/product/list?page=${currentPage}&limit=${currentLimit}&search=${encodedSearchData}&sort=${sortData}&category=${encodedCategoryData}&subCategory=${encodedSubCategoryData}`
+          `/api/product/list?page=${currentPage}&limit=${currentLimit}&search=${encodedSearchData}&sort=${sortData}&category=${encodedCategoryData}&subCategory=${encodedSubCategoryData}&priceFrom=${priceFromData}&priceTo=${priceToData}`
       ); // на беку це треба отримувати так { page: '1', limit: '10' } req.query
 
       if (response.data.success) {
@@ -92,7 +99,16 @@ const ProductList = () => {
       );
 
       if (response.data.success) {
-        await fetchList(page, limit, search, sort, category, subCategory);
+        await fetchList(
+          page,
+          limit,
+          search,
+          sort,
+          category,
+          subCategory,
+          priceFrom,
+          priceTo
+        );
         setLoadingState((prev) => ({ ...prev, isLoadingRemoveProduct: false }));
 
         toast.success(response.data.message);
@@ -144,10 +160,39 @@ const ProductList = () => {
   };
 
   useEffect(() => {
-    fetchList(page, limit, search, sort, category, subCategory);
+    fetchList(
+      page,
+      limit,
+      search,
+      sort,
+      category,
+      subCategory,
+      priceFrom,
+      priceTo
+    );
+
     // Встановлюємо параметри в URL при зміні сторінки або ліміту
-    setSearchParams({ page, limit, search, sort, category, subCategory });
-  }, [page, limit, search, sort, category, subCategory, setSearchParams]);
+    setSearchParams({
+      page,
+      limit,
+      search,
+      sort,
+      category,
+      subCategory,
+      priceFrom,
+      priceTo,
+    });
+  }, [
+    page,
+    limit,
+    search,
+    sort,
+    category,
+    subCategory,
+    priceFrom,
+    priceTo,
+    setSearchParams,
+  ]);
 
   useEffect(() => {
     fetchCategoriesData();
@@ -189,6 +234,10 @@ const ProductList = () => {
               setCategory={setCategory}
               subCategory={subCategory}
               setSubCategory={setSubCategory}
+              priceFrom={priceFrom}
+              setPriceFrom={setPriceFrom}
+              priceTo={priceTo}
+              setPriceTo={setPriceTo}
             />
           </div>
           {list.length ? (
