@@ -227,7 +227,6 @@ const ProductList = () => {
               setSearch={setSearch}
               page={page}
               limit={limit}
-              fetchList={fetchList}
               sort={sort}
               setSort={setSort}
               category={category}

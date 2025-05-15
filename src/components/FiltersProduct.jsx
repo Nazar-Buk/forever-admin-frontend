@@ -17,6 +17,20 @@ const filtersSchema = yup.object({
         const num = Number(value);
         return !isNaN(num) && num > 0;
       }
+    )
+    .test(
+      "price-range",
+      "Price To must be greater than Price From",
+      function (value) {
+        const { priceTo } = this.parent; // доступ до інших полів, тому я тут пишу саме function а не стрілкову
+
+        if (!value || !priceTo) return true; // якщо пусте поле то пропускаємо валідацію
+
+        const from = Number(value);
+        const to = Number(priceTo);
+
+        return from < to;
+      }
     ),
   priceTo: yup
     .string()
@@ -74,6 +88,7 @@ const FiltersProduct = (props) => {
   }, [selectedCategory]);
 
   useEffect(() => {
+    // тут reset, щоб useForm тримався в синхроні з URL, який оновлюється в батьківському компоненті. Інакше дані у формі будуть "застарілими".
     reset({
       category: category || "",
       subCategory: subCategory || "",
