@@ -66,19 +66,20 @@ const Toolbar = (props) => {
             id="search-products"
             onChange={(e) => {
               setSearchValue(e.target.value);
+
               if (e.target.value === "") {
                 setSearch("");
               }
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                setSearch(searchValue);
+                setSearch(searchValue.trim());
               }
             }}
             value={searchValue}
           />
           <svg
-            onClick={() => setSearch(searchValue)}
+            onClick={() => setSearch(searchValue.trim())}
             className="search-icon"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
