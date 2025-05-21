@@ -1,5 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { Outlet } from "react-router-dom";
+
+// <Outlet /> — це місце, де рендериться вкладений маршрут. Якщо твій маршрут має children, то вони рендеряться в <Outlet />.
+
 import { ToastContainer } from "react-toastify";
 
 import Sidebar from "./components/Sidebar";
