@@ -9,7 +9,7 @@ import { assets } from "../admin_assets/assets";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import Pagination from "../components/Pagination";
-import ModalWindow from "../components/modalWindow";
+import ModalWindow from "../components/ModalWindow";
 
 const CategoryList = () => {
   const { token, setIsModalOpen, isModalOpen } = useContext(AdminContext);

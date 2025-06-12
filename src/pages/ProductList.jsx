@@ -10,7 +10,7 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import Pagination from "../components/Pagination";
 import Toolbar from "../components/Toolbar";
-import ModalWindow from "../components/modalWindow";
+import ModalWindow from "../components/ModalWindow";
 
 const ProductList = () => {
   const { token, currency, setIsModalOpen, isModalOpen } =
