@@ -5,10 +5,42 @@
     <link rel="icon" type="image/svg+xml" href="/forever-admin-frontend/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forever Admin Panel</title>
+    <style>
+      #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid #000;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
     <!-- ТО ДЄРЬМО ТРЕБА ДЛЯ  GitHub Pages -->
     <!-- Start Single Page Apps for GitHub Pages -->
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
+    <!-- <script type="text/javascript"> -->
+    <!-- // Single Page Apps for GitHub Pages
       // MIT License
       // https://github.com/rafgraph/spa-github-pages
       // This script checks to see if a redirect is present in the query string,
@@ -34,12 +66,15 @@
           );
         }
       })(window.location);
-    </script>
+    </script> -->
     <!-- End Single Page Apps for GitHub Pages -->
-    <script type="module" crossorigin src="/forever-admin-frontend/assets/index-CboyJemo.js"></script>
-    <link rel="stylesheet" crossorigin href="/forever-admin-frontend/assets/index-B89hOmv0.css">
+    <script type="module" crossorigin src="/forever-admin-frontend/assets/index-BcCAeKw9.js"></script>
+    <link rel="stylesheet" crossorigin href="/forever-admin-frontend/assets/index-DPKDitbJ.css">
   </head>
   <body>
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
     <div id="root"></div>
   </body>
 </html>
