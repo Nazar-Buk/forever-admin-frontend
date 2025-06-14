@@ -49,7 +49,7 @@ const Header = ({ setToken }) => {
             <li>
               <NavLink
                 onClick={() => isMenuOpen(false)}
-                to="/list"
+                to="/add-product"
                 className="menu-item"
               >
                 <svg
