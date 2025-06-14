@@ -17,22 +17,22 @@ export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const App = () => {
   const { token, setToken } = useContext(AdminContext); /// вAdminContextкористовую контекст
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const appWasLoaded = () => {
-      setIsLoading(false);
-    };
+  // useEffect(() => {
+  //   const appWasLoaded = () => {
+  //     setIsLoading(false);
+  //   };
 
-    window.addEventListener("load", appWasLoaded); // Підписуємось на подію load
+  //   window.addEventListener("load", appWasLoaded); // Підписуємось на подію load
 
-    return () => window.removeEventListener("load", appWasLoaded); // Очищаємо слухач події при демонтажі компонента
-  }, []);
+  //   return () => window.removeEventListener("load", appWasLoaded); // Очищаємо слухач події при демонтажі компонента
+  // }, []);
 
   return (
     <>
       <NetworkStatus />
-      {isLoading && <Loader />}
+      {/* {isLoading && <Loader />} */}
       {/* так підключив нотифікації до апки, а вже в конкретному випадку на сторінках використовуй toast*/}
       <ToastContainer position="top-center" autoClose={1800} />
       {token ? (
