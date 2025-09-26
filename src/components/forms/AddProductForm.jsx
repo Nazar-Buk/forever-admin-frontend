@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import heic2any from "heic2any"; // для конвертації heic в jpg
+// import heic2any from "heic2any"; // для конвертації heic в jpg
 import axios from "axios";
 import { toast } from "react-toastify";
 
-import { assets } from "../../admin_assets/assets";
+import UploadImagesBox from "./add_products_form_details/UploadImagesBox";
+// import { assets } from "../../admin_assets/assets";
 import { sizesArray } from "../../utils/helpers";
 
 const AddProductForm = (props) => {
@@ -14,10 +15,12 @@ const AddProductForm = (props) => {
     handleSubmit,
     watch,
     errors,
+    control,
+    name,
     touchedFields,
     dirtyFields,
     onSubmit,
-    removeImage,
+    // removeImage,
     imagesArray,
     setValue,
     getValues,
@@ -75,7 +78,15 @@ const AddProductForm = (props) => {
     >
       <div className="form__upload-img">
         <h2>Upload Image</h2>
-        <div className="upload-images-box">
+        <UploadImagesBox
+          name={name}
+          control={control}
+          setIsLoadingState={setIsLoadingState}
+        />
+
+        {/* Start Old code
+        <h2>Upload Image</h2>
+         <div className="upload-images-box">
           {imagesArray.map((_, index) => {
             const currentImages = watch("images") || [];
             const imageFile = currentImages[index] || null;
@@ -112,7 +123,7 @@ const AddProductForm = (props) => {
                     if (file) {
                       const updatedImages = [...(getValues("images") || [])]; // тут () вказують на пріорітетність виконання
 
-                      // Виявилося що айфон робить свій тив картинки ітреба переробити його в jpg, бо він зрозумілий для браузера
+                      // Виявилося що айфон робить свій тиg картинки і треба переробити його в jpg, бо він зрозумілий для браузера
                       if (
                         file.type === "image/heic" ||
                         file.type === "image/heif"
@@ -168,7 +179,9 @@ const AddProductForm = (props) => {
               </label>
             );
           })}
-        </div>
+        </div> 
+        End Old code
+        */}
       </div>
       <div className="form__product-name">
         <h2>Product Name</h2>

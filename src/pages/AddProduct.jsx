@@ -4,6 +4,7 @@ import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { nanoid } from "nanoid";
 
 import { AdminContext } from "../context/AdminContext";
 import { backendUrl } from "../App";
@@ -12,6 +13,7 @@ import { imagesArray } from "../utils/helpers";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import AddProductForm from "../components/forms/AddProductForm";
+import { totalSlots } from "../utils/helpers";
 
 const AddProduct = () => {
   const { token } = useContext(AdminContext);
@@ -23,7 +25,9 @@ const AddProduct = () => {
 
   const form = useForm({
     defaultValues: {
-      images: [],
+      images: Array(totalSlots)
+        .fill(null)
+        .map(() => ({ id: nanoid(), file: null, preview: null })),
       name: "",
       description: "",
       category: "",
@@ -69,8 +73,8 @@ const AddProduct = () => {
       formData.append("sizes", JSON.stringify(data.sizes)); // бо sizes - це масив, а масиви не можна відправити через FormData
 
       // так додавати файли в FormData
-      data.images.forEach((file, ind) => {
-        formData.append(`images[${ind}]`, file);
+      data.images.forEach((imageData, ind) => {
+        formData.append(`images[${ind}]`, imageData.file);
       });
 
       // так можна переглянути те що в formData, тут forEach працює специфічно, тому що це не звичайний об'єкт
@@ -102,14 +106,16 @@ const AddProduct = () => {
     }
   };
 
-  const removeImage = (e, index) => {
-    e.preventDefault();
+  // Start Old code ////
+  // const removeImage = (e, index) => {
+  //   e.preventDefault();
 
-    const updatedImages = [...(getValues("images") || [])];
-    updatedImages[index] = null;
+  //   const updatedImages = [...(getValues("images") || [])];
+  //   updatedImages[index] = null;
 
-    setValue("images", updatedImages, { shouldValidate: true });
-  };
+  //   setValue("images", updatedImages, { shouldValidate: true });
+  // };
+  // End Old code ////
 
   const isLoading =
     isLoadingState.isLoadingProductData ||
@@ -125,10 +131,12 @@ const AddProduct = () => {
         handleSubmit={handleSubmit}
         watch={watch}
         errors={errors}
+        control={control}
+        name="images"
         touchedFields={touchedFields}
         dirtyFields={dirtyFields}
         onSubmit={onSubmit}
-        removeImage={removeImage}
+        // removeImage={removeImage}
         imagesArray={imagesArray}
         getValues={getValues}
         setValue={setValue}
