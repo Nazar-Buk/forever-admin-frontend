@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import isEqual from "lodash/isEqual"; // lodash ця фігня вміє порівнювати масиви та обєкти на глибину
+import { nanoid } from "nanoid";
 
 import { AdminContext } from "../context/AdminContext";
 import { backendUrl } from "../App";
@@ -13,7 +14,7 @@ import { addEditProductSchema } from "../utils/validationSchemas";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import EditProductForm from "../components/forms/EditProductForm";
-import { imagesArray } from "../utils/helpers";
+import { imagesArray, totalSlots } from "../utils/helpers";
 
 const EditProduct = () => {
   const { token } = useContext(AdminContext);
@@ -63,8 +64,32 @@ const EditProduct = () => {
 
       if (responseProduct.data.success) {
         const product = responseProduct.data.product;
-        setInitialData(product);
-        reset(product);
+
+        const formImages = Array(totalSlots)
+          .fill(null)
+          .map((_, index) => {
+            if (product.images && product.images[index]) {
+              return {
+                id: product.images[index]._id,
+                file: null,
+                preview: product.images[index].url || null,
+                public_id: product.images[index].public_id || null,
+              };
+            }
+
+            return {
+              id: nanoid(),
+              file: null,
+              preview: null,
+              public_id: null,
+            };
+          });
+
+        setInitialData({ ...product, images: formImages });
+        reset({
+          ...product,
+          images: formImages,
+        });
         setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: false }));
       }
     } catch (error) {
@@ -153,7 +178,7 @@ const EditProduct = () => {
           // так додавати файли в FormData
 
           const isAllElementsFalse = updatedFields["images"].every(
-            (item) => !item
+            (item) => !item.preview
           );
 
           if (isAllElementsFalse) {
@@ -163,17 +188,27 @@ const EditProduct = () => {
             // formData.append(`images`, imageData); // записую в formData в масив images дані (файли та стрічки) по одному,
             // УВАГА!!! якщо буде об'єкт то formData запище [object Object] і буде помилка
 
-            const onlyImagesData = updatedFields[key].filter((item) => {
-              if (item) {
-                if (item instanceof File) {
-                  formData.append(`images`, item); // так записуться файл
-                } else {
-                  return item;
-                }
-              }
-            });
+            const imagesData = updatedFields[key]
+              .map((item) => {
+                if (item.file instanceof File) {
+                  formData.append(`images`, item.file); // так записується файл
 
-            formData.append(`images`, JSON.stringify(onlyImagesData)); // так записується масив з об'єктами
+                  return {
+                    file: item.file,
+                    url: null,
+                    public_id: null,
+                  };
+                } else if (!item.file && item.preview) {
+                  return {
+                    file: null,
+                    url: item.preview,
+                    public_id: item.public_id,
+                  };
+                }
+              })
+              .filter((item) => item);
+
+            formData.append(`images`, JSON.stringify(imagesData)); // так записується масив з об'єктами
           }
         } else if (
           Array.isArray(updatedFields[key]) ||
@@ -197,7 +232,6 @@ const EditProduct = () => {
 
       if (isProductChanged) {
         setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: true }));
-
         const response = await axios.patch(
           backendUrl + `/api/product/update/${productId}`, // ${productId} отримуй на беку із req.params
           formData,
@@ -207,13 +241,11 @@ const EditProduct = () => {
             // на беку витягай params з req.query
           }
         );
-
         if (response.data.success) {
           setIsLoadingState((prev) => ({
             ...prev,
             isLoadingProductData: false,
           }));
-
           toast.success(response.data.message);
           setImgForDelete([]);
           navigate("/list");
@@ -233,18 +265,20 @@ const EditProduct = () => {
     }
   };
 
-  const removeImage = (e, index, public_id) => {
-    e.preventDefault();
+  // Start old remove image
+  // const removeImage = (e, index, public_id) => {
+  //   e.preventDefault();
 
-    setImgForDelete((prev) => [...prev, public_id]);
-    const updatedImages = [...(getValues("images") || [])];
-    updatedImages[index] = null;
+  //   setImgForDelete((prev) => [...prev, public_id]);
+  //   const updatedImages = [...(getValues("images") || [])];
+  //   updatedImages[index] = null;
 
-    setValue("images", updatedImages, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-  };
+  //   setValue("images", updatedImages, {
+  //     shouldValidate: true,
+  //     shouldDirty: true,
+  //   });
+  // };
+  // END old remove image
 
   const selectedCategoryLabel = watch("category");
 
@@ -281,9 +315,10 @@ const EditProduct = () => {
         isSubmitting={isSubmitting}
         isDirty={isDirty}
         reset={reset}
+        name="images"
+        control={control}
         imagesArray={imagesArray}
         setIsLoadingState={setIsLoadingState}
-        removeImage={removeImage}
         categoryData={categoryData}
         subCategories={subCategories}
         selectedCategoryLabel={selectedCategoryLabel}

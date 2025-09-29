@@ -1,17 +1,15 @@
 import React from "react";
 import heic2any from "heic2any"; // для конвертації heic в jpg
+import EditUploadImagesBox from "./edit_products_form_details/EditUploadImagesBox";
 
-import { assets } from "../../admin_assets/assets";
 import { sizesArray } from "../../utils/helpers";
 
 const EditProductForm = (props) => {
   const {
     handleSubmit,
     onSubmit,
-    imagesArray,
     setIsLoadingState,
     watch,
-    removeImage,
     register,
     getValues,
     setValue,
@@ -20,6 +18,8 @@ const EditProductForm = (props) => {
     isDirty,
     isSubmitting,
     reset,
+    control,
+    name,
     categoryData,
     subCategories,
     selectedCategoryLabel,
@@ -35,7 +35,14 @@ const EditProductForm = (props) => {
     >
       <div className="form__upload-img">
         <h2>Upload Image</h2>
-        <div className="upload-images-box">
+        <EditUploadImagesBox
+          control={control}
+          name={name}
+          setIsLoadingState={setIsLoadingState}
+          setImgForDelete={setImgForDelete}
+        />
+        {/* start Old code  */}
+        {/* <div className="upload-images-box">
           {imagesArray.map((_, index) => {
             const currentImagesData = watch("images") || [];
             const imageData = currentImagesData[index] || null;
@@ -136,7 +143,8 @@ const EditProductForm = (props) => {
               </label>
             );
           })}
-        </div>
+        </div> */}
+        {/* end Old code  */}
       </div>
       <div className="form__product-name">
         <h2>Product Name</h2>
