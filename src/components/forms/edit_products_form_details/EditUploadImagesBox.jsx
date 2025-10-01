@@ -34,7 +34,7 @@ const EditUploadImagesBox = ({
       render={({ field }) => {
         // ЦЕ ВСЕ render={............} поле
         const { value, onChange } = field; // field -- містить value, onChange, onBlur, name, ref
-        console.log(value, "value");
+        // console.log(value, "value");
         // налаштовуємо dropzone — noClick: true, бо відкриваємо вручну через open()
         const {
           // acceptedFiles, // масив файлів, які користувач вибрав (або перетягнув).

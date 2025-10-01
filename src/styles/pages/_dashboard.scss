@@ -1,0 +1,63 @@
+@use "../base/variables" as v;
+
+section.dashboard {
+  section.cloudinary-box {
+    width: 100%;
+    padding: 20px;
+    background-color: v.$secondary-color;
+    border-radius: v.$wrapper-box-radius;
+
+    h2.box-title {
+      text-decoration: underline;
+      margin-bottom: 20px;
+    }
+
+    .wrap-cloudinary-content {
+      display: flex;
+      justify-content: space-between;
+
+      .wrap-cloudinary-chart {
+        height: 300px;
+        width: 45%;
+      }
+
+      .cloudinary-info__box {
+        width: 45%;
+
+        .wrapper-info {
+          padding-bottom: 15px;
+          border-bottom: 1px solid v.$gold-color;
+
+          .picture-title {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+
+            h2.info__title {
+              font-weight: 500;
+              font-size: 16px;
+
+              span {
+                font-weight: 800;
+              }
+            }
+            img.info__img {
+              width: 25px;
+              aspect-ratio: 1/1;
+            }
+          }
+
+          p.info__count {
+            font-weight: 800 !important;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}

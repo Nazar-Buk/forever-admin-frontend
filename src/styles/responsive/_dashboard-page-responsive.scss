@@ -1,0 +1,35 @@
+@use "../base/variables" as v;
+
+@media (max-width: 768px) {
+  section.dashboard {
+    section.cloudinary-box {
+      h2.box-title {
+      }
+
+      .wrap-cloudinary-content {
+        .wrap-cloudinary-chart {
+          width: 100%;
+        }
+
+        .cloudinary-info__box {
+          width: 100%;
+
+          .wrapper-info {
+            .picture-title {
+              h2.info__title {
+                span {
+                }
+              }
+              img.info__img {
+              }
+            }
+
+            p.info__count {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
