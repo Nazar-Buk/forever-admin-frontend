@@ -10,6 +10,10 @@ import cross_icon_svg from "./cross-icon-svg.svg";
 import edit_icon from "./edit_icon.png";
 import no_image from "./no_image.png";
 import empty_page from "./empty-page.png";
+import storage_icon from "./storage-icon.png";
+import picture_icon from "./picture-icon.png";
+import speedometer_icon from "./speedometer-icon.png";
+import plan from "./plan.png";
 
 export const assets = {
   logo,
@@ -24,4 +28,8 @@ export const assets = {
   no_image,
   edit_icon,
   empty_page,
+  storage_icon,
+  picture_icon,
+  speedometer_icon,
+  plan,
 };

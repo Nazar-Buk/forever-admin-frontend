@@ -1,12 +1,13 @@
 import BreadCrumbs from "../components/BreadCrumbs";
+import CloudinaryUsage from "../components/CloudinaryUsage";
 
 const DashBoard = () => {
   return (
     <section className="dashboard">
       <BreadCrumbs />
 
-      <h2 className="page-title"></h2>
-      <h1>This page si empty 👷👷👷</h1>
+      <h2 className="page-title">Dashboard</h2>
+      <CloudinaryUsage />
     </section>
   );
 };
