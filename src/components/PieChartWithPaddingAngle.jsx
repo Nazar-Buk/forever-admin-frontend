@@ -2,15 +2,13 @@
 
 import { Cell, Pie, PieChart, ResponsiveContainer, Legend } from "recharts";
 
-const COLORS = ["#FF8042", "#0088FE", "#c40000", "#FFBB28"];
-
-const PieChartWithPaddingAngle = ({ chartsData }) => {
+const PieChartWithPaddingAngle = ({ chartsData, chartClass, COLORS }) => {
   // const isDesktop = useMediaQuery({ minWidth: 1200 }); // true, якщо екран ≥1200px // для прикладу
 
   const { data } = chartsData;
 
   return (
-    <div className="wrap-cloudinary-chart">
+    <div className={chartClass}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
