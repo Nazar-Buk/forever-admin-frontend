@@ -4,9 +4,11 @@ import { toast } from "react-toastify";
 
 import { assets } from "../admin_assets/assets";
 import PieChartWithPaddingAngle from "./PieChartWithPaddingAngle";
-import Loader from "./Loader";
 
-const CloudinaryUsage = ({ loadingState, setLoadingState, backendUrl }) => {
+const chartClass = "wrap-cloudinary-chart";
+const COLORS = ["#FF8042", "#0088FE", "#c40000", "#FFBB28"];
+
+const CloudinaryUsage = ({ setLoadingState, backendUrl }) => {
   const [cloudinaryData, setCloudinaryData] = useState({});
 
   const fetchCloudinaryData = async () => {
@@ -63,14 +65,15 @@ const CloudinaryUsage = ({ loadingState, setLoadingState, backendUrl }) => {
     fetchCloudinaryData();
   }, []);
 
-  const loading = loadingState.isLoadingCloudinaryData;
-
   return (
     <section className="cloudinary-box">
-      {loading && <Loader />}
       <h2 className="box-title">Cloudinary Usage / Limits</h2>
       <div className="wrap-cloudinary-content">
-        <PieChartWithPaddingAngle chartsData={chartsData} />
+        <PieChartWithPaddingAngle
+          chartsData={chartsData}
+          chartClass={chartClass}
+          COLORS={COLORS}
+        />
 
         <div className="cloudinary-info__box">
           <div className="wrapper-info">

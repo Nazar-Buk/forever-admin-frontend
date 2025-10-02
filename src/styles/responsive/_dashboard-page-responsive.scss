@@ -35,5 +35,15 @@
         }
       }
     }
+
+    section.mongo-box {
+      width: 100%;
+      padding: 20px;
+      background-color: v.$secondary-color;
+      border-radius: v.$wrapper-box-radius;
+
+      .wrap-mongo-chart {
+      }
+    }
   }
 }
