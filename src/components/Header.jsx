@@ -181,7 +181,7 @@ const Header = ({ setToken }) => {
       </div>
       <div className="header-options">
         <div className="header__user-image">
-          <img src={assets.user_avatar} alt="user avatar" />
+          <img src={assets.logo2} alt="user avatar" />
         </div>
         <div
           onClick={() => {

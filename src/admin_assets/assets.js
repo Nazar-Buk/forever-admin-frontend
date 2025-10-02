@@ -14,6 +14,7 @@ import storage_icon from "./storage-icon.png";
 import picture_icon from "./picture-icon.png";
 import speedometer_icon from "./speedometer-icon.png";
 import plan from "./plan.png";
+import logo2 from "./logo2.jpeg";
 
 export const assets = {
   logo,
@@ -32,4 +33,5 @@ export const assets = {
   picture_icon,
   speedometer_icon,
   plan,
+  logo2,
 };
