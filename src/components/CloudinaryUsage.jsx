@@ -6,22 +6,14 @@ import { assets } from "../admin_assets/assets";
 import PieChartWithPaddingAngle from "./PieChartWithPaddingAngle";
 import Loader from "./Loader";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-const CloudinaryUsage = () => {
+const CloudinaryUsage = ({ loadingState, setLoadingState, backendUrl }) => {
   const [cloudinaryData, setCloudinaryData] = useState({});
-  const [loadingState, setLoadingState] = useState({
-    isLoadingCloudinaryData: true,
-  });
-
-  console.log(cloudinaryData, "cloudinaryData");
 
   const fetchCloudinaryData = async () => {
     try {
       setLoadingState((prev) => ({ ...prev, isLoadingCloudinaryData: true }));
 
       const response = await axios.get(backendUrl + "/api/cloudinary-usage");
-      // console.log(response, "response");
       if (response.data.success) {
         setCloudinaryData(response.data.memoryData);
 
@@ -57,6 +49,16 @@ const CloudinaryUsage = () => {
     transformations,
   } = cloudinaryData;
 
+  const chartsData = {
+    data: [
+      { name: `Used ${totalUsedCredits} credits`, value: totalUsedCredits },
+      {
+        name: `Limit ${storageLimitGB?.limit} credits`,
+        value: storageLimitGB?.limit,
+      },
+    ],
+  };
+
   useEffect(() => {
     fetchCloudinaryData();
   }, []);
@@ -68,10 +70,7 @@ const CloudinaryUsage = () => {
       {loading && <Loader />}
       <h2 className="box-title">Cloudinary Usage / Limits</h2>
       <div className="wrap-cloudinary-content">
-        <PieChartWithPaddingAngle
-          storageLimitGB={storageLimitGB}
-          totalUsedCredits={totalUsedCredits}
-        />
+        <PieChartWithPaddingAngle chartsData={chartsData} />
 
         <div className="cloudinary-info__box">
           <div className="wrapper-info">
