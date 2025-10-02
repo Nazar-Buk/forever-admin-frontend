@@ -4,14 +4,18 @@
   section.dashboard {
     section.cloudinary-box {
       h2.box-title {
+        text-align: center;
       }
 
       .wrap-cloudinary-content {
+        flex-direction: column;
+
         .wrap-cloudinary-chart {
           width: 100%;
         }
 
         .cloudinary-info__box {
+          margin-top: 10px;
           width: 100%;
 
           .wrapper-info {

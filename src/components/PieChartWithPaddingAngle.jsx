@@ -4,16 +4,10 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Legend } from "recharts";
 
 const COLORS = ["#FF8042", "#0088FE", "#c40000", "#FFBB28"];
 
-const PieChartWithPaddingAngle = ({ storageLimitGB, totalUsedCredits }) => {
+const PieChartWithPaddingAngle = ({ chartsData }) => {
   // const isDesktop = useMediaQuery({ minWidth: 1200 }); // true, якщо екран ≥1200px // для прикладу
 
-  const data = [
-    { name: `Used ${totalUsedCredits} credits`, value: totalUsedCredits },
-    {
-      name: `Limit ${storageLimitGB?.limit} credits`,
-      value: storageLimitGB?.limit,
-    },
-  ];
+  const { data } = chartsData;
 
   return (
     <div className="wrap-cloudinary-chart">
