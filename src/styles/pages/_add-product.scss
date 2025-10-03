@@ -20,6 +20,8 @@ section.add-product {
         scroll-snap-type: x mandatory;
         gap: 20px;
 
+        touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+
         &::-webkit-scrollbar {
           width: 8px; // Ширина вертикального скролу
           height: 8px; // Висота горизонтального скролу
@@ -68,7 +70,7 @@ section.add-product {
 
             -webkit-touch-callout: none; /* 🚫 Save Image */
             // touch-action: none; /* ✅ drag працює на мобільному */
-            touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+            // touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
 
             .remove-button {
               position: absolute;

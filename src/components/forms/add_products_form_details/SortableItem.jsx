@@ -24,8 +24,6 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    touchAction: "manipulation", // Дозволяє обробку сенсорних подій
-    userSelect: isDragging ? "none" : "auto", // Блокує виділення лише під час перетягування
   };
 
   const handleRemoveImage = (id) => {

@@ -126,8 +126,9 @@ const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
           }),
           useSensor(TouchSensor, {
             activationConstraint: {
-              delay: 250, // затримка перед drag (0.25s)
-              tolerance: 10, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+              delay: 150, // затримка перед drag (0.25s)
+              tolerance: 5, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+              enableLongPress: true,
             },
           }),
           useSensor(KeyboardSensor)
