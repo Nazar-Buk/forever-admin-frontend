@@ -7,6 +7,7 @@ import {
   closestCenter, // стратегія визначення найближчого елемента під час перетягування
   KeyboardSensor, // сенсор для управління з клавіатури
   PointerSensor, // сенсор для мишки/тач
+  TouchSensor, // сенсор для мобільних
   useSensor, // створює один сенсор
   useSensors, // об’єднує кілька сенсорів
 } from "@dnd-kit/core";
@@ -123,6 +124,12 @@ const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
               tolerance: 10, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
             },
           }),
+          useSensor(TouchSensor, {
+            activationConstraint: {
+              delay: 250, // затримка перед drag (0.25s)
+              tolerance: 10, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+            },
+          }),
           useSensor(KeyboardSensor)
         );
 
@@ -152,6 +159,7 @@ const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
 
             <DndContext
               sensors={sensors}
+              preventDefault={true} // 👈 ключ для мобільних
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}
               modifiers={[restrictToHorizontalAxis]} // обмеження руху по горизонталі
