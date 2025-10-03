@@ -10,7 +10,7 @@
 
       .mobile-icon {
         fill: v.$mobile-menu-color;
-        width: 45px;
+        width: 35px;
         aspect-ratio: 1/1;
       }
     }
@@ -33,15 +33,15 @@
       }
 
       .close-box {
-        height: 71px;
+        height: 60px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 20px;
+        padding: 10px;
         border-bottom: 1px solid v.$sidebar-border-color;
 
         svg.close-menu-icon {
-          width: 35px;
+          width: 25px;
           aspect-ratio: 1/1;
           fill: v.$mobile-menu-color;
         }
@@ -49,7 +49,7 @@
         .mobile-logo {
           text-align: center;
           font-weight: 900;
-          font-size: 28px;
+          font-size: 24px;
           font-family: v.$mobile-menu-family;
         }
       }
@@ -72,12 +72,12 @@
 
               svg.sidebar__icon {
                 fill: v.$mobile-menu-color;
-                width: 40px;
+                width: 26px;
                 aspect-ratio: 1/1;
               }
 
               span {
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 600;
                 text-transform: uppercase;
               }

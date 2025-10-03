@@ -7,20 +7,37 @@
         h2 {
         }
 
-        .upload-images-box {
-          label.image-label {
-            .delete-img {
+        .draguble-upload-images-box {
+          margin: unset;
+          max-width: calc(100svw - 30px);
+
+          .wrap-images {
+            .image-box {
+              .remove-button {
+                img {
+                }
+              }
+
               img {
               }
             }
-
-            img.photo {
-            }
-
-            input[type="file"] {
-            }
           }
         }
+
+        // .upload-images-box {
+        //   label.image-label {
+        //     .delete-img {
+        //       img {
+        //       }
+        //     }
+
+        //     img.photo {
+        //     }
+
+        //     input[type="file"] {
+        //     }
+        //   }
+        // }
       }
 
       .form__product-name {
