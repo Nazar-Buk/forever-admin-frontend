@@ -135,7 +135,6 @@ const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
 
         // що робити після завершення перетягування
         const handleDragEnd = (event) => {
-          document.body.style.userSelect = "";
           const { active, over } = event; // active = що тягнемо, over = над чим зараз
 
           if (!over || active.id === over.id) return;
@@ -162,9 +161,6 @@ const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
               sensors={sensors}
               preventDefault={true} // 👈 ключ для мобільних
               collisionDetection={closestCenter}
-              onDragStart={(e) => {
-                document.body.style.userSelect = "none";
-              }}
               onDragEnd={handleDragEnd}
               modifiers={[restrictToHorizontalAxis]} // обмеження руху по горизонталі
             >
