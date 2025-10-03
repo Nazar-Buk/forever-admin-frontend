@@ -67,7 +67,8 @@ section.add-product {
             // user-select: none; /* Firefox/Chrome/Edge */
 
             -webkit-touch-callout: none; /* 🚫 Save Image */
-            touch-action: none; /* ✅ drag працює на мобільному */
+            // touch-action: none; /* ✅ drag працює на мобільному */
+            touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
 
             .remove-button {
               position: absolute;
