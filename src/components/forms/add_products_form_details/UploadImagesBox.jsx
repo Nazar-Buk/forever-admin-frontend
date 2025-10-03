@@ -160,7 +160,7 @@ const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
 
             <DndContext
               sensors={sensors}
-              preventDefault={true} // 👈 ключ для мобільних
+              // preventDefault={true} // 👈 ключ для мобільних
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}
               modifiers={[restrictToHorizontalAxis]} // обмеження руху по горизонталі

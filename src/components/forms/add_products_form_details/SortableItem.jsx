@@ -24,6 +24,12 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
+
+    // === Ключові зміни для мобільних ===
+    touchAction: "pan-x", // ✅ дозволяє горизонтальний скрол і drag
+    userSelect: isDragging ? "none" : "auto", // ✅ блокує виділення тексту лише під час drag
+    WebkitUserSelect: isDragging ? "none" : "auto", // Safari
+    MozUserSelect: isDragging ? "none" : "auto", // Firefox
   };
 
   const handleRemoveImage = (id) => {
