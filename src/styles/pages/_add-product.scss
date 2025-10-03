@@ -62,6 +62,10 @@ section.add-product {
             justify-content: center;
             cursor: grab;
 
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-drag: none; /* Safari/Chrome */
+            user-select: none; /* Firefox/Chrome/Edge */
+
             .remove-button {
               position: absolute;
               right: -6px;
