@@ -62,9 +62,12 @@ section.add-product {
             justify-content: center;
             cursor: grab;
 
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-drag: none; /* Safari/Chrome */
-            user-select: none; /* Firefox/Chrome/Edge */
+            // -webkit-touch-callout: none; /* iOS Safari */
+            // -webkit-user-drag: none; /* Safari/Chrome */
+            // user-select: none; /* Firefox/Chrome/Edge */
+
+            -webkit-touch-callout: none; /* 🚫 Save Image */
+            touch-action: none; /* ✅ drag працює на мобільному */
 
             .remove-button {
               position: absolute;
