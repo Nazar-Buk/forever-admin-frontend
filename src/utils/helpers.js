@@ -15,3 +15,14 @@ export const totalSlots = 7;
 
 // Sizes for product
 export const sizesArray = ["S", "M", "L", "XL", "XXL"];
+
+// Menu titles
+export const menuTitles = {
+  dashboardTitle: "Панель керування",
+  addProductsTitle: "Додати товари",
+  productListTitle: "Список товарів",
+  ordersTitle: "Замовлення",
+  addCategoryTitle: "Додати категорію",
+  categoryListTitle: "Список категорій",
+  settingsTitle: "Налаштування",
+};

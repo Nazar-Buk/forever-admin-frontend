@@ -13,7 +13,7 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 
 const addCategorySchema = yup.object({
-  categoryLabel: yup.string().required("This field is required!"),
+  categoryLabel: yup.string().required("Це поле обовʼязкове!"),
   subCategory: yup
     .array()
     .of(
@@ -23,7 +23,7 @@ const addCategorySchema = yup.object({
     )
     .test(
       "is-unique",
-      "Sub-category name must be unique! Remove duplicates.",
+      "Під-категорія повинна бути унікальною! Видаліть дублікати.",
       (values) => {
         const fieldValues = values.map((item) => item.subCategoryLabel.trim());
         const uniqueSubCategories = [...new Set(fieldValues)];
@@ -205,9 +205,9 @@ const EditCategory = () => {
       <BreadCrumbs>
         {[
           <Link key={0} to="/category-list">
-            Category List
+            Список категорій
           </Link>,
-          <span key={1}>Edit Category</span>,
+          <span key={1}>Редагувати категорії</span>,
         ]}
       </BreadCrumbs>
 
@@ -218,7 +218,7 @@ const EditCategory = () => {
       >
         <div className="edit-category-box">
           <div className="category">
-            <h2>Category</h2>
+            <h2>Категорія</h2>
             <input
               className="field category-field"
               type="text"
@@ -228,7 +228,7 @@ const EditCategory = () => {
             <p className="error">{errors.categoryLabel?.message}</p>
           </div>
           <div className="sub-category">
-            <h2>Sub-Category</h2>
+            <h2>Під-категорія</h2>
 
             {fields.map((field, ind) => {
               return (
@@ -271,14 +271,14 @@ const EditCategory = () => {
                 append({ subCategoryLabel: "" });
               }}
             >
-              + Add Sub-Category
+              + Додати під-категорію
             </button>
             <p className="error">{errors.subCategory?.message}</p>
           </div>
         </div>
         <div className="buttons">
           <button disabled={isSubmitting || !isDirty} type="submit">
-            Edit
+            Редагувати
           </button>
           <button
             type="button"
@@ -286,7 +286,7 @@ const EditCategory = () => {
               reset(initialData);
             }}
           >
-            REVERT EDIT <span className="revert-imoji">🛟</span>
+            Відмінити редагування <span className="revert-imoji">🛟</span>
           </button>
         </div>
       </form>

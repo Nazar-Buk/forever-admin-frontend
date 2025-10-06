@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { menuTitles } from "../utils/helpers";
 
 const BreadCrumbs = ({ children }) => {
   const location = useLocation();
@@ -37,7 +38,7 @@ const BreadCrumbs = ({ children }) => {
                     </g>
                   </g>
                 </svg>
-                <span>Dashboard</span>
+                <span>{menuTitles.dashboardTitle}</span>
               </div>
             ) : (
               <Link to="/">
@@ -68,7 +69,7 @@ const BreadCrumbs = ({ children }) => {
                     </g>
                   </g>
                 </svg>
-                <span>Dashboard</span>
+                <span>{menuTitles.dashboardTitle}</span>
               </Link>
             )}
           </li>

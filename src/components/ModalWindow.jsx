@@ -35,13 +35,13 @@ const ModalWindow = (props) => {
         </div>
         <div className="modal__footer">
           <button className="footer__agree" onClick={confirmAction}>
-            Yes
+            Так
           </button>
           <button
             className="footer__cancel"
             onClick={() => setIsModalOpen(false)}
           >
-            Cancel
+            Відмінити
           </button>
         </div>
       </div>

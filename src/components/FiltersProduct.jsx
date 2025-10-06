@@ -111,7 +111,7 @@ const FiltersProduct = (props) => {
       className={`filter__menu ${isFilterListVisibility ? "active" : ""}`}
     >
       <div className="filters__header">
-        <h2>Filters List</h2>
+        <h2>Фільтри</h2>
         <svg
           className="cross-icon"
           onClick={() => {
@@ -143,10 +143,10 @@ const FiltersProduct = (props) => {
       >
         <div className="filter-items__body">
           <div className="filter-item-box">
-            <p>Category</p>
+            <p>Категорія</p>
             <select name="category" id="category" {...register("category")}>
               <option value="" defaultValue>
-                Choose Category
+                Виберіть категорію
               </option>
               {categoriesData?.map((item, ind) => (
                 <option key={ind} value={item.categoryLabel}>
@@ -158,7 +158,7 @@ const FiltersProduct = (props) => {
           </div>
 
           <div className="filter-item-box">
-            <p>Sub-Category</p>
+            <p>Під-категорія</p>
             <select
               name="sub-category"
               id="sub-category"
@@ -166,7 +166,7 @@ const FiltersProduct = (props) => {
               disabled={!selectedCategory}
             >
               <option value="" defaultValue>
-                Choose Sub-Category
+                Виберіть під-категорію
               </option>
               {subCategories?.map((item, ind) => (
                 <option key={ind} value={item.subCategoryLabel}>
@@ -177,13 +177,13 @@ const FiltersProduct = (props) => {
             <p className="error">{errors.subCategory?.message}</p>
           </div>
           <div className="filter-item-box">
-            <p>Set Price</p>
+            <p>Ціна</p>
             <div className="price__fields">
               <div className="price__field">
                 <input
                   className="price__input"
                   type="number"
-                  placeholder="From: "
+                  placeholder="Від: "
                   {...register("priceFrom")}
                 />
                 <p className="error">{errors.priceFrom?.message}</p>
@@ -192,7 +192,7 @@ const FiltersProduct = (props) => {
                 <input
                   className="price__input"
                   type="number"
-                  placeholder="To: "
+                  placeholder="До: "
                   {...register("priceTo")}
                 />
                 <p className="error">{errors.priceTo?.message}</p>
@@ -201,7 +201,7 @@ const FiltersProduct = (props) => {
           </div>
         </div>
         <div className="filter__footer">
-          <button type="submit">Apply Filters</button>
+          <button type="submit">Застосувати</button>
         </div>
       </form>
     </section>

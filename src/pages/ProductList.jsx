@@ -209,11 +209,11 @@ const ProductList = () => {
         <Loader />
       ) : (
         <section className="products-list">
-          <BreadCrumbs>{[<span key={0}>Product List</span>]}</BreadCrumbs>
+          <BreadCrumbs>{[<span key={0}>Список продуктів</span>]}</BreadCrumbs>
           {isModalOpen && (
             <ModalWindow
-              title="Remove Product"
-              content={`Do you really want to remove this product "${productToDelete.productName}" ?`}
+              title="Видалити продукт"
+              content={`Ви справді хочете видалити цей продукт "${productToDelete.productName}" ?`}
               confirmAction={() => {
                 removeProduct(productToDelete.productId);
                 setIsModalOpen(false);
@@ -243,24 +243,24 @@ const ProductList = () => {
           {list.length ? (
             <>
               <div className="table-box">
-                <h2>Product List</h2>
+                <h2>Список продуктів</h2>
                 <table className="table">
                   <thead>
                     <tr className="head-row">
                       <th className="head-cell">
-                        <b>Image</b>
+                        <b>Фото</b>
                       </th>
                       <th className="head-cell">
-                        <b>Name</b>
+                        <b>Назва</b>
                       </th>
                       <th className="head-cell">
-                        <b>Category</b>
+                        <b>Категорія</b>
                       </th>
                       <th className="head-cell">
-                        <b>Price</b>
+                        <b>Ціна</b>
                       </th>
                       <th className="head-cell">
-                        <b>Action</b>
+                        <b>Дії</b>
                       </th>
                     </tr>
                   </thead>
@@ -322,7 +322,7 @@ const ProductList = () => {
             </>
           ) : (
             <div className="empty-page">
-              <h2>No Products</h2>
+              <h2>Немає продуктів</h2>
               <img src={assets.empty_page} alt="no product" />
             </div>
           )}

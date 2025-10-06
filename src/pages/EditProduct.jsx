@@ -312,12 +312,12 @@ const EditProduct = () => {
       <BreadCrumbs>
         {[
           <Link key={0} to="/list">
-            Product List
+            Список продуктів
           </Link>,
-          <span key={1}>Edit Product</span>,
+          <span key={1}>Редагувати продукт</span>,
         ]}
       </BreadCrumbs>
-      <h2 className="page-title">Edit Product</h2>
+      <h2 className="page-title">Редагувати продукт</h2>
       <EditProductForm
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
