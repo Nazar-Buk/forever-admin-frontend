@@ -34,6 +34,7 @@ const AddProduct = () => {
       subCategory: "",
       price: "",
       sizes: [],
+      isSizesAvailable: false,
       bestseller: false,
     },
     resolver: yupResolver(addEditProductSchema),
@@ -69,8 +70,11 @@ const AddProduct = () => {
       formData.append("subCategory", data.subCategory);
       formData.append("price", data.price);
       formData.append("bestseller", data.bestseller);
+      formData.append("isSizesAvailable", data.isSizesAvailable);
 
-      formData.append("sizes", JSON.stringify(data.sizes)); // бо sizes - це масив, а масиви не можна відправити через FormData
+      if (data.isSizesAvailable) {
+        formData.append("sizes", JSON.stringify(data.sizes)); // бо sizes - це масив, а масиви не можна відправити через FormData
+      }
 
       // так додавати файли в FormData
       data.images.forEach((imageData, ind) => {
@@ -144,7 +148,7 @@ const AddProduct = () => {
         backendUrl={backendUrl}
       />
 
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </section>
   );
 };

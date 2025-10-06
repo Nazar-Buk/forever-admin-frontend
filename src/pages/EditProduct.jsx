@@ -89,6 +89,7 @@ const EditProduct = () => {
         reset({
           ...product,
           images: formImages,
+          isSizesAvailable: !!product?.sizes.length,
         });
         setIsLoadingState((prev) => ({ ...prev, isLoadingProductData: false }));
       }
@@ -123,6 +124,7 @@ const EditProduct = () => {
       subCategory: "",
       price: "",
       sizes: [],
+      isSizesAvailable: false,
       bestseller: false,
     },
     resolver: yupResolver(addEditProductSchema),
@@ -163,8 +165,12 @@ const EditProduct = () => {
     return updatedFields;
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     const updatedFields = getChangedFields();
+
+    if (!data.isSizesAvailable) {
+      updatedFields.sizes = [];
+    }
 
     try {
       // new FormData() — це спеціальний об'єкт у JavaScript, який дозволяє створювати та
@@ -210,14 +216,23 @@ const EditProduct = () => {
 
             formData.append(`images`, JSON.stringify(imagesData)); // так записується масив з об'єктами
           }
+        } else if (key === "isSizesAvailable") {
+          continue; // не додаємо його в FormData
+        } else if (key === "sizes") {
+          if (data.isSizesAvailable) {
+            formData.append(key, JSON.stringify(updatedFields[key])); // бо sizes - це масив стрічок, а масиви не можна відправити через FormData
+          } else {
+            formData.append("sizes", JSON.stringify([]));
+          }
         } else if (
           Array.isArray(updatedFields[key]) ||
           Object.prototype.toString.call(updatedFields[key]) ===
             "[object Object]"
         ) {
+          //  ЦЕ БУДЕ ПРАЦЮВАТИ ДО ВСІХ МАСИВІВ (в середині яких стрічки, но то не точно) ОКРІМ Images, sizes
           // я тут ЗНАЮ (але не перевіряю) що якщо масив є зі стрічок, якщо ти незнаєш з чого масив, то роби як з "images"
           // Object.prototype.toString.call(updatedFields[key]) === '[object Object]' -- перевіряю чи це справді обєкт
-          formData.append(key, JSON.stringify(updatedFields[key])); // бо sizes - це масив стрічок, а масиви не можна відправити через FormData
+          formData.append(key, JSON.stringify(updatedFields[key]));
         } else {
           formData.append(key, updatedFields[key]);
         }
@@ -248,7 +263,7 @@ const EditProduct = () => {
           }));
           toast.success(response.data.message);
           setImgForDelete([]);
-          navigate("/list");
+          window.history.back(); // на попередню сторінку
         } else {
           toast.error(response.data.message);
           setIsLoadingState((prev) => ({
@@ -326,7 +341,7 @@ const EditProduct = () => {
         initialData={initialData}
       />
 
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </section>
   );
 };

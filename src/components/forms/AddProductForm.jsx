@@ -57,6 +57,7 @@ const AddProductForm = (props) => {
   };
 
   const selectedCategoryLabel = watch("category");
+  const isSizesAvailable = watch("isSizesAvailable");
 
   const subCategories =
     categoryData.find((item) => item.categoryLabel === selectedCategoryLabel)
@@ -69,6 +70,16 @@ const AddProductForm = (props) => {
   useEffect(() => {
     setValue("subCategory", ""); // коли міняю категорію то підкатегорія має стати пустою
   }, [selectedCategoryLabel]);
+
+  useEffect(() => {
+    if (!isSizesAvailable) {
+      setValue("sizes", [], {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+    }
+  }, [isSizesAvailable]);
 
   return (
     <form
@@ -253,43 +264,55 @@ const AddProductForm = (props) => {
       </div>
       <div className="form__product-size-box">
         <h2>Product Sizes</h2>
-        <div className="sizes-box">
-          {sizesArray.map((item, index) => (
-            <label
-              key={index}
-              style={{
-                border: watch("sizes").includes(item) ? "2px solid orange" : "",
-              }}
-              className="size"
-            >
-              <input
-                className="size-checkbox"
-                type="checkbox"
-                {...register("sizes")}
-                checked={watch("sizes")?.includes(item)} // це піздєц як важливо, бо checked завжди буде true
-                onChange={(e) => {
-                  const { checked } = e.target;
-                  const currentSizes = getValues("sizes") || [];
-                  setValue(
-                    "sizes",
-                    checked
-                      ? [...currentSizes, item]
-                      : currentSizes.filter((size) => size != item),
-                    { shouldDirty: true }
-                  );
-                }}
-              />
-
-              <div>{item}</div>
-            </label>
-          ))}
+        <div className="form__isSizesAvailable-box">
+          <label className="isSizesAvailable">
+            <input type="checkbox" {...register("isSizesAvailable")} />
+            <p>Do you need to add sizes for your product? </p>
+          </label>
         </div>
-        <p className="error">{errors.sizes?.message}</p>
+        {isSizesAvailable && (
+          <div className="sizes-box">
+            {sizesArray.map((item, index) => (
+              <label
+                key={index}
+                style={{
+                  border: watch("sizes").includes(item)
+                    ? "2px solid orange"
+                    : "",
+                }}
+                className="size"
+              >
+                <input
+                  className="size-checkbox"
+                  type="checkbox"
+                  {...register("sizes")}
+                  checked={watch("sizes")?.includes(item)} // це піздєц як важливо, бо checked завжди буде true
+                  onChange={(e) => {
+                    const { checked } = e.target;
+                    const currentSizes = getValues("sizes") || [];
+                    setValue(
+                      "sizes",
+                      checked
+                        ? [...currentSizes, item]
+                        : currentSizes.filter((size) => size != item),
+                      { shouldDirty: true }
+                    );
+                  }}
+                />
+
+                <div>{item}</div>
+              </label>
+            ))}
+
+            <p className="error">{errors.sizes?.message}</p>
+          </div>
+        )}
       </div>
       <div className="form__bestseller-box">
+        <h2>Bestseller</h2>
         <label className="bestseller">
           <input type="checkbox" {...register("bestseller")} />
-          <p>Add to bestseller</p>
+          <p>Add To Bestseller</p>
         </label>
       </div>
 

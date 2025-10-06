@@ -12,9 +12,18 @@ export const addEditProductSchema = yup.object({
     .min(1)
     .positive("Use only positive numbers")
     .required("Add product price"),
+  isSizesAvailable: yup.boolean(),
+  // sizes: yup
+  //   .array()
+  //   .of(yup.string())
+  //   .min(1, "Please select at least one size!"),
   sizes: yup
     .array()
     .of(yup.string())
-    .min(1, "Please select at least one size!"),
+    .when("isSizesAvailable", {
+      is: true,
+      then: (schema) => schema.min(1, "Please select at least one size!"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   bestseller: yup.boolean(),
 });

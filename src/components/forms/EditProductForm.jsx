@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import heic2any from "heic2any"; // для конвертації heic в jpg
 import EditUploadImagesBox from "./edit_products_form_details/EditUploadImagesBox";
 
@@ -26,6 +26,8 @@ const EditProductForm = (props) => {
     setImgForDelete,
     initialData,
   } = props;
+
+  const isSizesAvailable = watch("isSizesAvailable");
 
   return (
     <form
@@ -246,43 +248,56 @@ const EditProductForm = (props) => {
       </div>
       <div className="form__product-size-box">
         <h2>Product Sizes</h2>
-        <div className="sizes-box">
-          {sizesArray.map((item, index) => (
-            <label
-              key={index}
-              style={{
-                border: watch("sizes").includes(item) ? "2px solid orange" : "",
-              }}
-              className="size"
-            >
-              <input
-                className="size-checkbox"
-                type="checkbox"
-                {...register("sizes")}
-                checked={watch("sizes")?.includes(item)} // це піздєц як важливо, бо checked завжди буде true
-                onChange={(e) => {
-                  const { checked } = e.target;
-                  const currentSizes = getValues("sizes") || [];
-                  setValue(
-                    "sizes",
-                    checked
-                      ? [...currentSizes, item]
-                      : currentSizes.filter((size) => size != item),
-                    { shouldDirty: true }
-                  );
-                }}
-              />
-
-              <div>{item}</div>
-            </label>
-          ))}
+        <div className="form__isSizesAvailable-box">
+          <label className="isSizesAvailable">
+            <input type="checkbox" {...register("isSizesAvailable")} />
+            <p>Do you need to add sizes for your product? </p>
+          </label>
         </div>
-        <p className="error">{errors.sizes?.message}</p>
+        {isSizesAvailable && (
+          <div className="sizes-box">
+            {sizesArray.map((item, index) => (
+              <label
+                key={index}
+                style={{
+                  border: watch("sizes").includes(item)
+                    ? "2px solid orange"
+                    : "",
+                }}
+                className="size"
+              >
+                <input
+                  className="size-checkbox"
+                  type="checkbox"
+                  value={item}
+                  {...register("sizes")}
+                  checked={watch("sizes")?.includes(item)} // це піздєц як важливо, бо checked завжди буде true
+                  onChange={(e) => {
+                    const { checked } = e.target;
+                    const currentSizes = getValues("sizes") || [];
+                    setValue(
+                      "sizes",
+                      checked
+                        ? [...currentSizes, item]
+                        : currentSizes.filter((size) => size != item),
+                      { shouldDirty: true }
+                    );
+                  }}
+                />
+
+                <div>{item}</div>
+              </label>
+            ))}
+            <p className="error">{errors.sizes?.message}</p>
+          </div>
+        )}
       </div>
       <div className="form__bestseller-box">
+        <h2>Bestseller</h2>
+
         <label className="bestseller">
           <input type="checkbox" {...register("bestseller")} />
-          <p>Add to bestseller</p>
+          <p>Add To Bestseller</p>
         </label>
       </div>
 
@@ -294,7 +309,10 @@ const EditProductForm = (props) => {
           type="button"
           onClick={() => {
             setImgForDelete([]);
-            reset(initialData);
+            reset({
+              ...initialData,
+              isSizesAvailable: !!initialData?.sizes.length,
+            });
           }}
         >
           REVERT EDIT <span className="revert-imoji">🛟</span>

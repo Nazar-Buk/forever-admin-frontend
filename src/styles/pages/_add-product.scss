@@ -251,6 +251,27 @@ section.add-product {
         margin-bottom: 20px;
       }
 
+      .form__isSizesAvailable-box {
+        margin-bottom: 30px;
+
+        label.isSizesAvailable {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          input[type="checkbox"] {
+            min-width: auto;
+            width: 20px;
+            aspect-ratio: 1/1;
+          }
+
+          p {
+            font-size: 18px;
+          }
+        }
+      }
+
       .sizes-box {
         display: flex;
         flex-wrap: wrap;
@@ -276,6 +297,10 @@ section.add-product {
 
     .form__bestseller-box {
       margin-bottom: 30px;
+
+      h2 {
+        margin-bottom: 20px;
+      }
 
       label.bestseller {
         cursor: pointer;
