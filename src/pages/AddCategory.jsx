@@ -10,7 +10,7 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 
 const addCategorySchema = yup.object({
-  categoryLabel: yup.string().required("This field is required!"),
+  categoryLabel: yup.string().required("Це поле обовʼязкове!"),
   subCategory: yup
     .array()
     .of(
@@ -20,7 +20,7 @@ const addCategorySchema = yup.object({
     )
     .test(
       "is-unique",
-      "Sub-category name must be unique! Remove duplicates.",
+      "Під-категорія повинна бути унікальною! Видаліть дублікати.",
       (values) => {
         const fieldValues = values.map((item) => item.value.trim());
         const uniqueSubCategories = [...new Set(fieldValues)];
@@ -106,7 +106,7 @@ const AddCategory = () => {
   return (
     <section className="add-category">
       {isLoading && <Loader />}
-      <BreadCrumbs>{[<span key={0}>Add Category</span>]}</BreadCrumbs>
+      <BreadCrumbs>{[<span key={0}>Додати категорію</span>]}</BreadCrumbs>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -115,17 +115,17 @@ const AddCategory = () => {
       >
         <div className="add-category-box">
           <div className="category">
-            <h2>Category</h2>
+            <h2>Категорія</h2>
             <input
               className="field category-field"
               type="text"
-              placeholder="Type category name"
+              placeholder="Напишіть категорію"
               {...register("categoryLabel")}
             />
             <p className="error">{errors.categoryLabel?.message}</p>
           </div>
           <div className="sub-category">
-            <h2>Sub-Category</h2>
+            <h2>Під-категорія</h2>
 
             {fields.map((field, ind) => {
               return (
@@ -133,7 +133,7 @@ const AddCategory = () => {
                   <input
                     className="field sub-category-field"
                     type="text"
-                    placeholder="Type sub-category name"
+                    placeholder="Напишіть під-категорію"
                     {...register(`subCategory[${ind}].value`)}
                   />
                   {fields.length > 1 && (
@@ -168,12 +168,12 @@ const AddCategory = () => {
                 append({ value: "" });
               }}
             >
-              + Add Sub-Category
+              + Додати під-категорію
             </button>
             <p className="error">{errors.subCategory?.message}</p>
           </div>
         </div>
-        <button type="submit">ADD</button>
+        <button type="submit">Додати</button>
       </form>
       {/* <DevTool control={control} /> */}
     </section>

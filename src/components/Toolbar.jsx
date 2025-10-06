@@ -6,10 +6,10 @@ import useClickOutside from "../hooks/useClickOutside";
 import FiltersProduct from "./FiltersProduct";
 
 const sortTitles = {
-  date_new: "Newest",
-  date_old: "Oldest",
-  price_desc: "Price High",
-  price_asc: "Price Low",
+  date_new: "Найновіші",
+  date_old: "Найстаріші",
+  price_desc: "Від дорохих до дешевих",
+  price_asc: "Від дешевих до дорогих",
 };
 
 const Toolbar = (props) => {
@@ -97,7 +97,7 @@ const Toolbar = (props) => {
             className="filter__box"
             onClick={() => setIsFilterListVisibility(true)}
           >
-            <div>Filters</div>
+            <div>Фільтри</div>
             <svg
               className="filter-icon"
               version="1.1"
@@ -121,7 +121,7 @@ const Toolbar = (props) => {
             </svg>
           </div>
           <div className="wrap-sort-box" ref={customSelectRef}>
-            Sort by:
+            Сортувати за:
             <div
               onClick={(e) => {
                 setIsSortOpen((prev) => !prev);
@@ -154,25 +154,25 @@ const Toolbar = (props) => {
                     onClick={(e) => handleSelect(e, "date_new", "Newest")}
                     className="sort__item"
                   >
-                    Newest
+                    Найновіші
                   </div>
                   <div
                     onClick={(e) => handleSelect(e, "date_old", "Oldest")}
                     className="sort__item"
                   >
-                    Oldest
+                    Найстаріші
                   </div>
                   <div
                     onClick={(e) => handleSelect(e, "price_desc", "Price Low")}
                     className="sort__item"
                   >
-                    Price High
+                    Від дорогих до дешевих
                   </div>
                   <div
                     onClick={(e) => handleSelect(e, "price_asc", "Price High")}
                     className="sort__item"
                   >
-                    Price Low
+                    Від дешевих до дорогих
                   </div>
                 </div>
               )}

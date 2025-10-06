@@ -13,7 +13,7 @@ import { imagesArray } from "../utils/helpers";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Loader from "../components/Loader";
 import AddProductForm from "../components/forms/AddProductForm";
-import { totalSlots } from "../utils/helpers";
+import { totalSlots, menuTitles } from "../utils/helpers";
 
 const AddProduct = () => {
   const { token } = useContext(AdminContext);
@@ -129,7 +129,9 @@ const AddProduct = () => {
   return (
     <section className="add-product">
       {isLoading && <Loader />}
-      <BreadCrumbs>{[<span key={0}>Add Product</span>]}</BreadCrumbs>
+      <BreadCrumbs>
+        {[<span key={0}>{menuTitles.addProductsTitle}</span>]}
+      </BreadCrumbs>
       <AddProductForm
         register={register}
         handleSubmit={handleSubmit}

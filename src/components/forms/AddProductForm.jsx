@@ -88,7 +88,7 @@ const AddProductForm = (props) => {
       className="add-product__form"
     >
       <div className="form__upload-img">
-        <h2>Upload Image</h2>
+        <h2>Завантажити зображення</h2>
         <UploadImagesBox
           name={name}
           control={control}
@@ -195,20 +195,20 @@ const AddProductForm = (props) => {
         */}
       </div>
       <div className="form__product-name">
-        <h2>Product Name</h2>
+        <h2>Назва продукту</h2>
         <input
           className="product-name"
           type="text"
-          placeholder="Type product name"
+          placeholder="Напишіть назву продукту"
           {...register("name")}
         />
         <p className="error">{errors.name?.message}</p>
       </div>
       <div className="form__product-desc">
-        <h2>Product Description</h2>
+        <h2>Опис продукту</h2>
         <textarea
           className="product-area"
-          placeholder="Type product description"
+          placeholder="Опишіть продукт"
           rows="10"
           {...register("description")}
         ></textarea>
@@ -217,10 +217,10 @@ const AddProductForm = (props) => {
 
       <div className="form__category-box">
         <div className="category">
-          <h2>Product Category</h2>
+          <h2>Категорія</h2>
           <select id="category" {...register("category")}>
             <option value="" defaultValue className="category__item">
-              Choose Category
+              Виберіть категорію
             </option>
             {categoryData?.map((item) => (
               <option
@@ -235,14 +235,14 @@ const AddProductForm = (props) => {
           <p className="error">{errors.category?.message}</p>
         </div>
         <div className="subcategory">
-          <h2>Sub Category</h2>
+          <h2>Під-категорія</h2>
           <select
             id="sub-category"
             {...register("subCategory")}
             disabled={!selectedCategoryLabel}
           >
             <option value="" defaultValue>
-              Choose Sub-Category
+              Виберіть під-категорію
             </option>
             {subCategories?.map((item, ind) => (
               <option
@@ -257,17 +257,21 @@ const AddProductForm = (props) => {
           <p className="error">{errors.subCategory?.message}</p>
         </div>
         <div className="price">
-          <h2>Product Price</h2>
-          <input type="number" placeholder="Add price" {...register("price")} />
+          <h2>Ціна продукту</h2>
+          <input
+            type="number"
+            placeholder="Додайте ціну"
+            {...register("price")}
+          />
           <p className="error">{errors.price?.message}</p>
         </div>
       </div>
       <div className="form__product-size-box">
-        <h2>Product Sizes</h2>
+        <h2>Ціна продукту</h2>
         <div className="form__isSizesAvailable-box">
           <label className="isSizesAvailable">
             <input type="checkbox" {...register("isSizesAvailable")} />
-            <p>Do you need to add sizes for your product? </p>
+            <p>Вам потрібно додати розміри до вашого продукту? </p>
           </label>
         </div>
         {isSizesAvailable && (
@@ -309,14 +313,14 @@ const AddProductForm = (props) => {
         )}
       </div>
       <div className="form__bestseller-box">
-        <h2>Bestseller</h2>
+        <h2>Хіт продажів</h2>
         <label className="bestseller">
           <input type="checkbox" {...register("bestseller")} />
-          <p>Add To Bestseller</p>
+          <p>Додати до "Хіт продажів"</p>
         </label>
       </div>
 
-      <button type="submit">ADD</button>
+      <button type="submit">ДОДАТИ</button>
     </form>
   );
 };

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { assets } from "../admin_assets/assets";
+import { menuTitles } from "../utils/helpers";
 
 const Header = ({ setToken }) => {
   const [visible, setVisible] = useState(false);
@@ -63,7 +64,7 @@ const Header = ({ setToken }) => {
                   <rect x="2" y="15" width="9" height="7" rx="2"></rect>
                   <rect x="13" y="11" width="9" height="11" rx="2"></rect>
                 </svg>
-                <span>Dashboard</span>
+                <span>{menuTitles.dashboardTitle}</span>
               </NavLink>
             </li>
             <li>
@@ -110,7 +111,7 @@ const Header = ({ setToken }) => {
                     </g>
                   </g>
                 </svg>
-                <span>Add Products</span>
+                <span>{menuTitles.addProductsTitle}</span>
               </NavLink>
             </li>
             <li>
@@ -159,7 +160,7 @@ const Header = ({ setToken }) => {
                     </g>
                   </g>
                 </svg>
-                <span>Product List</span>
+                <span>{menuTitles.addProductsTitle}</span>
               </NavLink>
             </li>
             <li>
@@ -181,7 +182,7 @@ const Header = ({ setToken }) => {
                     d="M4.17157 3.17157C3 4.34315 3 6.22876 3 10V14C3 17.7712 3 19.6569 4.17157 20.8284C5.34315 22 7.22876 22 11 22H13C16.7712 22 18.6569 22 19.8284 20.8284C20.9812 19.6756 20.9997 17.8316 21 14.1801L18.1817 16.9984C17.9119 17.2683 17.691 17.4894 17.4415 17.6841C17.1491 17.9121 16.8328 18.1076 16.4981 18.2671C16.2124 18.4032 15.9159 18.502 15.5538 18.6225L13.2421 19.3931C12.4935 19.6426 11.6682 19.4478 11.1102 18.8898C10.5523 18.3318 10.3574 17.5065 10.607 16.7579L10.8805 15.9375L11.3556 14.5121L11.3775 14.4463C11.4981 14.0842 11.5968 13.7876 11.7329 13.5019C11.8924 13.1672 12.0879 12.8509 12.316 12.5586C12.5106 12.309 12.7317 12.0881 13.0017 11.8183L17.0081 7.81188L18.12 6.70004L18.2472 6.57282C18.9626 5.85741 19.9003 5.49981 20.838 5.5C20.6867 4.46945 20.3941 3.73727 19.8284 3.17157C18.6569 2 16.7712 2 13 2H11C7.22876 2 5.34315 2 4.17157 3.17157ZM7.25 9C7.25 8.58579 7.58579 8.25 8 8.25H14.5C14.9142 8.25 15.25 8.58579 15.25 9C15.25 9.41421 14.9142 9.75 14.5 9.75H8C7.58579 9.75 7.25 9.41421 7.25 9ZM7.25 13C7.25 12.5858 7.58579 12.25 8 12.25H10.5C10.9142 12.25 11.25 12.5858 11.25 13C11.25 13.4142 10.9142 13.75 10.5 13.75H8C7.58579 13.75 7.25 13.4142 7.25 13ZM7.25 17C7.25 16.5858 7.58579 16.25 8 16.25H9.5C9.91421 16.25 10.25 16.5858 10.25 17C10.25 17.4142 9.91421 17.75 9.5 17.75H8C7.58579 17.75 7.25 17.4142 7.25 17Z"
                   />
                 </svg>
-                <span>Orders</span>
+                <span>{menuTitles.ordersTitle}</span>
               </NavLink>
             </li>
             <li>
@@ -210,7 +211,7 @@ const Header = ({ setToken }) => {
                     <g id="Capa_1_9_"></g>
                   </g>
                 </svg>
-                <span>Add Category</span>
+                <span>{menuTitles.addCategoryTitle}</span>
               </NavLink>
             </li>
             <li>
@@ -233,7 +234,7 @@ const Header = ({ setToken }) => {
                   <path d="M5 9H15V11H5V9Z" />
                   <path d="M15 13H5V15H15V13Z" />
                 </svg>
-                <span>Category List</span>
+                <span>{menuTitles.categoryListTitle}</span>
               </NavLink>
             </li>
             <li>
@@ -252,7 +253,7 @@ const Header = ({ setToken }) => {
                     fillRule="evenodd"
                   />
                 </svg>
-                <span>Settings</span>
+                <span>{menuTitles.settingsTitle}</span>
               </NavLink>
             </li>
           </ul>

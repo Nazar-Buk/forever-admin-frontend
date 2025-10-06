@@ -127,7 +127,7 @@ const CategoryList = () => {
         <Loader />
       ) : (
         <section className="category-list">
-          <BreadCrumbs>{[<span key={0}>Category List</span>]}</BreadCrumbs>
+          <BreadCrumbs>{[<span key={0}>Список категорій</span>]}</BreadCrumbs>
           {isModalOpen && (
             <ModalWindow
               title="Remove Category"
@@ -140,18 +140,18 @@ const CategoryList = () => {
           )}
           {categoryList.length ? (
             <div className="table-box">
-              <h2>Category List</h2>
+              <h2>Список категорій</h2>
               <table className="table">
                 <thead>
                   <tr className="head-row">
                     <th className="head-cell">
-                      <b>Category</b>
+                      <b>Категорія</b>
                     </th>
                     <th className="head-cell">
-                      <b>Sub-Category</b>
+                      <b>Під-категорія</b>
                     </th>
                     <th className="head-cell">
-                      <b>Action</b>
+                      <b>Дії</b>
                     </th>
                   </tr>
                 </thead>
@@ -207,7 +207,7 @@ const CategoryList = () => {
             </div>
           ) : (
             <div className="empty-page">
-              <h2>No Categories</h2>
+              <h2>Немає категорій</h2>
               <img src={assets.empty_page} alt="no categories" />
             </div>
           )}

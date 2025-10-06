@@ -2,16 +2,16 @@ import * as yup from "yup";
 
 export const addEditProductSchema = yup.object({
   images: yup.array().of(yup.mixed().nullable()),
-  name: yup.string().required("This field is required!"),
-  description: yup.string().required("This field is required!"),
-  category: yup.string().required("Choose the category"),
-  subCategory: yup.string().required("Choose the sub-category"),
+  name: yup.string().required("Це поле обовʼязкове!"),
+  description: yup.string().required("Це поле обовʼязкове!"),
+  category: yup.string().required("Виберіть категорію"),
+  subCategory: yup.string().required("Виберіть під-категорію"),
   price: yup
     .number()
-    .typeError("The price must be a number!")
+    .typeError("Ціна має бути числом!")
     .min(1)
-    .positive("Use only positive numbers")
-    .required("Add product price"),
+    .positive("Використовуйте тільки додатні числа")
+    .required("Додати ціну продукту"),
   isSizesAvailable: yup.boolean(),
   // sizes: yup
   //   .array()
@@ -22,7 +22,8 @@ export const addEditProductSchema = yup.object({
     .of(yup.string())
     .when("isSizesAvailable", {
       is: true,
-      then: (schema) => schema.min(1, "Please select at least one size!"),
+      then: (schema) =>
+        schema.min(1, "Будь ласка, виберіть що найменше 1 розмір!"),
       otherwise: (schema) => schema.notRequired(),
     }),
   bestseller: yup.boolean(),
