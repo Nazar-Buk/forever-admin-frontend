@@ -10,6 +10,8 @@ section.add-product {
 
       h2 {
         margin-bottom: 20px;
+        user-select: none; /* Firefox/Chrome/Edge */ //
+        -webkit-user-modify: read-only;
       }
 
       .draguble-upload-images-box {
