@@ -39,6 +39,16 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
     WebkitUserDrag: "none", // 🚫 не дозволяє перетягування картинки
     WebkitUserModify: "read-only", // 🚫 блокує лупу-збільшення
     pointerEvents: "auto",
+
+    /* 🔧 Основне — iOS без лупи, без меню, drag працює */
+    touchAction: "none", // drag пріоритет
+    userSelect: "none",
+    WebkitUserSelect: "none",
+    WebkitTouchCallout: "none", // 🚫 меню "копіювати / зберегти"
+    WebkitTapHighlightColor: "transparent", // 🚫 сірий підсвіт
+    WebkitUserDrag: "none", // 🚫 не тягне зображення як файл
+    WebkitUserModify: "read-only", // 🚫 лупа
+    pointerEvents: "auto",
   };
 
   const handleRemoveImage = (id) => {
