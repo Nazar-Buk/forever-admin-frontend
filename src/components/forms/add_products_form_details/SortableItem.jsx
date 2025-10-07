@@ -30,6 +30,15 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
     userSelect: isDragging ? "none" : "auto", // ✅ блокує виділення тексту лише під час drag
     WebkitUserSelect: isDragging ? "none" : "auto", // Safari
     MozUserSelect: isDragging ? "none" : "auto", // Firefox
+
+    touchAction: "none",
+    userSelect: "none",
+    WebkitUserSelect: "none",
+    WebkitTouchCallout: "none", // 🚫 прибирає лупу і меню збереження
+    WebkitTapHighlightColor: "transparent", // 🚫 прибирає сіру підсвітку при тапі
+    WebkitUserDrag: "none", // 🚫 не дозволяє перетягування картинки
+    WebkitUserModify: "read-only", // 🚫 блокує лупу-збільшення
+    pointerEvents: "auto",
   };
 
   const handleRemoveImage = (id) => {
