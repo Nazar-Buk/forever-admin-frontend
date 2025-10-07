@@ -160,7 +160,7 @@ const Header = ({ setToken }) => {
                     </g>
                   </g>
                 </svg>
-                <span>{menuTitles.addProductsTitle}</span>
+                <span>{menuTitles.productListTitle}</span>
               </NavLink>
             </li>
             <li>

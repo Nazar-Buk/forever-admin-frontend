@@ -90,19 +90,27 @@ const EditUploadImagesBox = ({
                 })
               );
 
+              // Присвоюємо кожному файлу унікальне ім’я (щоб уникнути дублювання)
+              const uniqueFiles = correctFormatFiles.map(
+                (file) =>
+                  new File([file], `${nanoid()}-${file.name}`, {
+                    type: file.type,
+                  })
+              );
+
               const newArray = [...value];
               let fileIndex = 0;
 
               for (
                 let i = 0;
-                i < newArray.length && fileIndex < correctFormatFiles.length;
+                i < newArray.length && fileIndex < uniqueFiles.length;
                 i++
               ) {
                 if (!newArray[i].preview) {
                   newArray[i] = {
                     ...newArray[i],
-                    file: correctFormatFiles[fileIndex],
-                    preview: URL.createObjectURL(correctFormatFiles[fileIndex]),
+                    file: uniqueFiles[fileIndex],
+                    preview: URL.createObjectURL(uniqueFiles[fileIndex]),
                   };
                   fileIndex++;
                 }
