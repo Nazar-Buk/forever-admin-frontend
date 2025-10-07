@@ -73,6 +73,7 @@ section.add-product {
             justify-content: center;
             cursor: grab;
             touch-action: pan-x;
+            user-select: none;
 
             .remove-button {
               position: absolute;
