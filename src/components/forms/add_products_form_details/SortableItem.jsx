@@ -31,7 +31,7 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
     WebkitUserSelect: isDragging ? "none" : "auto", // Safari
     MozUserSelect: isDragging ? "none" : "auto", // Firefox
 
-    touchAction: isDragging ? "pan-x" : "none", // 👉 скрол працює, поки не тягнемо,
+    touchAction: image ? "auto" : "pan-x",
     userSelect: "none",
     WebkitUserSelect: "none",
     WebkitTouchCallout: "none", // 🚫 прибирає лупу і меню збереження

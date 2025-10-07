@@ -63,6 +63,7 @@ section.add-product {
           gap: 20px;
           user-select: none; /* Firefox/Chrome/Edge */ //
           -webkit-user-modify: read-only;
+          touch-action: pan-x;
 
           .image-box {
             position: relative;
