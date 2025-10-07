@@ -72,9 +72,11 @@ section.add-product {
             align-items: center;
             justify-content: center;
             cursor: grab;
+
             touch-action: pan-x;
             user-select: none;
-            -webkit-touch-callout: none;
+            // -webkit-touch-callout: none;
+            -webkit-user-drag: none;
 
             .remove-button {
               position: absolute;
