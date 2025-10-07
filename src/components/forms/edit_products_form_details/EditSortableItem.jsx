@@ -28,6 +28,16 @@ const EditSortableItem = ({
     transform: CSS.Transform.toString(transform), // перетворення (переміщення)
     transition, // плавна анімація
     boxShadow: isDragging ? "0 0 20px rgba(242, 242, 242, 0.5)" : "none", // тінь, коли тягнемо
+    backgroundImage: `url(${image || assets.upload_area})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+
+    // === Ключові зміни для мобільних ===
+    touchAction: "pan-x", // ✅ дозволяє горизонтальний скрол і drag
+    userSelect: isDragging ? "none" : "auto", // ✅ блокує виділення тексту лише під час drag
+    WebkitUserSelect: isDragging ? "none" : "auto", // Safari
+    MozUserSelect: isDragging ? "none" : "auto", // Firefox
   };
 
   const handleRemoveImage = (id, public_id) => {
@@ -60,7 +70,7 @@ const EditSortableItem = ({
         if (!image) open(); // відкриваємо системне вікно вибору файлів
       }}
     >
-      <img src={image || assets.upload_area} alt="preview" />
+      {/* <img src={image || assets.upload_area} alt="preview" /> */}
       <div
         className="remove-button"
         style={{

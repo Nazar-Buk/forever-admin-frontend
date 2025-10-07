@@ -62,6 +62,10 @@ section.edit-product {
             justify-content: center;
             cursor: grab;
 
+            -webkit-touch-callout: none; /* 🚫 Save Image */
+            // touch-action: none; /* ✅ drag працює на мобільному */
+            touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+
             .remove-button {
               position: absolute;
               right: -6px;

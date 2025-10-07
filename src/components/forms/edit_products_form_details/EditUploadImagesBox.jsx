@@ -7,6 +7,7 @@ import {
   closestCenter, // стратегія визначення найближчого елемента під час перетягування
   KeyboardSensor, // сенсор для управління з клавіатури
   PointerSensor, // сенсор для мишки/тач
+  TouchSensor,
   useSensor, // створює один сенсор
   useSensors, // об’єднує кілька сенсорів
 } from "@dnd-kit/core";
@@ -134,6 +135,13 @@ const EditUploadImagesBox = ({
             activationConstraint: {
               delay: 250, // затримка перед drag (0.25s)
               tolerance: 10, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+            },
+          }),
+          useSensor(TouchSensor, {
+            activationConstraint: {
+              delay: 150, // затримка перед drag (0.25s)
+              tolerance: 5, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+              enableLongPress: true,
             },
           }),
           useSensor(KeyboardSensor)
