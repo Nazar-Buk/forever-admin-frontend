@@ -37,7 +37,7 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
     // WebkitTouchCallout: "none", // 🚫 прибирає лупу і меню збереження
     // WebkitTapHighlightColor: "transparent", // 🚫 прибирає сіру підсвітку при тапі
     // WebkitUserDrag: "none", // 🚫 не дозволяє перетягування картинки
-    WebkitUserModify: "read-only", // 🚫 блокує лупу-збільшення
+    // WebkitUserModify: "read-only", // 🚫 блокує лупу-збільшення
     // pointerEvents: "auto",
   };
 
