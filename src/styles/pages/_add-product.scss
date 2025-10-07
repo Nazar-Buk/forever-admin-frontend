@@ -20,6 +20,7 @@ section.add-product {
         scroll-snap-type: x mandatory;
         gap: 20px;
 
+        user-select: none; /* Firefox/Chrome/Edge */
         touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
 
         &::-webkit-scrollbar {
