@@ -74,21 +74,17 @@ section.add-product {
             justify-content: center;
             cursor: grab;
 
-            // -webkit-touch-callout: none; /* iOS Safari */
-            // -webkit-user-drag: none; /* Safari/Chrome */
-            // user-select: none; /* Firefox/Chrome/Edge */
+            // -webkit-touch-callout: none; /* 🚫 Save Image */
+            // // touch-action: none; /* ✅ drag працює на мобільному */
+            // touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+            // user-select: none;
+            // -webkit-user-modify: read-only;
 
-            -webkit-touch-callout: none; /* 🚫 Save Image */
+            // /* 🧠 Ключове — вимикаємо все, що заважає drag і зуму на iOS */
+            // -webkit-touch-callout: none; /* 🚫 Забороняє “копіювати/зберегти зображення” */
+            // -webkit-user-drag: none; /* 🚫 Забороняє Safari перетягувати картинку як файл */
+            // -webkit-tap-highlight-color: transparent; /* 🚫 Без сірої підсвітки при тапі */
             // touch-action: none; /* ✅ drag працює на мобільному */
-            touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
-            user-select: none;
-            -webkit-user-modify: read-only;
-
-            /* 🧠 Ключове — вимикаємо все, що заважає drag і зуму на iOS */
-            -webkit-touch-callout: none; /* 🚫 Забороняє “копіювати/зберегти зображення” */
-            -webkit-user-drag: none; /* 🚫 Забороняє Safari перетягувати картинку як файл */
-            -webkit-tap-highlight-color: transparent; /* 🚫 Без сірої підсвітки при тапі */
-            touch-action: none; /* ✅ drag працює на мобільному */
 
             .remove-button {
               position: absolute;
