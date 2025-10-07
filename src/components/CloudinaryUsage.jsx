@@ -53,9 +53,12 @@ const CloudinaryUsage = ({ setLoadingState, backendUrl }) => {
 
   const chartsData = {
     data: [
-      { name: `Used ${totalUsedCredits} credits`, value: totalUsedCredits },
       {
-        name: `Limit ${storageLimitGB?.limit} credits`,
+        name: `Використано ${totalUsedCredits} кредитів`,
+        value: totalUsedCredits,
+      },
+      {
+        name: `Ліміт ${storageLimitGB?.limit} Кредитів`,
         value: storageLimitGB?.limit,
       },
     ],
@@ -67,7 +70,7 @@ const CloudinaryUsage = ({ setLoadingState, backendUrl }) => {
 
   return (
     <section className="cloudinary-box">
-      <h2 className="box-title">Cloudinary Usage / Limits</h2>
+      <h2 className="box-title">Cloudinary Використано / Ліміти</h2>
       <div className="wrap-cloudinary-content">
         <PieChartWithPaddingAngle
           chartsData={chartsData}
@@ -80,7 +83,7 @@ const CloudinaryUsage = ({ setLoadingState, backendUrl }) => {
             <div className="picture-title">
               <img className="info__img" src={assets.plan} alt="Plan icon" />
               <h2 className="info__title">
-                Current Plan: <span>{plan}</span>
+                Поточний План: <span>{plan}</span>
               </h2>
             </div>
           </div>

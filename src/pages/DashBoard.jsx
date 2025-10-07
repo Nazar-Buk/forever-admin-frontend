@@ -21,7 +21,7 @@ const DashBoard = () => {
       <BreadCrumbs />
       {loading && <Loader />}
 
-      <h2 className="page-title">Dashboard</h2>
+      <h2 className="page-title">Панель керування</h2>
       <CloudinaryUsage
         setLoadingState={setLoadingState}
         backendUrl={backendUrl}

@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import heic2any from "heic2any"; // для конвертації heic в jpg
-// import { nanoid } from "nanoid"; // для унікальних id, це дууже треба бо будуть стрибки при переміщенні картинок
+import { nanoid } from "nanoid"; // для унікальних id, це дууже треба бо будуть стрибки при переміщенні картинок
 import {
   DndContext, // головний контейнер drag&drop
   closestCenter, // стратегія визначення найближчого елемента під час перетягування
@@ -86,19 +86,27 @@ const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
                 })
               );
 
+              // Присвоюємо кожному файлу унікальне ім’я (щоб уникнути дублювання)
+              const uniqueFiles = correctFormatFiles.map(
+                (file) =>
+                  new File([file], `${nanoid()}-${file.name}`, {
+                    type: file.type,
+                  })
+              );
+
               const newArray = [...value];
               let fileIndex = 0;
 
               for (
                 let i = 0;
-                i < newArray.length && fileIndex < correctFormatFiles.length;
+                i < newArray.length && fileIndex < uniqueFiles.length;
                 i++
               ) {
                 if (!newArray[i].preview) {
                   newArray[i] = {
                     ...newArray[i],
-                    file: correctFormatFiles[fileIndex],
-                    preview: URL.createObjectURL(correctFormatFiles[fileIndex]),
+                    file: uniqueFiles[fileIndex],
+                    preview: URL.createObjectURL(uniqueFiles[fileIndex]),
                   };
                   fileIndex++;
                 }

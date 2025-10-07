@@ -54,7 +54,7 @@ const MongoDBUsage = ({ setLoadingState, backendUrl }) => {
 
   return (
     <section className="mongo-box">
-      <h2 className="box-title">MongoDB Usage / Limits</h2>
+      <h2 className="box-title">MongoDB Використано / Ліміти</h2>
       <PieChartWithPaddingAngle
         chartsData={chartsData}
         chartClass={chartClass}
