@@ -23,6 +23,7 @@ section.add-product {
         gap: 20px;
 
         touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+        user-select: none;
 
         &::-webkit-scrollbar {
           width: 8px; // Ширина вертикального скролу
@@ -74,6 +75,7 @@ section.add-product {
             -webkit-touch-callout: none; /* 🚫 Save Image */
             // touch-action: none; /* ✅ drag працює на мобільному */
             touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+            user-select: none;
 
             .remove-button {
               position: absolute;

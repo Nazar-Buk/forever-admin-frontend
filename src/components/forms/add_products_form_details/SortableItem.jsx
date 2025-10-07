@@ -30,9 +30,6 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
     userSelect: isDragging ? "none" : "auto", // ✅ блокує виділення тексту лише під час drag
     WebkitUserSelect: isDragging ? "none" : "auto", // Safari
     MozUserSelect: isDragging ? "none" : "auto", // Firefox
-
-    WebkitUserModify: "read-only",
-    WebkitUserSelectAll: "none",
   };
 
   const handleRemoveImage = (id) => {
