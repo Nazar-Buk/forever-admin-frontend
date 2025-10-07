@@ -6,6 +6,7 @@ section.add-product {
   form.add-product__form {
     .form__upload-img {
       user-select: none; /* Firefox/Chrome/Edge */ // Допомогло трохи
+      -webkit-touch-callout: none;
 
       h2 {
         margin-bottom: 20px;
@@ -57,6 +58,7 @@ section.add-product {
           display: flex;
           gap: 20px;
           user-select: none; /* Firefox/Chrome/Edge */ //
+          -webkit-touch-callout: none;
 
           .image-box {
             position: relative;
