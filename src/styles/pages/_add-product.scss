@@ -5,7 +5,7 @@ section.add-product {
 
   form.add-product__form {
     .form__upload-img {
-      user-select: none; /* Firefox/Chrome/Edge */
+      user-select: none; /* Firefox/Chrome/Edge */ // Допомогло трохи
 
       h2 {
         margin-bottom: 20px;
@@ -56,6 +56,7 @@ section.add-product {
         .wrap-images {
           display: flex;
           gap: 20px;
+          user-select: none; /* Firefox/Chrome/Edge */ //
 
           .image-box {
             position: relative;
