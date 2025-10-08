@@ -86,6 +86,7 @@ section.add-product {
               padding: 7px;
               border-radius: 50%;
               cursor: pointer;
+              user-select: none; /* 🚫 блокує виділення тексту */
 
               img {
                 border: none;
