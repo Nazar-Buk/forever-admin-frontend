@@ -51,7 +51,7 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
       onClick={() => {
         if (!image) open(); // відкриваємо системне вікно вибору файлів
       }}
-      onContextMenu={(e) => e.preventDefault()} // 🚫 блокує "меню" на довгому тапі
+      // onContextMenu={(e) => e.preventDefault()} // 🚫 блокує "меню" на довгому тапі
     >
       {/* <img src={image || assets.upload_area} alt="preview" /> */}
       <div

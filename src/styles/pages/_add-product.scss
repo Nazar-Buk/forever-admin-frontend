@@ -23,8 +23,9 @@ section.add-product {
         scroll-snap-type: x mandatory;
         gap: 20px;
 
-        touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+        // touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
         // user-select: none;
+        touch-action: pan-x;
 
         &::-webkit-scrollbar {
           width: 8px; // Ширина вертикального скролу
@@ -59,7 +60,7 @@ section.add-product {
           display: flex;
           gap: 20px;
           // user-select: none; /* Firefox/Chrome/Edge */ //
-          // touch-action: pan-x;
+          touch-action: pan-x;
 
           .image-box {
             position: relative;
@@ -70,10 +71,12 @@ section.add-product {
             justify-content: center;
             cursor: grab;
 
-            -webkit-user-drag: none; /* 🚫 забороняє перетягування зображення */
-            -webkit-touch-callout: none; /* 🚫 прибирає меню "зберегти" / "копіювати" */
-            user-select: none; /* 🚫 блокує виділення тексту */
+            // -webkit-user-drag: none; /* 🚫 забороняє перетягування зображення */
+            // -webkit-touch-callout: none; /* 🚫 прибирає меню "зберегти" / "копіювати" */
+            // user-select: none; /* 🚫 блокує виділення тексту */
             // touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+
+            touch-action: pan-x; /* дозволяє горизонтальний скрол */
 
             .remove-button {
               position: absolute;
