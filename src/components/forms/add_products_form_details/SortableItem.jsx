@@ -24,21 +24,6 @@ const SortableItem = ({ id, open, image, onChange, value }) => {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-
-    // === Ключові зміни для мобільних ===
-    // touchAction: "pan-x", // ✅ дозволяє горизонтальний скрол і drag
-    // userSelect: isDragging ? "none" : "auto", // ✅ блокує виділення тексту лише під час drag
-    // WebkitUserSelect: isDragging ? "none" : "auto", // Safari
-    // MozUserSelect: isDragging ? "none" : "auto", // Firefox
-
-    // touchAction: image ? "auto" : "pan-x",
-    // userSelect: "none",
-    // WebkitUserSelect: "none",
-    // WebkitTouchCallout: "none", // 🚫 прибирає лупу і меню збереження
-    // WebkitTapHighlightColor: "transparent", // 🚫 прибирає сіру підсвітку при тапі
-    // WebkitUserDrag: "none", // 🚫 не дозволяє перетягування картинки
-    // WebkitUserModify: "read-only", // 🚫 блокує лупу-збільшення
-    // pointerEvents: "auto",
   };
 
   const handleRemoveImage = (id) => {
