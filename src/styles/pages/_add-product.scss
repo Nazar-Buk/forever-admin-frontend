@@ -5,11 +5,11 @@ section.add-product {
 
   form.add-product__form {
     .form__upload-img {
-      // user-select: none; /* Firefox/Chrome/Edge */ // Допомогло трохи
+      user-select: none; /* Firefox/Chrome/Edge */ // Допомогло трохи
 
       h2 {
         margin-bottom: 20px;
-        // user-select: none; /* Firefox/Chrome/Edge */ //
+        user-select: none; /* Firefox/Chrome/Edge */ //
       }
 
       .draguble-upload-images-box {
@@ -23,8 +23,7 @@ section.add-product {
         scroll-snap-type: x mandatory;
         gap: 20px;
 
-        // touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
-        // user-select: none;
+        user-select: none; /* 🚫 блокує виділення тексту */
         touch-action: pan-x;
 
         &::-webkit-scrollbar {
@@ -59,7 +58,7 @@ section.add-product {
         .wrap-images {
           display: flex;
           gap: 20px;
-          // user-select: none; /* Firefox/Chrome/Edge */ //
+          user-select: none; /* Firefox/Chrome/Edge */ //
           touch-action: pan-x;
 
           .image-box {
@@ -71,11 +70,7 @@ section.add-product {
             justify-content: center;
             cursor: grab;
 
-            // -webkit-user-drag: none; /* 🚫 забороняє перетягування зображення */
-            // -webkit-touch-callout: none; /* 🚫 прибирає меню "зберегти" / "копіювати" */
-            // user-select: none; /* 🚫 блокує виділення тексту */
-            // touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
-
+            user-select: none; /* 🚫 блокує виділення тексту */
             touch-action: pan-x; /* дозволяє горизонтальний скрол */
             -webkit-touch-callout: none;
 
