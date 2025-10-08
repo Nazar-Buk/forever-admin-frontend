@@ -58,7 +58,7 @@ section.add-product {
         .wrap-images {
           display: flex;
           gap: 20px;
-          user-select: none; /* Firefox/Chrome/Edge */ //
+          // user-select: none; /* Firefox/Chrome/Edge */ //
           touch-action: pan-x;
 
           .image-box {
