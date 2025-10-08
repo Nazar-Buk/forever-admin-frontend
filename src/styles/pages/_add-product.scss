@@ -5,8 +5,6 @@ section.add-product {
 
   form.add-product__form {
     .form__upload-img {
-      // user-select: none; /* Firefox/Chrome/Edge */ // Допомогло трохи
-
       h2 {
         margin-bottom: 20px;
         user-select: none; /* Firefox/Chrome/Edge */ //
@@ -23,7 +21,6 @@ section.add-product {
         scroll-snap-type: x mandatory;
         gap: 20px;
 
-        // user-select: none; /* 🚫 блокує виділення тексту */
         touch-action: pan-x;
 
         &::-webkit-scrollbar {
@@ -58,7 +55,6 @@ section.add-product {
         .wrap-images {
           display: flex;
           gap: 20px;
-          // user-select: none; /* Firefox/Chrome/Edge */ //
           touch-action: pan-x;
 
           .image-box {
@@ -70,7 +66,6 @@ section.add-product {
             justify-content: center;
             cursor: grab;
 
-            // user-select: none; /* 🚫 блокує виділення тексту */
             touch-action: pan-x; /* дозволяє горизонтальний скрол */
             -webkit-touch-callout: none;
 

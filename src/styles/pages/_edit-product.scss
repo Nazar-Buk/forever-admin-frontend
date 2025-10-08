@@ -7,6 +7,7 @@ section.edit-product {
     .form__upload-img {
       h2 {
         margin-bottom: 20px;
+        user-select: none; /* Firefox/Chrome/Edge */ //
       }
 
       .draguble-upload-images-box {
@@ -19,6 +20,7 @@ section.edit-product {
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         gap: 20px;
+        touch-action: pan-x;
 
         &::-webkit-scrollbar {
           width: 8px; // Ширина вертикального скролу
@@ -52,6 +54,7 @@ section.edit-product {
         .wrap-images {
           display: flex;
           gap: 20px;
+          touch-action: pan-x;
 
           .image-box {
             position: relative;
@@ -62,9 +65,8 @@ section.edit-product {
             justify-content: center;
             cursor: grab;
 
-            -webkit-touch-callout: none; /* 🚫 Save Image */
-            // touch-action: none; /* ✅ drag працює на мобільному */
-            touch-action: pan-x; /* ✅ дозволяє горизонтальний скрол */
+            touch-action: pan-x; /* дозволяє горизонтальний скрол */
+            -webkit-touch-callout: none;
 
             .remove-button {
               position: absolute;
@@ -78,6 +80,7 @@ section.edit-product {
               padding: 7px;
               border-radius: 50%;
               cursor: pointer;
+              user-select: none; /* 🚫 блокує виділення тексту */
 
               img {
                 border: none;
