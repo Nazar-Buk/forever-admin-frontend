@@ -23,7 +23,7 @@ section.add-product {
         scroll-snap-type: x mandatory;
         gap: 20px;
 
-        user-select: none; /* 🚫 блокує виділення тексту */
+        // user-select: none; /* 🚫 блокує виділення тексту */
         touch-action: pan-x;
 
         &::-webkit-scrollbar {
