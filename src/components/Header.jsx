@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 import { assets } from "../admin_assets/assets";
 import { menuTitles } from "../utils/helpers";
+import { backendUrl, frontendUrl } from "../App";
 
-const Header = ({ setToken }) => {
+const Header = () => {
   const [visible, setVisible] = useState(false);
 
   const isMenuOpen = (isOpen) => {
@@ -274,13 +276,17 @@ const Header = ({ setToken }) => {
         </svg>
       </div>
       <div className="header-options">
-        <div className="header__user-image">
+        <div
+          className="header__user-image"
+          onClick={() => {
+            window.location.href = frontendUrl;
+          }}
+        >
           <img src={assets.logo2} alt="user avatar" />
         </div>
         <div
           onClick={() => {
-            localStorage.removeItem("token");
-            setToken("");
+            window.location.href = frontendUrl;
           }}
           className="log-out-box"
         >

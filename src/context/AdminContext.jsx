@@ -7,24 +7,15 @@ export const AdminContext = createContext(); // створюємо контек�
 const AdminContextProvider = (props) => {
   // Тут створюю дані які будуть використовуватися через контекст
 
-  const [token, setToken] = useState(
-    localStorage.getItem("token") ? localStorage.getItem("token") : ""
-  ); // шукаю дані в localStorage по назві token
-
-  const currency = "$";
+  // const currency = "$";
+  const currency = "грн";
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   isModalOpen
     ? (document.body.style.overflow = "hidden") // Забороняємо скролінг сайту
     : (document.body.style.overflow = ""); // Відновлюємо скролінг сайту
 
-  useEffect(() => {
-    localStorage.setItem("token", token); // записую дані в localStorage, перший параметр назва ключа, другий параметр -- дані
-  }, [token]);
-
   const value = {
-    token,
-    setToken,
     currency,
     isModalOpen,
     setIsModalOpen,

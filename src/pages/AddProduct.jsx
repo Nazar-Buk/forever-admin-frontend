@@ -16,7 +16,6 @@ import AddProductForm from "../components/forms/AddProductForm";
 import { totalSlots, menuTitles } from "../utils/helpers";
 
 const AddProduct = () => {
-  const { token } = useContext(AdminContext);
   const [isLoadingState, setIsLoadingState] = useState({
     isLoadingProductData: false,
     isLoadingPictures: false,
@@ -89,7 +88,7 @@ const AddProduct = () => {
       const response = await axios.post(
         backendUrl + "/api/product/add",
         formData,
-        { headers: { token } }
+        { withCredentials: true } // кукіси, тут є токен
       );
 
       if (response.data.success) {

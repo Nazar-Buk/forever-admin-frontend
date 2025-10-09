@@ -13,8 +13,7 @@ import Toolbar from "../components/Toolbar";
 import ModalWindow from "../components/ModalWindow";
 
 const ProductList = () => {
-  const { token, currency, setIsModalOpen, isModalOpen } =
-    useContext(AdminContext);
+  const { currency, setIsModalOpen, isModalOpen } = useContext(AdminContext);
 
   const [loadingState, setLoadingState] = useState({
     isLoadingProductList: true,
@@ -95,7 +94,7 @@ const ProductList = () => {
       const response = await axios.post(
         backendUrl + "/api/product/remove",
         { id },
-        { headers: { token } }
+        { withCredentials: true } // кукіси, тут є токен
       );
 
       if (response.data.success) {
