@@ -17,7 +17,6 @@ import EditProductForm from "../components/forms/EditProductForm";
 import { imagesArray, totalSlots } from "../utils/helpers";
 
 const EditProduct = () => {
-  const { token } = useContext(AdminContext);
   const navigate = useNavigate();
   const { productId } = useParams();
 
@@ -59,7 +58,7 @@ const EditProduct = () => {
       const responseProduct = await axios.post(
         backendUrl + "/api/product/single",
         { productId },
-        { headers: { token } }
+        { withCredentials: true } // кукіси, тут є токен
       );
 
       if (responseProduct.data.success) {
@@ -251,7 +250,8 @@ const EditProduct = () => {
           backendUrl + `/api/product/update/${productId}`, // ${productId} отримуй на беку із req.params
           formData,
           {
-            headers: { token },
+            withCredentials: true, // кукіси, тут є токен
+
             params: { imgForDelete: JSON.stringify(imgForDelete) }, // коли треба відправити додаткові параметри і ти не хочеш мішати їх із формою,
             // на беку витягай params з req.query
           }

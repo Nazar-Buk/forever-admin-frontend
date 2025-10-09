@@ -12,7 +12,7 @@ import Pagination from "../components/Pagination";
 import ModalWindow from "../components/ModalWindow";
 
 const CategoryList = () => {
-  const { token, setIsModalOpen, isModalOpen } = useContext(AdminContext);
+  const { setIsModalOpen, isModalOpen } = useContext(AdminContext);
   const [searchParams, setSearchParams] = useSearchParams(); // ця шляпа вміє працювати із адресною строкою
   const [categoryList, setCategoryList] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -82,7 +82,7 @@ const CategoryList = () => {
 
       const response = await axios.delete(
         backendUrl + `/api/category/remove/${categoryId}`,
-        { headers: { token } }
+        { withCredentials: true } // кукіси, тут є токен
       );
 
       if (response.data.success) {
@@ -130,8 +130,8 @@ const CategoryList = () => {
           <BreadCrumbs>{[<span key={0}>Список категорій</span>]}</BreadCrumbs>
           {isModalOpen && (
             <ModalWindow
-              title="Remove Category"
-              content={`Do you really want to remove this category "${categoryToDelete.categoryName}" ?`}
+              title="Видалити категорію"
+              content={`Ви справді хочете видалити категорію "${categoryToDelete.categoryName}" ?`}
               confirmAction={() => {
                 removeCategory(categoryToDelete.categoryId);
                 setIsModalOpen(false);

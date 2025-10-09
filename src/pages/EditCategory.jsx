@@ -34,7 +34,6 @@ const addCategorySchema = yup.object({
 });
 
 const EditCategory = () => {
-  const { token } = useContext(AdminContext);
   const { categoryId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -109,7 +108,7 @@ const EditCategory = () => {
       const response = await axios.patch(
         backendUrl + `/api/category/update-category/${categoryId}`,
         { updatedFields: updatedOnly },
-        { headers: { token } }
+        { withCredentials: true } // кукіси, тут є токен
       );
 
       if (response.data.success) {

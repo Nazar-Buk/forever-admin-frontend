@@ -31,8 +31,6 @@ const MongoDBUsage = ({ setLoadingState, backendUrl }) => {
     }
   };
 
-  console.log(mongoData, "mongoData");
-
   const { limitData, usedData } = mongoData;
 
   const chartsData = {
