@@ -17,6 +17,8 @@ export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 export const frontendUrl = import.meta.env.VITE_FRONTEND_STORE_URL;
 
 const App = () => {
+  const { setUsername } = useContext(AdminContext);
+
   const [isLoading, setIsLoading] = useState(true);
 
   // useEffect(() => {
@@ -38,12 +40,13 @@ const App = () => {
           withCredentials: true, // дуже важливо: передає куки
         });
 
-        const { success, role } = response.data;
+        const { success, role, name } = response.data;
 
         if (!success || (role !== "admin" && role !== "super-admin")) {
           window.location.href = frontendUrl;
         } else {
           setIsLoading(false);
+          setUsername(name);
         }
       } catch (error) {
         console.log(error, "error");

@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
+import { AdminContext } from "../context/AdminContext";
 import { assets } from "../admin_assets/assets";
 import { menuTitles } from "../utils/helpers";
 import { backendUrl, frontendUrl } from "../App";
 
 const Header = () => {
+  const { username } = useContext(AdminContext);
   const [visible, setVisible] = useState(false);
 
   const isMenuOpen = (isOpen) => {
@@ -275,7 +277,11 @@ const Header = () => {
           />
         </svg>
       </div>
+
       <div className="header-options">
+        <div>
+          <p>Привіт, {username}</p>
+        </div>
         <div
           className="header__user-image"
           onClick={() => {
