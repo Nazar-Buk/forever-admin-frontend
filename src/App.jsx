@@ -41,13 +41,13 @@ const App = () => {
         const { success, role } = response.data;
 
         if (!success || (role !== "admin" && role !== "super-admin")) {
-          // window.location.href = frontendUrl;
+          window.location.href = frontendUrl;
         } else {
           setIsLoading(false);
         }
       } catch (error) {
         console.log(error, "error");
-        // window.location.href = frontendUrl;
+        window.location.href = frontendUrl;
         setIsLoading(false);
       } finally {
         setIsLoading(false);
