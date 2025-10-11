@@ -10,7 +10,10 @@ const AdminContextProvider = (props) => {
   // const currency = "$";
   const currency = "грн";
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [username, setUsername] = useState("");
+  const [userData, setUseData] = useState({
+    username: "",
+    userRole: "",
+  });
 
   isModalOpen
     ? (document.body.style.overflow = "hidden") // Забороняємо скролінг сайту
@@ -20,8 +23,8 @@ const AdminContextProvider = (props) => {
     currency,
     isModalOpen,
     setIsModalOpen,
-    username,
-    setUsername,
+    userData,
+    setUseData,
   };
 
   return (

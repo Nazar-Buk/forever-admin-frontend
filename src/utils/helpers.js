@@ -24,5 +24,6 @@ export const menuTitles = {
   ordersTitle: "Замовлення",
   addCategoryTitle: "Додати категорію",
   categoryListTitle: "Список категорій",
+  usersListTitle: "Список користувачів",
   settingsTitle: "Налаштування",
 };

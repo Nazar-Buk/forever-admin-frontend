@@ -12,6 +12,7 @@ import DashBoard from "./pages/DashBoard.jsx";
 import AddCategory from "./pages/AddCategory.jsx";
 import CategoryList from "./pages/CategoryList.jsx";
 import EditCategory from "./pages/EditCategory.jsx";
+import UsersList from "./pages/UsersList.jsx";
 
 const router = createBrowserRouter(
   [
@@ -50,6 +51,10 @@ const router = createBrowserRouter(
         {
           path: "/category-list/edit-category/:categoryId",
           element: <EditCategory />,
+        },
+        {
+          path: "/users-list",
+          element: <UsersList />,
         },
         {
           path: "/page4",

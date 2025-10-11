@@ -17,7 +17,7 @@ export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 export const frontendUrl = import.meta.env.VITE_FRONTEND_STORE_URL;
 
 const App = () => {
-  const { setUsername } = useContext(AdminContext);
+  const { setUseData } = useContext(AdminContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -47,7 +47,7 @@ const App = () => {
           window.location.href = frontendUrl;
         } else {
           setIsLoading(false);
-          setUsername(name);
+          setUseData((prev) => ({ ...prev, username: name, userRole: role }));
         }
       } catch (error) {
         console.log(error, "error");
