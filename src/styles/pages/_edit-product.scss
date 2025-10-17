@@ -201,6 +201,9 @@ section.edit-product {
 
       textarea.product-area {
         width: calc(700px / 1225px * 100%);
+
+        white-space: pre-wrap; // зберігає переноси рядків
+        word-break: break-word; // розбиває довгі слова, щоб не ламати верстку
       }
     }
 
