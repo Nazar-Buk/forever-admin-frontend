@@ -22,6 +22,8 @@ import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 
 import SortableItem from "./SortableItem";
 
+const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
 const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
   return (
     <Controller
@@ -124,21 +126,40 @@ const UploadImagesBox = ({ control, name, setIsLoadingState }) => {
           },
         });
 
+        // НЕ МОЖНА ВИКОРИСТОВУВАТИ ОДНОЧАСНО PointerSensor ТА TouchSensor, БА НА МОБІЛЬНОМУ БУДЕ ПІЗДЄЦ
         // сенсори для керування (мишка + клавіатура)
         const sensors = useSensors(
-          useSensor(PointerSensor, {
-            activationConstraint: {
-              delay: 250, // затримка перед drag (0.25s)
-              tolerance: 10, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
-            },
-          }),
-          useSensor(TouchSensor, {
-            activationConstraint: {
-              delay: 150, // затримка перед drag (0.25s)
-              tolerance: 5, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
-              enableLongPress: true,
-            },
-          }),
+          ...(isTouchDevice
+            ? [
+                useSensor(TouchSensor, {
+                  activationConstraint: {
+                    delay: 250, // затримка перед drag (0.25s)
+                    tolerance: 5, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+                    enableLongPress: true,
+                  },
+                }),
+              ]
+            : [
+                useSensor(PointerSensor, {
+                  activationConstraint: {
+                    delay: 250, // затримка перед drag (0.25s)
+                    tolerance: 10, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+                  },
+                }),
+              ]),
+          // useSensor(PointerSensor, {
+          //   activationConstraint: {
+          //     delay: 250, // затримка перед drag (0.25s)
+          //     tolerance: 10, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+          //   },
+          // }),
+          // useSensor(TouchSensor, {
+          //   activationConstraint: {
+          //     delay: 250, // затримка перед drag (0.25s)
+          //     tolerance: 5, // щоб клік не плутався з drag /// Коротко: допустимий “зсув” для кліку перед drag.
+          //     enableLongPress: true,
+          //   },
+          // }),
           useSensor(KeyboardSensor)
         );
 

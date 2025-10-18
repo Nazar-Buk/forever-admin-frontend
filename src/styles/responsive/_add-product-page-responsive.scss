@@ -109,9 +109,14 @@
         .draguble-upload-images-box {
           margin: unset;
           max-width: calc(100svw - 30px);
+          touch-action: manipulation;
 
           .wrap-images {
+            touch-action: manipulation;
+
             .image-box {
+              touch-action: manipulation;
+
               .remove-button {
                 img {
                 }
