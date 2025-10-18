@@ -120,22 +120,42 @@
         h2 {
         }
 
-        .upload-images-box {
-          max-width: calc(100svw - 30px);
+        .draguble-upload-images-box {
+          touch-action: manipulation;
 
-          label.image-label {
-            .delete-img {
+          .wrap-images {
+            touch-action: manipulation;
+
+            .image-box {
+              touch-action: manipulation;
+
+              .remove-button {
+                img {
+                }
+              }
+
               img {
               }
             }
-
-            img.photo {
-            }
-
-            input[type="file"] {
-            }
           }
         }
+
+        // .upload-images-box {
+        //   max-width: calc(100svw - 30px);
+
+        //   label.image-label {
+        //     .delete-img {
+        //       img {
+        //       }
+        //     }
+
+        //     img.photo {
+        //     }
+
+        //     input[type="file"] {
+        //     }
+        //   }
+        // }
       }
 
       .form__product-name {
