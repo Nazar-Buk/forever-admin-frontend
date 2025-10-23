@@ -1,0 +1,187 @@
+@use "../base/variables" as v;
+
+@media (max-width: 992px) {
+  section.orders-list {
+    .empty-page {
+    }
+
+    .toolbar-wrapper {
+      .search__box {
+        input.search-input {
+        }
+
+        svg.search-icon {
+        }
+      }
+    }
+
+    .table-box {
+      max-width: calc(100svw - 30px); // padding: 20px;
+
+      h2 {
+      }
+
+      table.table {
+        thead {
+          tr.head-row {
+            th.head-cell {
+            }
+          }
+        }
+
+        tbody tr.table-row {
+          &:last-child td.table-cell {
+          }
+
+          td.table-cell {
+            &.product-list-cell {
+              .product {
+                .wrap-img-cell {
+                  img {
+                  }
+                }
+
+                a.product-title {
+                }
+
+                .product-size {
+                }
+
+                .product-qty {
+                }
+              }
+            }
+
+            &.address-cell {
+              .details__address {
+                b {
+                }
+
+                .address-item {
+                }
+              }
+            }
+
+            &.status {
+              .wrap-status-details {
+                select.status-select {
+                }
+
+                .status-circle {
+                }
+              }
+            }
+
+            &.name {
+            }
+
+            .action-cell {
+              img,
+              svg {
+              }
+
+              svg {
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .wrap-pagination {
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  section.orders-list {
+    .empty-page {
+    }
+
+    .toolbar-wrapper {
+      .search__box {
+        width: 100%;
+
+        input.search-input {
+        }
+
+        svg.search-icon {
+        }
+      }
+    }
+
+    .table-box {
+      h2 {
+      }
+
+      table.table {
+        thead {
+          tr.head-row {
+            th.head-cell {
+            }
+          }
+        }
+
+        tbody tr.table-row {
+          &:last-child td.table-cell {
+          }
+
+          td.table-cell {
+            &.product-list-cell {
+              .product {
+                .wrap-img-cell {
+                  img {
+                  }
+                }
+
+                a.product-title {
+                }
+
+                .product-size {
+                }
+
+                .product-qty {
+                }
+              }
+            }
+
+            &.address-cell {
+              .details__address {
+                b {
+                }
+
+                .address-item {
+                }
+              }
+            }
+
+            &.status {
+              .wrap-status-details {
+                select.status-select {
+                }
+
+                .status-circle {
+                }
+              }
+            }
+
+            &.name {
+            }
+
+            .action-cell {
+              img,
+              svg {
+              }
+
+              svg {
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .wrap-pagination {
+    }
+  }
+}

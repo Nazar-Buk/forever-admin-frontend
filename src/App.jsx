@@ -41,7 +41,6 @@ const App = () => {
         });
 
         const { success, role, name } = response.data;
-        console.log(response, "response");
 
         if (!success || (role !== "admin" && role !== "super-admin")) {
           window.location.href = frontendUrl;

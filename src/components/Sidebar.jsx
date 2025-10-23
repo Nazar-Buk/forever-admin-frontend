@@ -207,7 +207,7 @@ const Sidebar = () => {
                   fillRule="evenodd"
                 />
               </svg>
-              <span>{menuTitles.ordersTitle}</span>
+              <span>{menuTitles.settingsTitle}</span>
             </NavLink>
           </li>
         </ul>

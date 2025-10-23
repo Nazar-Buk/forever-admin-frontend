@@ -1,0 +1,218 @@
+@use "../base/variables" as v;
+
+section.orders-list {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  .empty-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .toolbar-wrapper {
+    width: 100%;
+
+    .search__box {
+      width: 50%;
+      min-width: 250px;
+      position: relative;
+      margin-bottom: 20px;
+
+      input.search-input {
+        width: 100%;
+        padding-right: 40px;
+      }
+
+      svg.search-icon {
+        position: absolute;
+        fill: none;
+        stroke: v.$secondary-color;
+        width: 25px;
+        top: calc(50% - 12.5px);
+        aspect-ratio: 1/1;
+        right: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .table-box {
+    padding: 20px;
+    background-color: v.$secondary-color;
+    border-radius: 5px;
+    max-width: calc(100svw - 320px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    border: 1px solid v.$secondary-color;
+
+    &::-webkit-scrollbar {
+      width: 8px; // Ширина вертикального скролу
+      height: 8px; // Висота горизонтального скролу
+    }
+
+    // Стилізація доріжки (фон під скролом)
+    &::-webkit-scrollbar-track {
+      background-color: #f0f0f0;
+      border-radius: 4px;
+    }
+
+    // Стилізація повзунка (сам скрол)
+    &::-webkit-scrollbar-thumb {
+      background-color: #1d1d1d; // Колір повзунка
+      border-radius: 4px;
+      &:hover {
+        background-color: #555; // Колір при наведенні
+      }
+    }
+
+    // Стилізація кута, де горизонтальний і вертикальний скрол перетинаються
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
+    /* Стилізація скролу для Firefox */
+    scrollbar-width: thin; /* Варіанти: auto, thin, none */
+    scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1); /* Повзунок і фон */
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    table.table {
+      color: v.$table-color;
+      background-color: v.$table-bg;
+      border-collapse: separate; // тепер можна робити заокруглення в сраній таблиці,
+      // але забере всі бордери що на клітинках, щоб це виправити додай їх на td
+      border-radius: v.$table-border-radius;
+      border: 2px solid v.$table-head-bg;
+      overflow: hidden; // щоб кути не обрізалися
+
+      thead {
+        tr.head-row {
+          background-color: v.$table-head-bg;
+          font-weight: v.$table-head-fw;
+
+          th.head-cell {
+            padding: 15px;
+            text-align: start;
+          }
+        }
+      }
+
+      tbody tr.table-row {
+        &:last-child td.table-cell {
+          border: none;
+        }
+
+        td.table-cell {
+          padding: 10px 15px;
+          vertical-align: middle;
+          min-width: 150px;
+          border-bottom: 2px solid v.$table-head-bg;
+
+          &.product-list-cell {
+            min-width: 400px;
+
+            .product {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 20px;
+              margin-bottom: 10px;
+
+              .wrap-img-cell {
+                width: 40px;
+                height: 40px;
+                aspect-ratio: 1/1;
+
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+              }
+
+              a.product-title {
+                display: block;
+                color: v.$primary-color;
+                text-decoration: underline;
+              }
+
+              .product-size {
+              }
+
+              .product-qty {
+                white-space: nowrap;
+              }
+            }
+          }
+
+          &.address-cell {
+            min-width: 250px;
+
+            .details__address {
+              display: flex;
+              flex-direction: column;
+              align-items: start;
+              gap: 8px;
+              letter-spacing: 0.9px;
+
+              b {
+                font-weight: 600;
+              }
+
+              .address-item {
+              }
+            }
+          }
+
+          &.status {
+            .wrap-status-details {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+
+              select.status-select {
+                min-width: 140px;
+              }
+
+              .status-circle {
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+              }
+            }
+          }
+
+          &.name {
+            max-width: 300px;
+          }
+
+          .action-cell {
+            display: flex;
+            gap: 20px;
+
+            img,
+            svg {
+              width: 20px;
+              aspect-ratio: 1/1;
+              cursor: pointer;
+            }
+
+            svg {
+              fill: v.$table-color;
+              width: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .wrap-pagination {
+  }
+}

@@ -99,6 +99,9 @@ const UsersList = () => {
       if (response.data.success) {
         setIsLoadingState((prev) => ({ ...prev, isLoadingRemoveUser: false }));
         toast.success(response.data.message);
+
+        const { deletedUserId } = response.data;
+        setUsers((prev) => prev.filter((item) => item._id !== deletedUserId));
       }
     } catch (error) {
       console.log(error, "error");
@@ -149,7 +152,7 @@ const UsersList = () => {
       {users.length ? (
         <>
           <div className="table-box">
-            <h2>Список продуктів</h2>
+            <h2>Список користувачів</h2>
             <table className="table">
               <thead>
                 <tr className="head-row">
