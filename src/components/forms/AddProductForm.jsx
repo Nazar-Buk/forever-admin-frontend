@@ -289,7 +289,7 @@ const AddProductForm = (props) => {
         </div>
       </div>
       <div className="form__product-size-box">
-        <h2>Ціна продукту</h2>
+        <h2>Розмір продуту</h2>
         <div className="form__isSizesAvailable-box">
           <label className="isSizesAvailable">
             <input type="checkbox" {...register("isSizesAvailable")} />
