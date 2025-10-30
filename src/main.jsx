@@ -58,7 +58,7 @@ const router = createBrowserRouter(
         },
         {
           path: "/page4",
-          element: "page4",
+          element: "Немає поки налаштувань",
         },
       ],
     },

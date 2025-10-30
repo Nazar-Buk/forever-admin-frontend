@@ -60,7 +60,7 @@ section.modal {
     .modal__footer {
       padding: 20px;
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       align-items: center;
       gap: 20px;
       border-top: 1px solid v.$primary-color;

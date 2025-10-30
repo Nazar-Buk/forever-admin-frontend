@@ -125,6 +125,8 @@ const EditProduct = () => {
       sizes: [],
       isSizesAvailable: false,
       bestseller: false,
+      inStock: true,
+      code: "",
     },
     resolver: yupResolver(addEditProductSchema),
   });
