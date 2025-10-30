@@ -207,6 +207,47 @@ section.edit-product {
       }
     }
 
+    .form__product-code {
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      input.product-code {
+      }
+    }
+
+    .form__inStock-box {
+      margin-bottom: 30px;
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      label.inStock {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        input[type="checkbox"] {
+          min-width: auto;
+          width: 20px;
+          aspect-ratio: 1/1;
+        }
+
+        p {
+          font-size: 18px;
+
+          span.checked-icon {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+
     .form__category-box {
       select,
       input {

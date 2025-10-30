@@ -215,6 +215,28 @@ const AddProductForm = (props) => {
         <p className="error">{errors.description?.message}</p>
       </div>
 
+      <div className="form__product-code">
+        <h2>Код товару</h2>
+        <input
+          className="product-code"
+          type="text"
+          placeholder="Напишіть код продукту"
+          {...register("code")}
+        />
+        <p className="error">{errors.code?.message}</p>
+      </div>
+
+      <div className="form__inStock-box">
+        <h2>Товар в наявності?</h2>
+        <label className="inStock">
+          <input type="checkbox" {...register("inStock")} />
+          <p>
+            Поставте <span className="checked-icon">✅</span> якщо товар в
+            наявності
+          </p>
+        </label>
+      </div>
+
       <div className="form__category-box">
         <div className="category">
           <h2>Категорія</h2>

@@ -35,6 +35,8 @@ const AddProduct = () => {
       sizes: [],
       isSizesAvailable: false,
       bestseller: false,
+      inStock: true,
+      code: "",
     },
     resolver: yupResolver(addEditProductSchema),
   });
@@ -53,8 +55,6 @@ const AddProduct = () => {
   const { errors, touchedFields, dirtyFields } = formState;
 
   const onSubmit = async (data) => {
-    // console.log(data, "data");
-
     try {
       // new FormData() — це спеціальний об'єкт у JavaScript, який дозволяє створювати та
       // зберігати дані у форматі multipart/form-data. Цей формат використовується для надсилання даних
@@ -70,6 +70,8 @@ const AddProduct = () => {
       formData.append("price", data.price);
       formData.append("bestseller", data.bestseller);
       formData.append("isSizesAvailable", data.isSizesAvailable);
+      formData.append("inStock", data.inStock);
+      formData.append("code", data.code);
 
       if (data.isSizesAvailable) {
         formData.append("sizes", JSON.stringify(data.sizes)); // бо sizes - це масив, а масиви не можна відправити через FormData

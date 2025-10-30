@@ -4,6 +4,8 @@ export const addEditProductSchema = yup.object({
   images: yup.array().of(yup.mixed().nullable()),
   name: yup.string().required("Це поле обовʼязкове!"),
   description: yup.string().required("Це поле обовʼязкове!"),
+  code: yup.string(),
+  inStoke: yup.boolean(),
   category: yup.string().required("Виберіть категорію"),
   subCategory: yup.string().required("Виберіть під-категорію"),
   price: yup
