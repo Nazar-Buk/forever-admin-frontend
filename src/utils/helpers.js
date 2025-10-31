@@ -26,4 +26,5 @@ export const menuTitles = {
   categoryListTitle: "Список категорій",
   usersListTitle: "Список користувачів",
   settingsTitle: "Налаштування",
+  googleAnalyticsTitle: "Аналітика",
 };
