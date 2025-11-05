@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import heic2any from "heic2any"; // для конвертації heic в jpg
-// import { nanoid } from "nanoid"; // для унікальних id, це дууже треба бо будуть стрибки при переміщенні картинок
+import { nanoid } from "nanoid"; // для унікальних id, це дууже треба бо будуть стрибки при переміщенні картинок
 import {
   DndContext, // головний контейнер drag&drop
   closestCenter, // стратегія визначення найближчого елемента під час перетягування
